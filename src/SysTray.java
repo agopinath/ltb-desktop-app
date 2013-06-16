@@ -8,7 +8,6 @@ import java.io.IOException;
  * 5/10/13
  * SysTray.java
  * This class is used to access the system tray.
- * EXIT PROGRAM IF ERROR?!
  */
 
 public class SysTray implements ActionListener
@@ -73,6 +72,30 @@ public class SysTray implements ActionListener
 			System.out.println("TrayIcon could not be added.");
         }
 	}
+	//loads an image with the imageName, returns the image, exits program if there is an error
+	public Image loadImage(String imageName) //parameter - name of image file
+	{
+		Image returnPic = null; //Image to be returned by method
+		
+		try
+		{
+			//reads from URL of file with name imageName
+			returnPic = ImageIO.read(getClass().getResource(imageName));
+			
+			if(returnPic == null) //if image file type is not supported
+			{
+				System.out.println("Unsupported image file");
+			}
+		}
+		catch(IOException e) //if error in reading file
+		{
+			System.out.println("IO Exception on Image file - " + imageName);
+			e.printStackTrace();
+		}
+		
+		//if here, program has not exited and image file is valid
+		return returnPic; //returns image
+	}
 	
 	public void actionPerformed(ActionEvent e)
 	{
@@ -103,30 +126,5 @@ public class SysTray implements ActionListener
 	public void checkForNotifs()
 	{
 		System.out.println("SysTray: Check for notifications clicked");
-	}
-	
-	//loads an image with the imageName, returns the image, exits program if there is an error
-	public Image loadImage(String imageName) //parameter - name of image file
-	{
-		Image returnPic = null; //Image to be returned by method
-		
-		try
-		{
-			//reads from URL of file with name imageName
-			returnPic = ImageIO.read(getClass().getResource(imageName));
-			
-			if(returnPic == null) //if image file type is not supported
-			{
-				System.out.println("Unsupported image file");
-			}
-		}
-		catch(IOException e) //if error in reading file
-		{
-			System.out.println("IO Exception on Image file - " + imageName);
-			e.printStackTrace();
-		}
-		
-		//if here, program has not exited and image file is valid
-		return returnPic; //returns image
 	}
 }
