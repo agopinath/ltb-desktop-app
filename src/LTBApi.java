@@ -26,14 +26,13 @@ public class LTBApi
 		
 		PingedData[] data = getCurrentPingedTutors();
 		
-		System.out.println("PingedData objects:");
 		for(PingedData currentData : data)
 		{
 			System.out.println(currentData);
 			
 			if(currentData.getTutorEmail().equals(getUserEmail()))
 				returnValue = true;
-			//else leaves returnValue as false
+			//else: leaves returnValue as false
 		}
 		
 		return returnValue;
@@ -73,7 +72,6 @@ public class LTBApi
         }
 		
 		//if error occurred and data was not added, will return null
-		System.out.println("getStringData() returns:\n" + returnString);
 		return returnString;
 	}
 	

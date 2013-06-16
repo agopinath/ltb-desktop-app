@@ -10,6 +10,6 @@ public class SysTrayTester
 	public static void main (String [] args)
 	{
 		SysTray sysTray = new SysTray();
-		sysTray.setupSysTray();
+		sysTray.setup();
 	}
 }

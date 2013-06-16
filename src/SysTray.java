@@ -50,7 +50,7 @@ public class SysTray implements ActionListener
 		return sysTraySupported;
 	}
 	
-	public void setupSysTray()
+	public void setup()
 	{
 		//the following if statement should work in theory - I have not tested this on an unsupported machine
 		if(!SystemTray.isSupported())
@@ -117,18 +117,21 @@ public class SysTray implements ActionListener
 	}
 	public void openPrefs()
 	{
-		Preferences popup = new Preferences();
-		popup.setUp(iconImage, "Preferences");
-		popup.setSysTray(this);
+		Preferences popup = new Preferences(iconImage, "Preferences", false, this);
+		popup.showWindow();
 	}
 	public void checkForNotifs()
 	{
 		System.out.println("SysTray: Check for notifications clicked");
+		if(new LTBApi().userIsPingedTutor())
+			System.out.println("New notification!");
+		else
+			System.out.println("No notifications.");
 	}
 	
 	public void closeApp()
 	{
-		System.exit(1);
+		System.exit(0);
 	}
 	
 	//loads an image with the imageName, returns the image, exits program if there is an error
@@ -204,6 +207,6 @@ public class SysTray implements ActionListener
 			timeLeft = 3.5;
 		else if (time.equals("4 Hours"))
 			timeLeft = 4.0;
-		System.out.print(timeLeft);
+		System.out.println("timeLeft = " + timeLeft);
 	}
 }
