@@ -1,7 +1,8 @@
 // Jerry Tang
-// 6/11/2013
-// Preferences.java
-// This class allows the user to enter their login credentials as well as set startup options
+// 6/14/2013
+// Setup.java
+// This class allows the user to enter their login credentials as well as set startup options.
+// Used during the program first run and later when user wants to change preferences.
 
 import java.awt.*;
 import java.awt.event.*;
@@ -18,7 +19,7 @@ import javax.swing.JTextField;
 
 public class Preferences extends JFrame implements ActionListener
 {
-  private final String [] times = {"1 Hour", "1.5 Hours", "2 Hours", "2.5 Hours", "3 Hours", "3.5 Hours", "4 Hours"};
+	private final String [] times = {"1 Hour", "1.5 Hours", "2 Hours", "2.5 Hours", "3 Hours", "3.5 Hours", "4 Hours"};
 	private GridLayout gridLayout;
 	private JButton button;
 	private JTextField textArea;
@@ -26,18 +27,35 @@ public class Preferences extends JFrame implements ActionListener
 	private JCheckBox checkBox, checkBox2;
 	private JComboBox timeChoices;
 	private SysTray creator;
+	private boolean firstRun; //if true, window will show instructions for the first setup
 	
-	public Preferences()
+	public Preferences(Image iconImage, String title, boolean firstRun, SysTray creator)
 	{
-		gridLayout = new GridLayout(6, 1);
-	}
-	
-	public void setUp(Image iconImage, String title)
-	{
+		this.firstRun = firstRun;
+		this.creator = creator;
+		
+		if(firstRun)
+			gridLayout = new GridLayout(7, 1);
+		else
+			gridLayout = new GridLayout(6,1);
+		
 		Container content = getContentPane();
 		setLayout(gridLayout);
 		setTitle(title);
 		setIconImage(iconImage);
+		
+		if(firstRun)
+		{
+			JPanel instructionPanel = new JPanel();								// panel containing instructions
+			instructionPanel.setLayout(new FlowLayout());
+			JTextArea text9 = new JTextArea("Please take a minute to set up the application by filling in your login" +
+					"\ncredentials as a tutor. Use the email and password you used for the website.");
+			text9.setAlignmentX(CENTER_ALIGNMENT);			// doesn't seem to work at the moment
+			text9.setEditable(false);
+			text9.setBackground(content.getBackground());
+			instructionPanel.add(text9);
+			content.add(instructionPanel);
+		}
 		
 		JPanel email = new JPanel();										// panel that contains text field asking for user email
 		email.setLayout(new FlowLayout());
@@ -73,7 +91,7 @@ public class Preferences extends JFrame implements ActionListener
 		
 		JPanel setTime = new JPanel();										// panel containing drop menu asking for time of availability on startup
 		setTime.setLayout(new FlowLayout());
-		timeChoices = new JComboBox(times);;
+		timeChoices = new JComboBox(times);
 		setTime.add(timeChoices);
 		content.add(setTime);
 		
@@ -83,7 +101,9 @@ public class Preferences extends JFrame implements ActionListener
 		button.addActionListener(this);
 		submit.add(button);
 		content.add(submit);
-		
+	}
+	public void showWindow()
+	{
 		setSize(500, 300);
 		setLocationRelativeTo(null);
 		setVisible(true);
@@ -97,10 +117,5 @@ public class Preferences extends JFrame implements ActionListener
 			creator.editPreferences(textArea.getText(), passwordField.getPassword(), checkBox.isSelected(), checkBox2.isSelected(), (String)timeChoices.getSelectedItem());
 			dispatchEvent(new WindowEvent(this, WindowEvent.WINDOW_CLOSING));
 		}
-	}
-	
-	public void setSysTray(SysTray m)		// allows SysTray.java to pass a reference of itself to this class
-	{
-		creator = m;
 	}
 }
