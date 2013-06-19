@@ -14,8 +14,14 @@ import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JPasswordField;
+import javax.swing.JScrollPane;
 import javax.swing.JTextArea;
 import javax.swing.JTextField;
+import javax.swing.JTextPane;
+import javax.swing.ScrollPaneConstants;
+import javax.swing.text.SimpleAttributeSet;
+import javax.swing.text.StyleConstants;
+import javax.swing.text.StyledDocument;
 
 public class Preferences extends JFrame implements ActionListener
 {
@@ -46,15 +52,15 @@ public class Preferences extends JFrame implements ActionListener
 		
 		if(firstRun)
 		{
-			JPanel instructionPanel = new JPanel();								// panel containing instructions
-			instructionPanel.setLayout(new FlowLayout());
-			JTextArea text9 = new JTextArea("Please take a minute to set up the application by filling in your login" +
-					"\ncredentials as a tutor. Use the email and password you used for the website.");
-			text9.setAlignmentX(CENTER_ALIGNMENT);			// doesn't seem to work at the moment
+			JTextPane text9 = new JTextPane();
 			text9.setEditable(false);
-			text9.setBackground(content.getBackground());
-			instructionPanel.add(text9);
-			content.add(instructionPanel);
+			text9.setOpaque(false);
+			text9.setText("Please take a minute to set up the application by filling in your login credentials as a tutor. Use the email and password you used for the website.");
+			StyledDocument doc = text9.getStyledDocument();
+			SimpleAttributeSet center = new SimpleAttributeSet();
+			StyleConstants.setAlignment(center, StyleConstants.ALIGN_CENTER);
+			doc.setParagraphAttributes(0, doc.getLength(), center, false);
+			content.add(text9);
 		}
 		
 		JPanel email = new JPanel();										// panel that contains text field asking for user email
