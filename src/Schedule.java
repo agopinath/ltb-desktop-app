@@ -16,22 +16,21 @@ import javax.swing.JPanel;
 
 public class Schedule extends JFrame implements ActionListener
 {
-  private final String [] times = {"1 Hour", "1.5 Hours", "2 Hours", "2.5 Hours", "3 Hours", "3.5 Hours", "4 Hours"};
+	private final String [] times = {"1 Hour", "1.5 Hours", "2 Hours", "2.5 Hours", "3 Hours", "3.5 Hours", "4 Hours"};
 	private GridLayout gridLayout;
-	private JComboBox timeOptions;
+	private JComboBox<String> timeOptions;
 	private JButton submitButton;
-	private SysTray creator;
+	private MainCoordinator creator;
 	
-	public Schedule()
+	public Schedule(MainCoordinator creator)
 	{
+		this.creator = creator;
+		
 		gridLayout = new GridLayout(3, 1);
-	}
-	
-	public void setUp(Image iconImage, String title)
-	{
+		
 		Container content = getContentPane();
-		setTitle(title);
-		setIconImage(iconImage);
+		setTitle("Schedule Me!");
+		setIconImage(creator.getLogoImage());
 		setLayout(gridLayout);
 		
 		JPanel labelPanel = new JPanel();									// panel containing some text
@@ -40,7 +39,7 @@ public class Schedule extends JFrame implements ActionListener
 		content.add(labelPanel);
 		
 		JPanel optionPanel = new JPanel();									// Panel with drop menu for how long user will be available
-		timeOptions = new JComboBox(times);
+		timeOptions = new JComboBox<String>(times);
 		optionPanel.add(timeOptions);
 		content.add(optionPanel);
 		
@@ -49,7 +48,10 @@ public class Schedule extends JFrame implements ActionListener
 		submitButton.addActionListener(this);
 		submitPanel.add(submitButton);
 		content.add(submitPanel);
-		
+	}
+	
+	public void showWindow()
+	{	
 		setSize(300, 200);
 		setLocationRelativeTo(null);
 		setVisible(true);
@@ -64,10 +66,5 @@ public class Schedule extends JFrame implements ActionListener
 			creator.setAvailability((String)timeOptions.getSelectedItem());
 			dispatchEvent(new WindowEvent(this, WindowEvent.WINDOW_CLOSING));
 		}
-	}
-	
-	public void setSysTray(SysTray m)		// allows SysTray.java to pass a reference of itself to this class
-	{
-		creator = m;
 	}
 }

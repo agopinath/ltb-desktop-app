@@ -31,14 +31,14 @@ public class Preferences extends JFrame implements ActionListener
 	private JTextField textArea;
 	private JPasswordField passwordField;
 	private JCheckBox checkBox, checkBox2;
-	private JComboBox timeChoices;
-	private SysTray creator;
+	private JComboBox<String> timeChoices;
+	private MainCoordinator creator;
 	private boolean firstRun; //if true, window will show instructions for the first setup
 	
-	public Preferences(Image iconImage, String title, boolean firstRun, SysTray creator)
+	public Preferences(MainCoordinator creator, boolean firstRun)
 	{
-		this.firstRun = firstRun;
 		this.creator = creator;
+		this.firstRun = firstRun;
 		
 		if(firstRun)
 			gridLayout = new GridLayout(7, 1);
@@ -47,8 +47,8 @@ public class Preferences extends JFrame implements ActionListener
 		
 		Container content = getContentPane();
 		setLayout(gridLayout);
-		setTitle(title);
-		setIconImage(iconImage);
+		setTitle("Preferences");
+		setIconImage(creator.getLogoImage());
 		
 		if(firstRun)
 		{
@@ -97,7 +97,7 @@ public class Preferences extends JFrame implements ActionListener
 		
 		JPanel setTime = new JPanel();										// panel containing drop menu asking for time of availability on startup
 		setTime.setLayout(new FlowLayout());
-		timeChoices = new JComboBox(times);
+		timeChoices = new JComboBox<String>(times);
 		setTime.add(timeChoices);
 		content.add(setTime);
 		
