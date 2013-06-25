@@ -10,15 +10,6 @@ public class LTBApiTester
 	public static void main(String[] args)
 	{
 		LTBApi api = new LTBApi();
-		
-		PingedData [] data = api.getCurrentPingedTutors();
-		
-		System.out.println("\n\nIn tester class, pinged data: ");
-		for(PingedData currentData : data)
-			System.out.println(currentData);
-		
-		System.out.print("\n\n");
-		boolean pinged = api.userIsPingedTutor();
-		System.out.println("\n\nIn tester class, userIsPingedTutor = " + pinged);
+		System.out.println("login successful = " + api.login("javaclub.mv@gmail.com", "mvjavaclub"));
 	}
 }
