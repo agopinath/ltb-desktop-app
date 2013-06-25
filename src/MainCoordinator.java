@@ -42,9 +42,13 @@ public class MainCoordinator
 	{
 		return logo;
 	}
+	public String getTutorEmail()
+	{
+		return tutorEmail;
+	}
 	
 	//loads an image with the imageName, returns the image
-	public Image loadImage(String imageName) //parameter - name of image file
+	private Image loadImage(String imageName) //parameter - name of image file
 	{
 		Image returnPic = null; //Image to be returned by method
 		
@@ -71,37 +75,24 @@ public class MainCoordinator
 	public void editPreferences(String email, char [] password, boolean startup, boolean available, String time)
 	{	// called by Preferences.java right before it closes
 		tutorEmail = email;
-		String temp = "";
+		
+		tutorPassword = "";
 		for (int i = 0; i < password.length; i++)		// puts the user password together from the char[] array
 		{
-			temp += password[i];
+			tutorPassword += password[i];
 		}
-		tutorPassword = temp;
 		
 		openOnStartup = startup;
 		availableOnStartup = available;
 		
 		if (availableOnStartup)
 		{
-			if (time.equals("1 Hour"))
-				timeOnStartup = 1.0;
-			else if (time.equals("1.5 Hours"))
-				timeOnStartup = 1.5;
-			else if (time.equals("2 Hours"))
-				timeOnStartup = 2.0;
-			else if (time.equals("2.5 Hours"))
-				timeOnStartup = 2.5;
-			else if (time.equals("3 Hours"))
-				timeOnStartup = 3.0;
-			else if (time.equals("3.5 Hours"))
-				timeOnStartup = 3.5;
-			else if (time.equals("4 Hours"))
-				timeOnStartup = 4.0;
+			setAvailability(time);
 		}
 	}
 	
 	public void setAvailability(String time)
-	{	// called by Schedule.java right before it closes
+	{	// called by Schedule.java right before it closes, and by editPreferences method
 		if (time.equals("1 Hour"))
 			timeLeft = 1.0;
 		else if (time.equals("1.5 Hours"))
