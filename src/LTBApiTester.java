@@ -10,6 +10,6 @@ public class LTBApiTester
 	public static void main(String[] args)
 	{
 		LTBApi api = new LTBApi();
-		System.out.println("login successful = " + api.login("javaclub.mv@gmail.com", "mvjavaclub"));
+		System.out.println("login = " + api.login("javaclub.mv@gmail.com", "mvjavaclub"));
 	}
 }

@@ -8,9 +8,7 @@ import org.apache.http.HttpEntity;
 import org.apache.http.HttpResponse;
 import org.apache.http.NameValuePair;
 import org.apache.http.client.ClientProtocolException;
-import org.apache.http.client.HttpClient;
 import org.apache.http.client.entity.UrlEncodedFormEntity;
-import org.apache.http.client.methods.HttpGet;
 import org.apache.http.client.methods.HttpPost;
 import org.apache.http.impl.client.DefaultHttpClient;
 import org.apache.http.message.BasicNameValuePair;
@@ -26,77 +24,48 @@ import com.google.gson.Gson;
 
 public class LTBApi
 {
+	private String lrtoken;
+	private final String token;
+	
+	public LTBApi()
+	{
+		lrtoken = null;
+		token = "dd5fdd39c723f0c93568ede5e0ab4de4";
+	}
+	
 	public boolean login(String email, String password)
 	{
-		boolean returnValue = false;
+		lrtoken = (new Gson().fromJson(loginRequest(email, password), LoginToken.class)).token;
+		System.out.println("lrtoken = " + lrtoken);
 		
-		return returnValue;
-	}
-	public boolean userIsPingedTutor(String userEmail)
-	{
-		boolean returnValue = false;
-		
-		/*
-		 * Currently not working.
-		PingedData[] data = getCurrentPingedTutors();
-		
-		for(PingedData currentData : data)
-		{
-			System.out.println(currentData);
-			
-			if(currentData.getTutorEmail().equals(userEmail))
-				returnValue = true;
-			//else: leaves returnValue as false
-		}
-		*/
-		
-		return returnValue;
+		if(lrtoken == null)
+			return false;
+		else
+			return true;
 	}
 	
-	/*
-	 * Currently unused
-	public PingedData[] getCurrentPingedTutors()
+	private String loginRequest(String email, String password)
 	{
-		Gson gson = new Gson();
-		//return gson.fromJson(getStringData(), PingedData[].class);
-		
-		PingedData [] returnArray = null;
-		String s = getStringData();
-		
-		try
-		{
-			returnArray = gson.fromJson(s, PingedData[].class);
-		}
-		catch(Exception e)
-		{
-			System.out.println("\ngetStringData() returns:\n" + s);
-		}
-		finally
-		{
-			return returnArray;
-		}
-	}
-	*/
-	
-	private String getStringData()
-	{
-		String returnString = null;
-		
-		HttpClient client = new DefaultHttpClient();
 		HttpPost post = new HttpPost("http://www.learntobe.org/api/v1/tokens");
-		post.addHeader("Authorization", "Token token=dd5fdd39c723f0c93568ede5e0ab4de4");
+		post.addHeader("Authorization", "Token token=" + token);
 		post.addHeader("Content-Type", "application/x-www-form-urlencoded");
 		
 		ArrayList<NameValuePair> nameValuePairs = new ArrayList<NameValuePair>(1);
-		nameValuePairs.add(new BasicNameValuePair("email", "javaclub.mv@gmail.com"));
-		nameValuePairs.add(new BasicNameValuePair("password", "mvjavaclub"));
+		nameValuePairs.add(new BasicNameValuePair("email", email));
+		nameValuePairs.add(new BasicNameValuePair("password", password));
+		
+		return postRequest(post, nameValuePairs);
+	}
+	private String postRequest(HttpPost post, ArrayList<NameValuePair> nameValuePairs)
+	{
+		String returnString = null;
 		
 		try
         {
 	        post.setEntity(new UrlEncodedFormEntity(nameValuePairs));
 	        
-	        HttpResponse response = client.execute(post);
-	        System.out.println("received response");
+	        HttpResponse response = new DefaultHttpClient().execute(post);
+	        System.out.println(response.getStatusLine());
 	        
 	        HttpEntity entity = response.getEntity();
 	        
@@ -162,4 +131,58 @@ public class LTBApi
     	
     	return returnString;
 	}
+	
+	
+	
+	private class LoginToken
+	{
+		public String token;
+	}
+	
+	
+	public boolean userIsPingedTutor(String userEmail)
+	{
+		boolean returnValue = false;
+		
+		/*
+		 * Currently not working.
+		PingedData[] data = getCurrentPingedTutors();
+		
+		for(PingedData currentData : data)
+		{
+			System.out.println(currentData);
+			
+			if(currentData.getTutorEmail().equals(userEmail))
+				returnValue = true;
+			//else: leaves returnValue as false
+		}
+		*/
+		
+		return returnValue;
+	}
+	
+	/*
+	 * Currently unused
+	public PingedData[] getCurrentPingedTutors()
+	{
+		Gson gson = new Gson();
+		//return gson.fromJson(getStringData(), PingedData[].class);
+		
+		PingedData [] returnArray = null;
+		String s = getStringData();
+		
+		try
+		{
+			returnArray = gson.fromJson(s, PingedData[].class);
+		}
+		catch(Exception e)
+		{
+			System.out.println("\ngetStringData() returns:\n" + s);
+		}
+		finally
+		{
+			return returnArray;
+		}
+	}
+	*/
 }
