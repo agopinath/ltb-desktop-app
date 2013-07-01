@@ -10,6 +10,18 @@ public class LTBApiTester
 	public static void main(String[] args)
 	{
 		LTBApi api = new LTBApi();
-		System.out.println("login = " + api.login("javaclub.mv@gmail.com", "mvjavaclub"));
+		
+		if(api.login("javaclub.mv@gmail.com", "mvjavaclub"))
+		{
+			AppointmentData[] data = api.getAppointments();
+			for (AppointmentData appointmentData : data)
+            {
+				System.out.println(appointmentData);
+            }
+		}
+		else
+		{
+			System.out.println("Invalid login."); 
+		}
 	}
 }
