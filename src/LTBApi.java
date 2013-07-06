@@ -73,6 +73,20 @@ public class LTBApi
 		return HTTPRequest(get);
 	}
 	
+	public PingedData[] getCurrentPingedTutors()
+	{
+		System.out.println(currentPingedRequest());
+		return new Gson().fromJson(currentPingedRequest(), PingedData[].class);
+	}
+	private String currentPingedRequest()
+	{
+		HttpGet get = new HttpGet("http://www.learntobe.org/api/v1/getCurrentPingedTutors");
+		get.addHeader("Authorization", "Token token=" + token);
+		get.addHeader("lrtoken", lrtoken);
+		
+		return HTTPRequest(get);
+	}
+	
 	private String postRequest(HttpPost post, ArrayList<NameValuePair> nameValuePairs)
 	{
 		String returnString = null;
@@ -96,7 +110,7 @@ public class LTBApi
 		String returnString = null;
 		
 		try
-        {   
+        {
 	        HttpResponse response = new DefaultHttpClient().execute(request);
 	        System.out.println(response.getStatusLine());
 	        
@@ -167,46 +181,4 @@ public class LTBApi
 	{
 		public String token;
 	}
-	
-	/*
-	public boolean userIsPingedTutor(String userEmail)
-	{
-		boolean returnValue = false;
-		
-		PingedData[] data = getCurrentPingedTutors();
-		
-		for(PingedData currentData : data)
-		{
-			System.out.println(currentData);
-			
-			if(currentData.getTutorEmail().equals(userEmail))
-				returnValue = true;
-			//else: leaves returnValue as false
-		}
-		
-		return returnValue;
-	}
-	
-	public PingedData[] getCurrentPingedTutors()
-	{
-		Gson gson = new Gson();
-		//return gson.fromJson(getStringData(), PingedData[].class);
-		
-		PingedData [] returnArray = null;
-		String s = getStringData();
-		
-		try
-		{
-			returnArray = gson.fromJson(s, PingedData[].class);
-		}
-		catch(Exception e)
-		{
-			System.out.println("\ngetStringData() returns:\n" + s);
-		}
-		finally
-		{
-			return returnArray;
-		}
-	}
-	*/
 }

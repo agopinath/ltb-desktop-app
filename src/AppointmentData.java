@@ -1,7 +1,6 @@
 /**
  * Goutham Rajeev
  * 6/30/13
- * AppointmentData.java
  * Stores data from the getAllAppointmentsForTutor API method.
  */
 

@@ -11,8 +11,10 @@ import javax.imageio.ImageIO;
  */
 public class MainCoordinator
 {
-	private Image logo;
+	private final Image LOGO;
+	private final LTBApi API;
 	
+	//create TutorData class/inner class to store this data?
 	private String tutorEmail, tutorPassword;
 	private boolean openOnStartup;
 	private boolean availableOnStartup;	
@@ -20,8 +22,9 @@ public class MainCoordinator
 	private double timeLeft;												// decrement with a timer
 	
 	public MainCoordinator()
-	{
-		logo = loadImage("logo.png");
+	{	
+		LOGO = loadImage("logo.png");
+		API = new LTBApi();
 		
 		openOnStartup = availableOnStartup = false;
 		timeOnStartup = 0;
@@ -40,7 +43,11 @@ public class MainCoordinator
 	
 	public Image getLogoImage()
 	{
-		return logo;
+		return LOGO;
+	}
+	public LTBApi getLTBApi()
+	{
+		return API;
 	}
 	public String getTutorEmail()
 	{
