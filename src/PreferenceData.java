@@ -26,7 +26,15 @@ public class PreferenceData
 		FILE_NAME = "preferences.ini";
 	}
 	
-	public void setPreferences(String tutorEmail, String tutorPassword, 
+	public void setPreferencesAndSave(String tutorEmail, String tutorPassword, 
+			boolean openOnStartup, boolean availableOnStartup, double timeOnStartup)
+	{
+		System.out.println("setting preferences and saving to file");
+		setPreferences(tutorEmail, tutorPassword, openOnStartup, availableOnStartup, timeOnStartup);
+		saveToFile();
+	}
+	
+	private void setPreferences(String tutorEmail, String tutorPassword, 
 			boolean openOnStartup, boolean availableOnStartup, double timeOnStartup)
 	{
 		this.tutorEmail = tutorEmail;
