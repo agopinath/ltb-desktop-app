@@ -181,16 +181,16 @@ public class LTBApi
 	}
 	
 	// Higher-level API methods which are more convenient to use
-	public boolean doesTutoHaveNotifs(String thisTutorEmail) {
+	public PingedData getTutorNotification(String thisTutorEmail) {
 		PingedData[] data = getCurrentPingedTutors();
 		
 		for(int i = 0; i < data.length; i++) {
 			PingedData currTutorData = data[i];
 			if(currTutorData.getTutorEmail().equalsIgnoreCase(thisTutorEmail)) {
-				return true;
+				return currTutorData;
 			}
 		}
 		
-		return false;
+		return null;
 	}
 }
