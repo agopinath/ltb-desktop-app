@@ -13,6 +13,7 @@ public class MainCoordinator
 {
 	private Image logo;
 	private LTBApi api;
+	private PreferenceData preferenceData;
 	
 	private double timeLeft;
 	
@@ -20,6 +21,7 @@ public class MainCoordinator
 	{
 		logo = loadImage("logo.png");
 		api = new LTBApi();
+		preferenceData = new PreferenceData();
 		
 		timeLeft = 0;
 	}
@@ -45,6 +47,10 @@ public class MainCoordinator
 	public LTBApi getLTBApi()
 	{
 		return api;
+	}
+	public PreferenceData getPreferenceData()
+	{
+		return preferenceData;
 	}
 	/*
 	public String getTutorEmail()
