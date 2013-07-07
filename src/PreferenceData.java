@@ -39,6 +39,44 @@ public class PreferenceData
 		this.timeOnStartup = timeOnStartup;
 	}
 	
+	public void loadFromFile()
+	{
+		String json = "";
+		
+		BufferedReader br = null;
+        try
+        {
+	        br = new BufferedReader(new FileReader(new File(FILE_NAME)));
+	        String currentLine;
+			while((currentLine = br.readLine()) != null)
+				json += (currentLine + "\n");
+			
+			PreferenceData data = new Gson().fromJson(json, PreferenceData.class);
+			this.setPreferences(data.tutorEmail, data.tutorPassword, data.openOnStartup, data.availableOnStartup, data.timeOnStartup);
+        }
+        catch (FileNotFoundException e)
+        {
+	        e.printStackTrace();
+        }
+        catch (IOException e)
+        {
+	        e.printStackTrace();
+        }
+        finally
+        {
+        	if(br != null)
+        	{
+	            try
+                {
+	                br.close();
+                }
+                catch (IOException e)
+                {
+	                e.printStackTrace();
+                }
+        	}
+        }
+	}
 	public void saveToFile()
 	{
 		String data = new Gson().toJson(this);
