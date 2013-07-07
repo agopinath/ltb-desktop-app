@@ -15,7 +15,7 @@ public class CheckForNotifsTask implements Runnable
 		while(true) 
 		{
 			System.out.println("CheckNotifsThread: checking for notifs...");
-			PingedData notif = master.getLTBApi().getTutorNotification(master.getTutorEmail());
+			PingedData notif = master.getLTBApi().getTutorNotification(master.getPreferenceData().getEmail());
 		
 			if(notif != null)
 				System.out.println("New notification! \n ");

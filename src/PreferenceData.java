@@ -35,6 +35,10 @@ public class PreferenceData
 		this.availableOnStartup = availableOnStartup;
 		this.timeOnStartup = timeOnStartup;
 	}
+	public String getEmail()
+	{
+		return tutorEmail;
+	}
 	
 	public void loadFromFile()
 	{

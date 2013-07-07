@@ -52,12 +52,6 @@ public class MainCoordinator
 	{
 		return preferenceData;
 	}
-	/*
-	public String getTutorEmail()
-	{
-		return tutorEmail;
-	}
-	*/
 	
 	//loads an image with the imageName, returns the image
 	private Image loadImage(String imageName) //parameter - name of image file
