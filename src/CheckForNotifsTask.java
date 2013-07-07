@@ -1,10 +1,10 @@
 
-public class CheckNotifsThread implements Runnable 
+public class CheckForNotifsTask implements Runnable 
 {
 	private final static long PING_INTERVAL =  1000 * 10; // for testing purposes, we'll ping every 10,000 ms (i.e. 10 secs)
 	private MainCoordinator master;
 	
-	public CheckNotifsThread(MainCoordinator coordinator) 
+	public CheckForNotifsTask(MainCoordinator coordinator) 
 	{
 		master = coordinator;
 	}
