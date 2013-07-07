@@ -78,29 +78,9 @@ public class MainCoordinator
 		return returnPic; //returns image
 	}
 	
-	/*
-	public void editPreferences(String email, char [] password, boolean startup, boolean available, String time)
-	{	// called by Preferences.java right before it closes
-		tutorEmail = email;
-		
-		tutorPassword = "";
-		for (int i = 0; i < password.length; i++)		// puts the user password together from the char[] array
-		{
-			tutorPassword += password[i];
-		}
-		
-		openOnStartup = startup;
-		availableOnStartup = available;
-		
-		if (availableOnStartup)
-		{
-			setAvailability(time);
-		}
-	}
-	*/
-	
+	//called by Schedule.java right before it closes
 	public void setAvailability(String time)
-	{	// called by Schedule.java right before it closes, and by editPreferences method
+	{
 		if (time.equals("1 Hour"))
 			timeLeft = 1.0;
 		else if (time.equals("1.5 Hours"))
