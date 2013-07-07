@@ -4,7 +4,10 @@ import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.lang.reflect.Modifier;
+
 import com.google.gson.Gson;
+import com.google.gson.GsonBuilder;
 
 /**
  * Stores user preferences, and saves and loads them from a file. 
@@ -20,12 +23,6 @@ public class PreferenceData
 	
 	public PreferenceData()
 	{
-		/*tutorEmail = "";
-		tutorPassword = "";
-		openOnStartup = availableOnStartup = false;
-		timeOnStartup = 0;
-		*/
-		
 		FILE_NAME = "preferences.ini";
 	}
 	
@@ -79,7 +76,8 @@ public class PreferenceData
 	}
 	public void saveToFile()
 	{
-		String data = new Gson().toJson(this);
+		//json excludes final fields
+		String data = new GsonBuilder().excludeFieldsWithModifiers(Modifier.FINAL).create().toJson(this);
 		
 		PrintWriter writer = null;
         try
