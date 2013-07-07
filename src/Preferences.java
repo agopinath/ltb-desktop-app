@@ -115,13 +115,35 @@ public class Preferences extends JFrame implements ActionListener
 		setVisible(true);
 	}
 	
+	//only called by "Save Preferences" button
 	public void actionPerformed(ActionEvent e)
 	{
-		Object src = e.getSource();
-		if (src == button)
-		{			// edit preferences updates all relevant variables in SysTray.java
-			creator.editPreferences(textArea.getText(), passwordField.getPassword(), checkBox.isSelected(), checkBox2.isSelected(), (String)timeChoices.getSelectedItem());
-			dispatchEvent(new WindowEvent(this, WindowEvent.WINDOW_CLOSING));
-		}
+		creator.getPreferenceData().setPreferencesAndSave(textArea.getText(), new String(passwordField.getPassword()), 
+				checkBox.isSelected(), checkBox2.isSelected(), 
+				getAvailabilityTime());
+		dispatchEvent(new WindowEvent(this, WindowEvent.WINDOW_CLOSING));
+	}
+	private double getAvailabilityTime()
+	{
+		//converts selected index to corresponding availability time
+		return timeChoices.getSelectedIndex() * 0.5 + 1;
+		
+		/*
+		 * Old solution
+		if (time.equals("1 Hour"))
+			return 1.0;
+		else if (time.equals("1.5 Hours"))
+			return 1.5;
+		else if (time.equals("2 Hours"))
+			return 2.0;
+		else if (time.equals("2.5 Hours"))
+			return 2.5;
+		else if (time.equals("3 Hours"))
+			return 3.0;
+		else if (time.equals("3.5 Hours"))
+			return 3.5;
+		else if (time.equals("4 Hours"))
+			return 4.0;
+		*/
 	}
 }
