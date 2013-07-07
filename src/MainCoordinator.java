@@ -30,7 +30,7 @@ public class MainCoordinator
 	{
 		MainCoordinator coordinator = new MainCoordinator();
 		SysTray sysTray = new SysTray(coordinator);
-		Preferences preferences = new Preferences(coordinator, true);
+		PreferencesWindow preferences = new PreferencesWindow(coordinator, true);
 		
 		sysTray.setup();
 		preferences.showWindow();

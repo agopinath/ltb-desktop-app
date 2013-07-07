@@ -23,7 +23,7 @@ import javax.swing.text.SimpleAttributeSet;
 import javax.swing.text.StyleConstants;
 import javax.swing.text.StyledDocument;
 
-public class Preferences extends JFrame implements ActionListener
+public class PreferencesWindow extends JFrame implements ActionListener
 {
 	private final String [] times = {"1 Hour", "1.5 Hours", "2 Hours", "2.5 Hours", "3 Hours", "3.5 Hours", "4 Hours"};
 	private GridLayout gridLayout;
@@ -35,7 +35,7 @@ public class Preferences extends JFrame implements ActionListener
 	private MainCoordinator creator;
 	private boolean firstRun; //if true, window will show instructions for the first setup
 	
-	public Preferences(MainCoordinator creator, boolean firstRun)
+	public PreferencesWindow(MainCoordinator creator, boolean firstRun)
 	{
 		this.creator = creator;
 		this.firstRun = firstRun;
