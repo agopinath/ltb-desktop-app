@@ -29,6 +29,11 @@ public class LTBApi
 	private String lrtoken;
 	private final String token;
 	
+	private class LoginToken
+	{
+		private String token;
+	}
+	
 	public LTBApi()
 	{
 		lrtoken = null;
@@ -175,10 +180,17 @@ public class LTBApi
     	return returnString;
 	}
 	
-	
-	
-	private class LoginToken
-	{
-		public String token;
+	// Higher-level API methods which are more convenient to use
+	public boolean doesTutoHaveNotifs(String thisTutorEmail) {
+		PingedData[] data = getCurrentPingedTutors();
+		
+		for(int i = 0; i < data.length; i++) {
+			PingedData currTutorData = data[i];
+			if(currTutorData.getTutorEmail().equalsIgnoreCase(thisTutorEmail)) {
+				return true;
+			}
+		}
+		
+		return false;
 	}
 }

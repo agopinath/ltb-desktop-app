@@ -116,16 +116,7 @@ public class SysTray implements ActionListener
 	public void checkForNotifs()
 	{
 		System.out.println("SysTray: Check for notifications clicked");
-		PingedData[] data = creator.getLTBApi().getCurrentPingedTutors();
-		boolean notifRequired = false;
-		
-		for(int i = 0; i < data.length; i++) {
-			PingedData currTutorData = data[i];
-			if(currTutorData.getTutorEmail().equalsIgnoreCase(creator.getTutorEmail())) {
-				notifRequired = true;
-				break;
-			}
-		}
+		boolean notifRequired = creator.getLTBApi().doesTutoHaveNotifs(creator.getTutorEmail());
 		
 		if(notifRequired)
 			System.out.println("New notification!");
