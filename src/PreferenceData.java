@@ -39,6 +39,23 @@ public class PreferenceData
 		this.timeOnStartup = timeOnStartup;
 	}
 	
+	public void saveToFile()
+	{
+		String data = new Gson().toJson(this);
+		
+		PrintWriter writer = null;
+        try
+        {
+	        writer = new PrintWriter(new File(FILE_NAME));
+	        writer.println(data);
+			writer.close();
+        }
+        catch (FileNotFoundException e)
+        {
+	        e.printStackTrace();
+        }
+	}
+	
 	@Override
     public String toString()
     {
