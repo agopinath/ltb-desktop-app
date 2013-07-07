@@ -39,6 +39,10 @@ public class MainCoordinator
 		
 		sysTray.setup();
 		preferences.showWindow();
+		
+		CheckForNotifsTask notifsTask = new CheckForNotifsTask(coordinator);
+		Thread taskThread = new Thread(notifsTask);
+		taskThread.start();
 	}
 	
 	public Image getLogoImage()

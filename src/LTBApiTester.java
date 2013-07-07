@@ -11,14 +11,22 @@ public class LTBApiTester
 	{
 		LTBApi api = new LTBApi();
 		
-		PingedData [] data = api.getCurrentPingedTutors();
-		
-		System.out.println("\n\nIn tester class, pinged data: ");
-		for(PingedData currentData : data)
-			System.out.println(currentData);
-		
-		System.out.print("\n\n");
-		boolean pinged = api.userIsPingedTutor();
-		System.out.println("\n\nIn tester class, userIsPingedTutor = " + pinged);
+		if(api.login("javaclub.mv@gmail.com", "mvjavaclub"))
+		{
+			PingedData[] pinged = api.getCurrentPingedTutors();
+			for (PingedData ping : pinged)
+            {
+				System.out.println(ping);
+            }
+			//if user in PingedData[]
+			{
+				AppointmentData data = api.getAppointments()[0]; //get latest appointment data
+				//notify user
+			}
+		}
+		else
+		{
+			System.out.println("Invalid login."); 
+		}
 	}
 }
