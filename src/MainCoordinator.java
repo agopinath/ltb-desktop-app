@@ -14,20 +14,13 @@ public class MainCoordinator
 	private Image logo;
 	private LTBApi api;
 	
-	//create TutorData class/inner class to store this data?
-	private String tutorEmail, tutorPassword;
-	private boolean openOnStartup;
-	private boolean availableOnStartup;	
-	private double timeOnStartup;											// constant, set by user
-	private double timeLeft;												// decrement with a timer
+	private double timeLeft;
 	
 	public MainCoordinator()
 	{
 		logo = loadImage("logo.png");
 		api = new LTBApi();
 		
-		openOnStartup = availableOnStartup = false;
-		timeOnStartup = 0;
 		timeLeft = 0;
 	}
 	
@@ -53,10 +46,12 @@ public class MainCoordinator
 	{
 		return api;
 	}
+	/*
 	public String getTutorEmail()
 	{
 		return tutorEmail;
 	}
+	*/
 	
 	//loads an image with the imageName, returns the image
 	private Image loadImage(String imageName) //parameter - name of image file
@@ -83,6 +78,7 @@ public class MainCoordinator
 		return returnPic; //returns image
 	}
 	
+	/*
 	public void editPreferences(String email, char [] password, boolean startup, boolean available, String time)
 	{	// called by Preferences.java right before it closes
 		tutorEmail = email;
@@ -101,6 +97,7 @@ public class MainCoordinator
 			setAvailability(time);
 		}
 	}
+	*/
 	
 	public void setAvailability(String time)
 	{	// called by Schedule.java right before it closes, and by editPreferences method
