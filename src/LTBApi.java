@@ -122,7 +122,7 @@ public class LTBApi
 	        HttpEntity entity = response.getEntity();
 	        
 	        if(entity != null)
-	        	returnString = getString(entity);
+	        	returnString = AppUtils.getUnformattedJson(entity.getContent());
         }
 		catch (ClientProtocolException e)
         {
@@ -135,49 +135,6 @@ public class LTBApi
 		
 		//if error occurred and data was not added, will return null
 		return returnString;
-	}
-	
-	private String getString(HttpEntity entity)
-	{
-		String returnString = null;
-		
-		BufferedReader br = null;
-		
-    	try
-    	{
-    		br = new BufferedReader(new InputStreamReader(entity.getContent()));
-    		
-    		String currentLine = "";
-        	
-    		if((currentLine = br.readLine()) != null)
-        	{
-        		returnString = currentLine; //adds first line without newline at beginning
-        		
-        		//adds remaining lines with newline at beginning
-        		while((currentLine = br.readLine()) != null)
-	        		returnString += ("\n" + currentLine);
-        	}
-    	}
-    	catch(IOException e)
-    	{
-    		System.out.println("IOException from reading with BufferedReader");
-    		e.printStackTrace();
-    	}
-    	finally
-    	{
-    		try
-    		{
-    			if(br != null)
-    				br.close();
-    		}
-    		catch(IOException e)
-    		{
-    			System.out.println("IOException from closing BufferedReader");
-    			e.printStackTrace();
-    		}
-    	}
-    	
-    	return returnString;
 	}
 	
 	// Higher-level API methods which are more convenient to use
