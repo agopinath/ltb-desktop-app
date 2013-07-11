@@ -1,5 +1,8 @@
 import java.io.BufferedReader;
 import java.io.ByteArrayInputStream;
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
@@ -50,13 +53,31 @@ public class AppUtils {
 	public static String getUnformattedJson(String anyJson) 
 	{
 		InputStream stringStream = null;
-		try {
+		try 
+		{
 			stringStream = new ByteArrayInputStream(anyJson.getBytes("UTF-8"));
-		} catch (UnsupportedEncodingException e) {
+		} catch (UnsupportedEncodingException e) 
+		{
 			e.printStackTrace();
 			return null;
 		}
 		
 		return getUnformattedJson(stringStream);
+	}
+	
+	public static String getUnformattedJson(File jsonFile) 
+	{
+		InputStream fileStream = null;
+		try 
+		{
+			fileStream = new FileInputStream(jsonFile);
+		} 
+		catch (FileNotFoundException e) 
+		{
+			e.printStackTrace();
+			return null;
+		}
+		
+		return getUnformattedJson(fileStream);
 	}
 }

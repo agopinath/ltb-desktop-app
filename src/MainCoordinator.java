@@ -1,7 +1,11 @@
 import java.awt.Image;
+import java.io.File;
 import java.io.IOException;
 
 import javax.imageio.ImageIO;
+
+import com.google.gson.JsonParseException;
+import com.google.gson.JsonParser;
 
 /**
  * Goutham Rajeev
@@ -28,26 +32,36 @@ public class MainCoordinator
 	
 	public static void main(String[] args)
 	{
+		MainCoordinator appMaster = new MainCoordinator();
+		appMaster.startApp();
+	}
+	
+	private void startApp() {
 		MainCoordinator coordinator = new MainCoordinator();
 		SysTray sysTray = new SysTray(coordinator);
-		PreferencesWindow preferences = new PreferencesWindow(coordinator, true);
-		
 		sysTray.setup();
-		preferences.showWindow();
+		
+		if(isSetupNeeded())
+		{
+			PreferencesWindow preferences = new PreferencesWindow(coordinator, isSetupNeeded());
+			preferences.showWindow();
+		}
 		
 		CheckForNotifsTask notifsTask = new CheckForNotifsTask(coordinator);
 		Thread taskThread = new Thread(notifsTask);
 		taskThread.start();
 	}
-	
+
 	public Image getLogoImage()
 	{
 		return logo;
 	}
+	
 	public LTBApi getLTBApi()
 	{
 		return api;
 	}
+	
 	public PreferenceData getPreferenceData()
 	{
 		return preferenceData;
@@ -76,6 +90,28 @@ public class MainCoordinator
 		
 		//if here, program has not exited and image file is valid
 		return returnPic; //returns image
+	}
+	
+	// returns if the app needs to be setup by checking if the preferences file a) exists, and b) has valid JSON 
+	private boolean isSetupNeeded()
+	{
+		File prefsFile = new File(PreferenceData.getDefaultPrefsFilename());
+		
+		if(!prefsFile.exists()) // if the file doesn't exist, the app needs to be setup
+			return true;
+		
+		boolean hasValidJson = false;
+		try 
+		{
+		    new JsonParser().parse(AppUtils.getUnformattedJson(prefsFile));
+		    hasValidJson = true;
+		} 
+		catch (JsonParseException e) 
+		{
+			hasValidJson = false;
+		}
+	    
+	    return !(prefsFile.exists() && hasValidJson); // if the file exists and has valid json, no setup is needed
 	}
 	
 	//called by Schedule.java right before it closes
