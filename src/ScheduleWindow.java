@@ -14,7 +14,7 @@ import javax.swing.JLabel;
 import javax.swing.JList;
 import javax.swing.JPanel;
 
-public class Schedule extends JFrame implements ActionListener
+public class ScheduleWindow extends JFrame implements ActionListener
 {
 	private final String [] times = {"1 Hour", "1.5 Hours", "2 Hours", "2.5 Hours", "3 Hours", "3.5 Hours", "4 Hours"};
 	private GridLayout gridLayout;
@@ -22,7 +22,7 @@ public class Schedule extends JFrame implements ActionListener
 	private JButton submitButton;
 	private MainCoordinator creator;
 	
-	public Schedule(MainCoordinator creator)
+	public ScheduleWindow(MainCoordinator creator)
 	{
 		this.creator = creator;
 		

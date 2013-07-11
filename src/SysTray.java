@@ -101,7 +101,7 @@ public class SysTray implements ActionListener
 	
 	public void schedule()
 	{
-		Schedule popup = new Schedule(creator);
+		ScheduleWindow popup = new ScheduleWindow(creator);
 		popup.showWindow();
 	}
 	public void openBrowser()
@@ -110,13 +110,13 @@ public class SysTray implements ActionListener
 	}
 	public void openPrefs()
 	{
-		Preferences popup = new Preferences(creator, false);
+		PreferencesWindow popup = new PreferencesWindow(creator, false);
 		popup.showWindow();
 	}
 	public void checkForNotifs()
 	{
 		System.out.println("SysTray: Check for notifications clicked");
-		PingedData notif = creator.getLTBApi().getTutorNotification(creator.getTutorEmail());
+		PingedData notif = creator.getLTBApi().getTutorNotification(creator.getPreferenceData().getEmail());
 		
 		if(notif != null)
 			System.out.println("New notification!");

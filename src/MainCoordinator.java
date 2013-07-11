@@ -13,21 +13,16 @@ public class MainCoordinator
 {
 	private Image logo;
 	private LTBApi api;
+	private PreferenceData preferenceData;
 	
-	//create TutorData class/inner class to store this data?
-	private String tutorEmail, tutorPassword;
-	private boolean openOnStartup;
-	private boolean availableOnStartup;	
-	private double timeOnStartup;											// constant, set by user
-	private double timeLeft;												// decrement with a timer
+	private double timeLeft;
 	
 	public MainCoordinator()
 	{
 		logo = loadImage("logo.png");
 		api = new LTBApi();
+		preferenceData = new PreferenceData();
 		
-		openOnStartup = availableOnStartup = false;
-		timeOnStartup = 0;
 		timeLeft = 0;
 	}
 	
@@ -35,7 +30,7 @@ public class MainCoordinator
 	{
 		MainCoordinator coordinator = new MainCoordinator();
 		SysTray sysTray = new SysTray(coordinator);
-		Preferences preferences = new Preferences(coordinator, true);
+		PreferencesWindow preferences = new PreferencesWindow(coordinator, true);
 		
 		sysTray.setup();
 		preferences.showWindow();
@@ -53,9 +48,9 @@ public class MainCoordinator
 	{
 		return api;
 	}
-	public String getTutorEmail()
+	public PreferenceData getPreferenceData()
 	{
-		return tutorEmail;
+		return preferenceData;
 	}
 	
 	//loads an image with the imageName, returns the image
@@ -83,27 +78,9 @@ public class MainCoordinator
 		return returnPic; //returns image
 	}
 	
-	public void editPreferences(String email, char [] password, boolean startup, boolean available, String time)
-	{	// called by Preferences.java right before it closes
-		tutorEmail = email;
-		
-		tutorPassword = "";
-		for (int i = 0; i < password.length; i++)		// puts the user password together from the char[] array
-		{
-			tutorPassword += password[i];
-		}
-		
-		openOnStartup = startup;
-		availableOnStartup = available;
-		
-		if (availableOnStartup)
-		{
-			setAvailability(time);
-		}
-	}
-	
+	//called by Schedule.java right before it closes
 	public void setAvailability(String time)
-	{	// called by Schedule.java right before it closes, and by editPreferences method
+	{
 		if (time.equals("1 Hour"))
 			timeLeft = 1.0;
 		else if (time.equals("1.5 Hours"))
