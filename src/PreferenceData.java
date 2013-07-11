@@ -19,22 +19,19 @@ public class PreferenceData
 	private String tutorEmail, tutorPassword;
 	private boolean openOnStartup, availableOnStartup;	
 	private double timeOnStartup;	
-	private final String FILE_NAME;
 	
-	public PreferenceData()
-	{
-		FILE_NAME = "preferences.ini";
-	}
+	// since the preferences file name will not change, we declare it final static
+	private final static String DEFAULT_PREFS_FILENAME = "preferences.ini"; 
 	
-	public void setPreferencesAndSave(String tutorEmail, String tutorPassword, 
+	public PreferenceData() { }
+	
+	public PreferenceData(String tutorEmail, String tutorPassword, 
 			boolean openOnStartup, boolean availableOnStartup, double timeOnStartup)
 	{
-		System.out.println("setting preferences and saving to file");
 		setPreferences(tutorEmail, tutorPassword, openOnStartup, availableOnStartup, timeOnStartup);
-		saveToFile();
 	}
 	
-	private void setPreferences(String tutorEmail, String tutorPassword, 
+	public void setPreferences(String tutorEmail, String tutorPassword, 
 			boolean openOnStartup, boolean availableOnStartup, double timeOnStartup)
 	{
 		this.tutorEmail = tutorEmail;
@@ -43,29 +40,28 @@ public class PreferenceData
 		this.availableOnStartup = availableOnStartup;
 		this.timeOnStartup = timeOnStartup;
 	}
+	
 	public String getEmail()
 	{
 		return tutorEmail;
 	}
 	
-	public void loadFromFile()
+	public boolean loadFromFile(File inputFile)
 	{
 		String json = "";
 		
 		BufferedReader br = null;
         try
         {
-	        br = new BufferedReader(new FileReader(new File(FILE_NAME)));
+	        br = new BufferedReader(new FileReader(inputFile));
 	        String currentLine;
 			while((currentLine = br.readLine()) != null)
 				json += (currentLine + "\n");
 			
 			PreferenceData data = new Gson().fromJson(json, PreferenceData.class);
 			this.setPreferences(data.tutorEmail, data.tutorPassword, data.openOnStartup, data.availableOnStartup, data.timeOnStartup);
-        }
-        catch (FileNotFoundException e)
-        {
-	        e.printStackTrace();
+			
+			return true;
         }
         catch (IOException e)
         {
@@ -75,33 +71,49 @@ public class PreferenceData
         {
         	if(br != null)
         	{
-	            try
-                {
-	                br.close();
-                }
-                catch (IOException e)
-                {
-	                e.printStackTrace();
-                }
+        		try 
+        		{
+					br.close();
+				} 
+        		catch (IOException e) 
+				{
+					e.printStackTrace();
+				}
         	}
         }
+        
+        return false;
 	}
-	public void saveToFile()
+	
+	public boolean saveToFile(File outputFile)
 	{
-		//json excludes final fields
-		String data = new GsonBuilder().excludeFieldsWithModifiers(Modifier.FINAL).create().toJson(this);
+		String data = new Gson().toJson(this);
 		
 		PrintWriter writer = null;
         try
         {
-	        writer = new PrintWriter(new File(FILE_NAME));
+	        writer = new PrintWriter(outputFile);
 	        writer.println(data);
-			writer.close();
         }
         catch (FileNotFoundException e)
         {
-	        e.printStackTrace();
+        	e.printStackTrace();
+        	return false;
+        } 
+        finally
+        {
+        	writer.close();
         }
+        
+        return true;
+	}
+	
+	public void loadFromFile() {
+		loadFromFile(new File(DEFAULT_PREFS_FILENAME));
+	}
+	
+	public void saveToFile() {
+		saveToFile(new File(DEFAULT_PREFS_FILENAME));
 	}
 	
 	@Override
@@ -110,7 +122,10 @@ public class PreferenceData
 	    return "PreferenceData [tutorEmail=" + tutorEmail + ", tutorPassword="
 	            + tutorPassword + ", openOnStartup=" + openOnStartup
 	            + ", availableOnStartup=" + availableOnStartup
-	            + ", timeOnStartup=" + timeOnStartup + ", FILE_NAME="
-	            + FILE_NAME + "]";
+	            + ", timeOnStartup=" + timeOnStartup + "]";
     }
+	
+	public static String getDefaultPrefsFilename() {
+		return DEFAULT_PREFS_FILENAME;
+	}
 }
