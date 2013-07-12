@@ -46,6 +46,10 @@ public class MainCoordinator
 			PreferencesWindow preferences = new PreferencesWindow(coordinator);
 			preferences.showWindow();
 		}
+		else
+		{
+			preferenceData.loadFromFile();
+		}
 		
 		CheckForNotifsTask notifsTask = new CheckForNotifsTask(coordinator);
 		Thread taskThread = new Thread(notifsTask);
