@@ -40,12 +40,7 @@ public class PreferenceData
 		this.availableOnStartup = availableOnStartup;
 		this.timeOnStartup = timeOnStartup;
 	}
-	
-	public String getEmail()
-	{
-		return tutorEmail;
-	}
-	
+		
 	public boolean loadFromFile(File inputFile)
 	{
 		String json = "";
@@ -128,4 +123,14 @@ public class PreferenceData
 	public static String getDefaultPrefsFilename() {
 		return DEFAULT_PREFS_FILENAME;
 	}
+
+	public String getTutorEmail() { return tutorEmail; }
+
+	public String getTutorPassword() { return tutorPassword; }
+
+	public boolean isOpenOnStartup() { return openOnStartup; }
+
+	public boolean isAvailableOnStartup() { return availableOnStartup; }
+
+	public double getTimeOnStartup() { return timeOnStartup; }
 }
