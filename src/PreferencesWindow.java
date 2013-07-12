@@ -41,11 +41,25 @@ public class PreferencesWindow extends JFrame implements ActionListener
 		getContentPane().add(runOnStartLabel);
 
 		availOnStartCheck = new JCheckBox();
+		availOnStartCheck.addItemListener(new ItemListener() 
+		{
+			public void itemStateChanged(ItemEvent e)
+			{
+				if(((JCheckBox)e.getSource()).isSelected()) {
+					timeChoices.setEnabled(true);
+				} else {
+					timeChoices.setEnabled(false);
+				}
+			}
+		});
+		
 		getContentPane().add(availOnStartCheck);
 
 		availableOnStartLabel = new JLabel("Schedule me as 'available' on startup");
 		getContentPane().add(availableOnStartLabel);;
-
+		
+		timeChoices.setEditable(false);
+		timeChoices.setEnabled(false);
 		getContentPane().add(timeChoices);
 
 		savePrefsBtn = new JButton("Save");
