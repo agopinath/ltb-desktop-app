@@ -43,7 +43,7 @@ public class MainCoordinator
 		
 		if(isSetupNeeded())
 		{
-			PreferencesWindow preferences = new PreferencesWindow(coordinator, isSetupNeeded());
+			PreferencesWindow preferences = new PreferencesWindow(coordinator);
 			preferences.showWindow();
 		}
 		

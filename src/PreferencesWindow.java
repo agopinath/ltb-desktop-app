@@ -148,7 +148,7 @@ public class PreferencesWindow extends JFrame implements ActionListener
 		}
 	}
 	
-	public void setUpFrame()
+	public void showWindow()
 	{
 		setTitle("Preferences");
 		// setIconImage(master.getLogoImage());

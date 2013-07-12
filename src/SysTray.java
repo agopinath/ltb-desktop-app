@@ -104,15 +104,18 @@ public class SysTray implements ActionListener
 		ScheduleWindow popup = new ScheduleWindow(creator);
 		popup.showWindow();
 	}
+	
 	public void openBrowser()
 	{
 		System.out.println("SysTray: Open in Browser clicked");
 	}
+	
 	public void openPrefs()
 	{
-		PreferencesWindow popup = new PreferencesWindow(creator, false);
+		PreferencesWindow popup = new PreferencesWindow(creator);
 		popup.showWindow();
 	}
+	
 	public void checkForNotifs()
 	{
 		System.out.println("SysTray: Check for notifications clicked");
