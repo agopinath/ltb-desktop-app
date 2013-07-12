@@ -37,13 +37,12 @@ public class MainCoordinator
 	}
 	
 	private void startApp() {
-		MainCoordinator coordinator = new MainCoordinator();
-		SysTray sysTray = new SysTray(coordinator);
+		SysTray sysTray = new SysTray(this);
 		sysTray.setup();
 		
 		if(isSetupNeeded())
 		{
-			PreferencesWindow preferences = new PreferencesWindow(coordinator);
+			PreferencesWindow preferences = new PreferencesWindow(this);
 			preferences.showWindow();
 		}
 		else
@@ -51,7 +50,7 @@ public class MainCoordinator
 			preferenceData.loadFromFile();
 		}
 		
-		CheckForNotifsTask notifsTask = new CheckForNotifsTask(coordinator);
+		CheckForNotifsTask notifsTask = new CheckForNotifsTask(this);
 		Thread taskThread = new Thread(notifsTask);
 		taskThread.start();
 	}

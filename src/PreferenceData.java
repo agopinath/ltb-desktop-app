@@ -124,13 +124,23 @@ public class PreferenceData
 		return DEFAULT_PREFS_FILENAME;
 	}
 
-	public String getTutorEmail() { return tutorEmail; }
+	public String getTutorEmail() {
+		return tutorEmail;
+	}
 
-	public String getTutorPassword() { return tutorPassword; }
+	public String getTutorPassword() {
+		return tutorPassword;
+	}
 
-	public boolean isOpenOnStartup() { return openOnStartup; }
+	public boolean isOpenOnStartup() {
+		return openOnStartup;
+	}
 
-	public boolean isAvailableOnStartup() { return availableOnStartup; }
+	public boolean isAvailableOnStartup() {
+		return availableOnStartup;
+	}
 
-	public double getTimeOnStartup() { return timeOnStartup; }
+	public double getTimeOnStartup() {
+		return timeOnStartup;
+	}
 }

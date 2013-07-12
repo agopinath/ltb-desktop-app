@@ -66,19 +66,40 @@ public class PreferencesWindow extends JFrame implements ActionListener
 		getContentPane().add(savePrefsBtn);
 		
 		savePrefsBtn.addActionListener(this);
-
+		
+		if(master.getPreferenceData() != null) {
+			loadPrefsIntoGui();
+		}
+		
 		setSize(getPreferredSize());
 	}
 	
 	public void actionPerformed(ActionEvent e) {
-		master.getPreferenceData().setPreferences(emailField.getText(), new String(passField.getPassword()), 
+		PreferenceData prefs = master.getPreferenceData();
+		prefs.setPreferences(emailField.getText(), new String(passField.getPassword()), 
 					runOnStartCheck.isSelected(), availOnStartCheck.isSelected(), getAvailabilityTime());
-		master.getPreferenceData().saveToFile();
+		prefs.saveToFile();
 		
 		dispatchEvent(new WindowEvent(this, WindowEvent.WINDOW_CLOSING));
 	}
 	
-	private class PrefsLayout implements LayoutManager {
+	// load the existing preferences into the GUI so user needs to update only the fields necessary
+	private void loadPrefsIntoGui() {
+		PreferenceData data = master.getPreferenceData();
+		if(data.getTutorEmail() != null)
+			emailField.setText(data.getTutorEmail());
+		
+		if(data.getTutorPassword() != null)
+			passField.setText(data.getTutorPassword());
+		
+		runOnStartCheck.setSelected(data.isOpenOnStartup());
+		availOnStartCheck.setSelected(data.isAvailableOnStartup());
+		
+		timeChoices.setSelectedIndex(getIndexFromTime(data.getTimeOnStartup()));
+	}
+	
+	private class PrefsLayout implements LayoutManager 
+	{
 		public PrefsLayout() { }
 		public void addLayoutComponent(String name, Component comp) { }
 		public void removeLayoutComponent(Component comp) { }
@@ -160,5 +181,14 @@ public class PreferencesWindow extends JFrame implements ActionListener
 	private double getAvailabilityTime() 
 	{
 		return timeChoices.getSelectedIndex() * 0.5 + 1;
+	}
+	
+	// convert from a time to an index in timeChoices
+	private int getIndexFromTime(double time) 
+	{
+		if(time < 1) 
+			return 0;
+		
+		return (int) ((time - 1) / 0.5);
 	}
 }
