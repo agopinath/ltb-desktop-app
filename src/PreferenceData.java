@@ -4,10 +4,7 @@ import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.IOException;
 import java.io.PrintWriter;
-import java.lang.reflect.Modifier;
-
 import com.google.gson.Gson;
-import com.google.gson.GsonBuilder;
 
 /**
  * Stores user preferences, and saves and loads them from a file. 

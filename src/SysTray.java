@@ -1,16 +1,11 @@
 import java.awt.*;
 import java.awt.event.*;
-import javax.imageio.ImageIO;
-import javax.swing.JFrame;
-
-import java.io.IOException;
 
 /** 
  * Goutham Rajeev
  * 5/10/13
  * SysTray.java
  * This class is used to access the system tray.
- * EXIT PROGRAM IF ERROR?!
  */
 
 public class SysTray implements ActionListener
