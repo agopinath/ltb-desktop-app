@@ -25,12 +25,6 @@ public class PreferenceData
 	
 	public PreferenceData() { }
 	
-	public PreferenceData(String tutorEmail, String tutorPassword, 
-			boolean openOnStartup, boolean availableOnStartup, double timeOnStartup)
-	{
-		setPreferences(tutorEmail, tutorPassword, openOnStartup, availableOnStartup, timeOnStartup);
-	}
-	
 	public void setPreferences(String tutorEmail, String tutorPassword, 
 			boolean openOnStartup, boolean availableOnStartup, double timeOnStartup)
 	{

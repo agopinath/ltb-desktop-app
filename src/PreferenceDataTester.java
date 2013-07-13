@@ -6,7 +6,8 @@ public class PreferenceDataTester
 {
 	public static void main(String[] args)
 	{
-		PreferenceData data = new PreferenceData("bob@gmail.com", "pass", true, false, 10);
+		PreferenceData data = new PreferenceData();
+		data.setPreferences("bob@gmail.com", "pass", true, false, 10);
 		System.out.println("data before save:\n" + data);
 		data.saveToFile();
 		data.setPreferences("bob22@gmail.com", "passWORD", false, true, 20);
