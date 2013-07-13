@@ -24,7 +24,7 @@ public class MainCoordinator
 	public MainCoordinator()
 	{
 		logo = loadImage("logo.png");
-		api = new LTBApi();
+		api = new LTBApi(this);
 		preferenceData = new PreferenceData();
 		
 		timeLeft = 0;

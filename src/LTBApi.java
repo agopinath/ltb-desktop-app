@@ -26,14 +26,17 @@ public class LTBApi
 {
 	private String lrtoken;
 	private final String token;
+	private MainCoordinator master;
 	
 	private class LoginToken
 	{
 		private String token;
 	}
 	
-	public LTBApi()
+	public LTBApi(MainCoordinator master)
 	{
+		this.master = master;
+		
 		lrtoken = null;
 		token = "dd5fdd39c723f0c93568ede5e0ab4de4";
 	}
@@ -136,14 +139,15 @@ public class LTBApi
 	}
 	
 	// Higher-level API methods which are more convenient to use
-	public PingedData getTutorNotification(String thisTutorEmail) 
+	public PingedData getTutorNotification() 
 	{
 		PingedData[] data = getCurrentPingedTutors();
 		
 		for(int i = 0; i < data.length; i++) 
 		{
 			PingedData currTutorData = data[i];
-			if(currTutorData.getTutorEmail().equalsIgnoreCase(thisTutorEmail))
+			//if current data email = user tutor email
+			if(currTutorData.getTutorEmail().equalsIgnoreCase(master.getPreferenceData().getTutorEmail()))
 				return currTutorData;
 		}
 		

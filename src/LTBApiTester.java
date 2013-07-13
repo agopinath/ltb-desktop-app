@@ -9,7 +9,7 @@ public class LTBApiTester
 {
 	public static void main(String[] args)
 	{
-		LTBApi api = new LTBApi();
+		LTBApi api = new LTBApi(new MainCoordinator());
 		
 		if(api.login("javaclub.mv@gmail.com", "mvjavaclub"))
 		{
