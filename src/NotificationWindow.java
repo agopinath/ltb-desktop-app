@@ -7,13 +7,19 @@ import java.awt.*;
 import java.awt.event.*;
 
 /**
- * Notification window that appears in the bottom left corner of the screen.
+ * Notification window that appears in the bottom right corner of the screen.
  * @author Goutham Rajeev
  */
 public class NotificationWindow extends JFrame implements ActionListener
 {
 	private JButton acceptButton, declineButton;
 	private JTextPane messageText;
+	
+	private Timer animateInTimer;
+	private int xLoc, yLoc; //final x and y location of window
+	
+	private static int REFRESH_RATE = 15; //milliseconds
+	private static int ANIMATION_SPEED = 10; //pixel movement per refresh
 	
 	public NotificationWindow()
 	{
@@ -43,8 +49,26 @@ public class NotificationWindow extends JFrame implements ActionListener
 		StyleConstants.setAlignment(center, StyleConstants.ALIGN_CENTER);
 		doc.setParagraphAttributes(0, doc.getLength(), center, false);
 		getContentPane().add(messageText);
+		
+		xLoc = yLoc = 0;
+		
+		animateInTimer = new Timer(REFRESH_RATE, this);
 	}
 	public void showNotification()
+	{
+		this.setVisible(true);
+		calculateLocation();
+		
+		//calculates bottom edge of screen
+		int startYLoc = (int)GraphicsEnvironment.getLocalGraphicsEnvironment().getDefaultScreenDevice().getDefaultConfiguration().getBounds().getHeight();
+		//sets location to final x and at bottom edge of screen
+		this.setLocation(xLoc, startYLoc);
+		animateInTimer.start();
+	}
+	/**
+	 * Calculates final x and y location of window.
+	 */
+	private void calculateLocation()
 	{
 		//calculates screen area, excluding taskbars and other insets
 		GraphicsConfiguration gc = GraphicsEnvironment.getLocalGraphicsEnvironment().getDefaultScreenDevice().getDefaultConfiguration(); 
@@ -53,20 +77,23 @@ public class NotificationWindow extends JFrame implements ActionListener
 		Rectangle effectiveScreenArea = new Rectangle();
 		effectiveScreenArea.height = bounds.height - screenInsets.top - screenInsets.bottom;        
 		effectiveScreenArea.width = bounds.width - screenInsets.left - screenInsets.right;
+		//sets final location at bottom right corner of effective screen
+		xLoc = (int)(effectiveScreenArea.width - this.getSize().getWidth());
+		yLoc = (int)(effectiveScreenArea.height - this.getSize().getHeight());
 		
-		int x = (int)(effectiveScreenArea.width - this.getSize().getWidth());
-		int y = (int)(effectiveScreenArea.height - this.getSize().getHeight());
-		this.setLocation(x,y);
-		
-		this.setVisible(true);
+		System.out.printf("final x = %d, final y = %d\n", xLoc, yLoc);
 	}
 	@Override
     public void actionPerformed(ActionEvent e)
     {
-	    if(e.getSource() == acceptButton)
+		Object src = e.getSource();
+		
+	    if(src == acceptButton)
 	    	accept();
-	    if(e.getSource() == declineButton)
+	    else if(src == declineButton)
 	    	decline();
+	    else if(src == animateInTimer)
+	    	incrementInAnimation();
     }
 	private void accept()
 	{
@@ -76,6 +103,18 @@ public class NotificationWindow extends JFrame implements ActionListener
 	private void decline()
 	{
 		System.out.println("NotificationWindow: decline button clicked");
-		dispose();
+		this.dispose();
+	}
+	private void incrementInAnimation()
+	{
+		if(this.getY() > yLoc) //if lower than final y location
+		{
+			this.setLocation(this.getX(), this.getY() - ANIMATION_SPEED); //decrement y location
+		}
+		else
+		{
+			this.setLocation(this.getX(), yLoc); //snaps to final position
+			animateInTimer.stop();
+		}
 	}
 }
