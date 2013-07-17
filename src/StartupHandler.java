@@ -91,7 +91,7 @@ public class StartupHandler
 		String userHome = System.getProperty("user.home");
 		if(AppUtils.runningOnWindows7()) 
 		{
-			return userHome + "\\AppData\\Roaming\\Microsoft\\Windows\\Start Menu\\Programs\\" + STARTUP_SCRIPT_NAME;
+			return userHome + "\\AppData\\Roaming\\Microsoft\\Windows\\Start Menu\\Programs\\Startup\\" + STARTUP_SCRIPT_NAME;
 		} 
 		else if(AppUtils.runningOnWindowsXP()) 
 		{
