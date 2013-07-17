@@ -79,7 +79,7 @@ public class PreferencesWindow extends JFrame implements ActionListener
 		prefs.setPreferences(emailField.getText(), new String(passField.getPassword()), 
 					runOnStartCheck.isSelected(), availOnStartCheck.isSelected(), getAvailabilityTime());
 		prefs.saveToFile();
-		
+		master.notifyUpdatedPreferences();
 		dispatchEvent(new WindowEvent(this, WindowEvent.WINDOW_CLOSING));
 	}
 	
@@ -92,7 +92,7 @@ public class PreferencesWindow extends JFrame implements ActionListener
 		if(data.getTutorPassword() != null)
 			passField.setText(data.getTutorPassword());
 		
-		runOnStartCheck.setSelected(data.isOpenOnStartup());
+		runOnStartCheck.setSelected(data.shouldOpenOnStartup());
 		availOnStartCheck.setSelected(data.isAvailableOnStartup());
 		
 		timeChoices.setSelectedIndex(getIndexFromTime(data.getTimeOnStartup()));

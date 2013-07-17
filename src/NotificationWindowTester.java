@@ -12,5 +12,4 @@ public class NotificationWindowTester
 	{
 		new NotificationWindow().showNotification();
 	}
-
 }

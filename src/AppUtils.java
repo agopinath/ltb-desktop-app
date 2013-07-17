@@ -80,4 +80,18 @@ public class AppUtils {
 		
 		return getUnformattedJson(fileStream);
 	}
+	
+	public static boolean runningOnWindows7()
+	{
+	    String osName = System.getProperty("os.name");
+	    String osVersion = System.getProperty("os.version");
+	    return "Windows 7".equalsIgnoreCase(osName) && "6.1".equals(osVersion);
+	}
+	
+	public static boolean runningOnWindowsXP()
+	{
+	    String osName = System.getProperty("os.name");
+	    String osVersion = System.getProperty("os.version");
+	    return "Windows XP".equalsIgnoreCase(osName) && "5.1".equals(osVersion);
+	}
 }

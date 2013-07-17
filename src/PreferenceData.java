@@ -123,7 +123,7 @@ public class PreferenceData
 		return tutorPassword;
 	}
 
-	public boolean isOpenOnStartup() {
+	public boolean shouldOpenOnStartup() {
 		return openOnStartup;
 	}
 

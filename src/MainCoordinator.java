@@ -142,4 +142,10 @@ public class MainCoordinator
 		System.out.println("Exiting program.");
 		System.exit(0);
 	}
+
+	// should be called when any preferences in preferenceData are updated
+	public void notifyUpdatedPreferences() 
+	{
+		StartupHandler.setToRunOnStartup(preferenceData.shouldOpenOnStartup());
+	}
 }
