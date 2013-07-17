@@ -79,7 +79,9 @@ public class PreferencesWindow extends JFrame implements ActionListener
 		prefs.setPreferences(emailField.getText(), new String(passField.getPassword()), 
 					runOnStartCheck.isSelected(), availOnStartCheck.isSelected(), getAvailabilityTime());
 		prefs.saveToFile();
-		master.notifyUpdatedPreferences();
+		
+		master.notifyUpdatedPreferences(); // notify MainCoordinator to take the appropriate actions
+		
 		dispatchEvent(new WindowEvent(this, WindowEvent.WINDOW_CLOSING));
 	}
 	
