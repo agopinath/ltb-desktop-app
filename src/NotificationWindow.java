@@ -19,7 +19,8 @@ public class NotificationWindow extends JFrame implements ActionListener
 	private int xLoc, yLoc; //final x and y location of window
 	
 	private static int REFRESH_RATE = 15; //milliseconds
-	private static int ANIMATION_SPEED = 10; //pixel movement per refresh
+	private static int ANIMATION_MOVE_SPEED = 10; //pixel movement per refresh
+	private static float ANIMATION_FADE_SPEED = 0.05f; //change in opacity per refresh
 	
 	public NotificationWindow()
 	{
@@ -27,6 +28,7 @@ public class NotificationWindow extends JFrame implements ActionListener
 		getContentPane().setLayout(null);
 		setSize(180, 140);
 		setAlwaysOnTop(true);
+		setOpacity(0.0f);
 		
 		JPanel ButtonPanel = new JPanel();
 		ButtonPanel.setBounds(0, 87, 180, 53);
@@ -107,13 +109,15 @@ public class NotificationWindow extends JFrame implements ActionListener
 	}
 	private void incrementInAnimation()
 	{
-		if(this.getY() > yLoc) //if lower than final y location
+		if(this.getY() > yLoc || this.getOpacity() < 1.0f) //if lower than final y location or not opaque
 		{
-			this.setLocation(this.getX(), this.getY() - ANIMATION_SPEED); //decrement y location
+			this.setLocation(this.getX(), Math.max(this.getY() - ANIMATION_MOVE_SPEED, yLoc)); //decrement y location
+			this.setOpacity(Math.min(this.getOpacity() + ANIMATION_FADE_SPEED, 1.0f)); //increase opacity
+			
+			//System.out.printf("O: %f, Y: %d\n", this.getOpacity(), this.getY());
 		}
 		else
 		{
-			this.setLocation(this.getX(), yLoc); //snaps to final position
 			animateInTimer.stop();
 		}
 	}
