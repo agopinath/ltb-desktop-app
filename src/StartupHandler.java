@@ -63,11 +63,6 @@ public class StartupHandler {
 				+ binDir + ";" + libDir + "*;" + assetsDir + 
 				"\" MainCoordinator";
 		
-		System.out.println("torunpath: " + binDir);
-		System.out.println("torunpath: " + libDir);
-		System.out.println("torunpath: " + assetsDir);
-		System.out.println(scriptInstructions);
-		
 		PrintWriter writer = new PrintWriter(scriptToCreate);
 		writer.println(scriptInstructions);
 		writer.close();
