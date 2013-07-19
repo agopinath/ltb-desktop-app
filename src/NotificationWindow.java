@@ -5,6 +5,9 @@ import javax.swing.text.StyledDocument;
 
 import java.awt.*;
 import java.awt.event.*;
+import javax.swing.border.LineBorder;
+import javax.swing.border.SoftBevelBorder;
+import javax.swing.border.BevelBorder;
 
 /**
  * Notification window that appears in the bottom right corner of the screen.
@@ -15,12 +18,13 @@ public class NotificationWindow extends JFrame implements ActionListener
 	private JButton acceptButton, declineButton;
 	private JTextPane messageText;
 	
-	private Timer animateInTimer;
+	private Timer animateInTimer, animateOutTimer;
 	private int xLoc, yLoc; //final x and y location of window
 	
 	private static int REFRESH_RATE = 15; //milliseconds
 	private static int ANIMATION_MOVE_SPEED = 10; //pixel movement per refresh
-	private static float ANIMATION_FADE_SPEED = 0.05f; //change in opacity per refresh
+	private static float ANIMATION_FADEIN_SPEED = 0.05f; //change in opacity per refresh
+	private static float ANIMATION_FADEOUT_SPEED = 0.10f; //change in opacity per refresh
 	
 	public NotificationWindow()
 	{
@@ -55,6 +59,7 @@ public class NotificationWindow extends JFrame implements ActionListener
 		xLoc = yLoc = 0;
 		
 		animateInTimer = new Timer(REFRESH_RATE, this);
+		animateOutTimer = new Timer(REFRESH_RATE, this);
 	}
 	public void showNotification()
 	{
@@ -96,6 +101,8 @@ public class NotificationWindow extends JFrame implements ActionListener
 	    	decline();
 	    else if(src == animateInTimer)
 	    	incrementInAnimation();
+	    else if(src == animateOutTimer)
+	    	incrementOutAnimation();
     }
 	private void accept()
 	{
@@ -107,18 +114,35 @@ public class NotificationWindow extends JFrame implements ActionListener
 		System.out.println("NotificationWindow: decline button clicked");
 		this.dispose();
 	}
+	@Override
+	public void dispose()
+	{
+		animateOutTimer.start();
+	}
 	private void incrementInAnimation()
 	{
 		if(this.getY() > yLoc || this.getOpacity() < 1.0f) //if lower than final y location or not opaque
 		{
 			this.setLocation(this.getX(), Math.max(this.getY() - ANIMATION_MOVE_SPEED, yLoc)); //decrement y location
-			this.setOpacity(Math.min(this.getOpacity() + ANIMATION_FADE_SPEED, 1.0f)); //increase opacity
+			this.setOpacity(Math.min(this.getOpacity() + ANIMATION_FADEIN_SPEED, 1.0f)); //increase opacity
 			
 			//System.out.printf("O: %f, Y: %d\n", this.getOpacity(), this.getY());
 		}
 		else
 		{
 			animateInTimer.stop();
+		}
+	}
+	private void incrementOutAnimation()
+	{
+		if(this.getOpacity() > 0.0f) //if opaque
+		{
+			this.setOpacity(Math.max(this.getOpacity() - ANIMATION_FADEOUT_SPEED, 0.0f)); //decrease opacity
+		}
+		else
+		{
+			animateOutTimer.stop();
+			super.dispose();
 		}
 	}
 }
