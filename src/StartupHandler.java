@@ -76,13 +76,12 @@ public class StartupHandler
 			basePath = basePath.substring(0, path.length()-5);
 		}
 		
-		String binDir = basePath + "bin/";
-		String libDir = basePath + "lib/";
-		String assetsDir = basePath + "assets/";
-		String scriptInstructions = 
-				"@echo off\n "
-				+ "start javaw -classpath \"" + binDir + ";" + libDir + "*;" + assetsDir + 
-				"\" MainCoordinator\n";
+		String binDir = "bin/";
+		String libDir = "lib/";
+		String assetsDir = "assets/";
+		String scriptInstructions = "cd \"" + basePath + "\"\n" 
+									+ "start javaw -classpath \"" 
+									+ ".;" + binDir + ";" + libDir + "*;" + assetsDir + "\" MainCoordinator\n";
 		
 		PrintWriter writer = new PrintWriter(scriptToCreate);
 		
