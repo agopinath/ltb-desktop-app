@@ -3,68 +3,87 @@
 // Schedule.java
 // This class is used to set a time for which the user is available
 
-import java.awt.*;
-import java.awt.event.*;
+import java.awt.Font;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+import java.awt.event.WindowEvent;
+import java.util.Date;
 
-import javax.imageio.ImageIO;
 import javax.swing.JButton;
 import javax.swing.JComboBox;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
-import javax.swing.JList;
 import javax.swing.JPanel;
+import javax.swing.JSpinner;
+import javax.swing.SpinnerDateModel;
+import javax.swing.border.EmptyBorder;
 
-public class ScheduleWindow extends JFrame implements ActionListener
-{
-	private final String [] times = {"1 Hour", "1.5 Hours", "2 Hours", "2.5 Hours", "3 Hours", "3.5 Hours", "4 Hours"};
-	private GridLayout gridLayout;
-	private JComboBox<String> timeOptions;
-	private JButton submitButton;
-	private MainCoordinator creator;
+public class ScheduleWindow extends JFrame implements ActionListener {
+
+	private JPanel contentPane;
+	private JSpinner startTimePicker;
+	private MainCoordinator master;
 	
-	public ScheduleWindow(MainCoordinator creator)
-	{
-		this.creator = creator;
+	private final JComboBox<String> durations = new JComboBox<String>(new String[] 
+			{
+					"1", "1.25", "1.5", "1.75", "2", "2.25", "2.5", "2.75", "3", "3.25", "3.5", "3.75", "4"
+			});
+	
+	public ScheduleWindow(MainCoordinator master) {
+		this.master = master;
 		
-		gridLayout = new GridLayout(3, 1);
+		contentPane = new JPanel();
+		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
+		setContentPane(contentPane);
+		contentPane.setLayout(null);
 		
-		Container content = getContentPane();
-		setTitle("Schedule Me!");
-		setIconImage(creator.getLogoImage());
-		setLayout(gridLayout);
+		JLabel lblNewLabel = new JLabel("Schedule me \"available to tutor\"...");
+		lblNewLabel.setFont(new Font("Tahoma", Font.PLAIN, 14));
+		lblNewLabel.setBounds(40, 11, 220, 14);
+		contentPane.add(lblNewLabel);
 		
-		JPanel labelPanel = new JPanel();									// panel containing some text
-		JLabel text = new JLabel("For how long will you be available?");
-		labelPanel.add(text);
-		content.add(labelPanel);
+		JLabel lblFrom = new JLabel("...from");
+		lblFrom.setFont(new Font("Tahoma", Font.PLAIN, 12));
+		lblFrom.setBounds(77, 51, 42, 14);
+		contentPane.add(lblFrom);
 		
-		JPanel optionPanel = new JPanel();									// Panel with drop menu for how long user will be available
-		timeOptions = new JComboBox<String>(times);
-		optionPanel.add(timeOptions);
-		content.add(optionPanel);
+		JLabel lblFor = new JLabel("...for");
+		lblFor.setFont(new Font("Tahoma", Font.PLAIN, 12));
+		lblFor.setBounds(87, 82, 34, 14);
+		contentPane.add(lblFor);
 		
-		JPanel submitPanel = new JPanel();									// panel with submit button
-		submitButton = new JButton("Schedule");
-		submitButton.addActionListener(this);
-		submitPanel.add(submitButton);
-		content.add(submitPanel);
+		startTimePicker = new JSpinner( new SpinnerDateModel() );
+		JSpinner.DateEditor timeEditor = new JSpinner.DateEditor(startTimePicker, "h:mm a");
+		startTimePicker.setEditor(timeEditor);
+		startTimePicker.setValue(new Date()); // will only show the current time
+		startTimePicker.setBounds(136, 49, 72, 20);
+		contentPane.add(startTimePicker);
+		
+		durations.setBounds(136, 80, 55, 20);
+		contentPane.add(durations);
+		
+		JLabel lblHours = new JLabel("hours.");
+		lblHours.setFont(new Font("Tahoma", Font.PLAIN, 12));
+		lblHours.setBounds(201, 82, 46, 14);
+		contentPane.add(lblHours);
+		
+		JButton btnNewButton = new JButton("Schedule me!");
+		btnNewButton.setBounds(111, 128, 97, 23);
+		btnNewButton.addActionListener(this);
+		contentPane.add(btnNewButton);
 	}
 	
 	public void showWindow()
 	{	
-		setSize(300, 200);
+		setTitle("LTB Dekstop App - Schedule Me!");
+		setBounds(100, 100, 325, 200);
 		setLocationRelativeTo(null);
 		setVisible(true);
 	}
 	
 	public void actionPerformed(ActionEvent e)
 	{
-		Object src = e.getSource();
-		
-		if (src == submitButton)
-		{			// updates relevant variable (available time) in SysTray.java
-			creator.setAvailability((String)timeOptions.getSelectedItem());
-			dispatchEvent(new WindowEvent(this, WindowEvent.WINDOW_CLOSING));
-		}
+		master.setAvailability((String) durations.getSelectedItem());
+		dispatchEvent(new WindowEvent(this, WindowEvent.WINDOW_CLOSING));
 	}
 }
