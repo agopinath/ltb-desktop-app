@@ -16,25 +16,21 @@ import javax.swing.JTextField;
 import javax.swing.border.EmptyBorder;
 
 
-public class PreferencesWindow extends JFrame implements ActionListener {
-
-	private JPanel contentPane;
+public class PreferencesWindow extends JFrame implements ActionListener 
+{
 	private JTextField emailField;
-	private JLabel lblTutorPass;
 	private JPasswordField passField;
+	private JCheckBox runOnStartCheck, availOnStartCheck;
+	
 	private final MainCoordinator master;
 	private final JComboBox<String> timeChoices = new JComboBox<String>(
 			new String[] {"1 Hour", "1.5 Hours", "2 Hours", "2.5 Hours", "3 Hours", "3.5 Hours", "4 Hours"});
-	JCheckBox runOnStartCheck = new JCheckBox("Start LTB Desktop App on computer startup");
-	JCheckBox availOnStartCheck = new JCheckBox("Schedule me as 'available' on app startup");
 	
 	public PreferencesWindow(MainCoordinator master) 
 	{
 		this.master = master;
-		setTitle("LTB Desktop App Preferences");
-		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		setBounds(100, 100, 450, 250);
-		contentPane = new JPanel();
+		
+		JPanel contentPane = new JPanel();
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
 		setContentPane(contentPane);
 		contentPane.setLayout(null);
@@ -49,7 +45,7 @@ public class PreferencesWindow extends JFrame implements ActionListener {
 		contentPane.add(emailField);
 		emailField.setColumns(10);
 		
-		lblTutorPass = new JLabel("Tutor pass: ");
+		JLabel lblTutorPass = new JLabel("Tutor pass: ");
 		lblTutorPass.setFont(new Font("Tahoma", Font.PLAIN, 14));
 		lblTutorPass.setBounds(41, 48, 84, 20);
 		contentPane.add(lblTutorPass);
@@ -57,12 +53,14 @@ public class PreferencesWindow extends JFrame implements ActionListener {
 		passField = new JPasswordField();
 		passField.setBounds(135, 48, 200, 20);
 		contentPane.add(passField);
-		passField.setColumns(10);
+		passField.setColumns(50);
 		
+		runOnStartCheck = new JCheckBox("Start LTB Desktop App on computer startup");
 		runOnStartCheck.setFont(new Font("Tahoma", Font.PLAIN, 12));
 		runOnStartCheck.setBounds(41, 90, 294, 23);
 		contentPane.add(runOnStartCheck);
 		
+		availOnStartCheck = new JCheckBox("Schedule me as 'available' on app startup");
 		availOnStartCheck.setFont(new Font("Tahoma", Font.PLAIN, 12));
 		availOnStartCheck.setBounds(41, 116, 294, 23);
 		availOnStartCheck.addItemListener(new ItemListener() 
@@ -85,7 +83,7 @@ public class PreferencesWindow extends JFrame implements ActionListener {
 		contentPane.add(timeChoices);
 		
 		JButton btnNewButton = new JButton("Save");
-		btnNewButton.setBounds(175, 178, 110, 23);
+		btnNewButton.setBounds(150, 200, 110, 23);
 		btnNewButton.addActionListener(this);
 		contentPane.add(btnNewButton);
 		
@@ -106,7 +104,7 @@ public class PreferencesWindow extends JFrame implements ActionListener {
 		dispatchEvent(new WindowEvent(this, WindowEvent.WINDOW_CLOSING));
 	}
 	
-	// load the existing preferences into the GUI so user needs to update only the fields necessary
+	// load the existing (saved) preferences into the GUI so user needs to update only the fields necessary
 	private void loadPrefsIntoGui()
 	{
 		PreferenceData data = master.getPreferenceData();
@@ -124,8 +122,10 @@ public class PreferencesWindow extends JFrame implements ActionListener {
 	
 	public void showWindow()
 	{
+		setTitle("LTB Desktop App Preferences");
 		setIconImage(master.getLogoImage());
 		setResizable(false);
+		setBounds(100, 100, 400, 275);
 		setLocationRelativeTo(null);
 		setVisible(true);
 	}
