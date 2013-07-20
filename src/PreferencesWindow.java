@@ -78,6 +78,7 @@ public class PreferencesWindow extends JFrame implements ActionListener
 		
 		timeChoices.setEditable(false);
 		timeChoices.setEnabled(false);
+		timeChoices.setFont(new Font("Tahoma", Font.PLAIN, 12));
 		timeChoices.setToolTipText("Time in hours to be 'scheduled as available' on startup");
 		timeChoices.setBounds(65, 145, 120, 20);
 		contentPane.add(timeChoices);
@@ -85,6 +86,7 @@ public class PreferencesWindow extends JFrame implements ActionListener
 		JButton btnNewButton = new JButton("Save");
 		btnNewButton.setBounds(150, 200, 110, 23);
 		btnNewButton.addActionListener(this);
+		btnNewButton.setFont(new Font("Tahoma", Font.PLAIN, 12));
 		contentPane.add(btnNewButton);
 		
 		if(master.getPreferenceData() != null) {
