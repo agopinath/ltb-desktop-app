@@ -29,10 +29,12 @@ public class PreferencesWindow extends JFrame implements ActionListener
 			});
 	private JLabel lblNewLabel;
 	private JLabel lblHours;
+	private JButton btnSave, btnCancel;
 	
 	public PreferencesWindow(MainCoordinator master) 
 	{
 		this.master = master;
+		setBounds(100, 100, 400, 275);
 		
 		JPanel contentPane = new JPanel();
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
@@ -90,10 +92,10 @@ public class PreferencesWindow extends JFrame implements ActionListener
 		durations.setBounds(106, 147, 46, 20);
 		contentPane.add(durations);
 		
-		JButton btnNewButton = new JButton("Save");
-		btnNewButton.setBounds(150, 200, 110, 23);
-		btnNewButton.addActionListener(this);
-		contentPane.add(btnNewButton);
+		btnSave = new JButton("Save");
+		btnSave.setBounds(98, 202, 110, 23);
+		btnSave.addActionListener(this);
+		contentPane.add(btnSave);
 		
 		lblNewLabel = new JLabel("...for");
 		lblNewLabel.setFont(new Font("Tahoma", Font.PLAIN, 12));
@@ -105,6 +107,11 @@ public class PreferencesWindow extends JFrame implements ActionListener
 		lblHours.setBounds(162, 150, 46, 14);
 		contentPane.add(lblHours);
 		
+		btnCancel = new JButton("Cancel");
+		btnCancel.setBounds(225, 202, 110, 23);
+		btnCancel.addActionListener(this);
+		contentPane.add(btnCancel);
+		
 		// if saved data exists
 		if(master.getPreferenceData() != null)
 			loadPrefsIntoGui();
@@ -112,14 +119,23 @@ public class PreferencesWindow extends JFrame implements ActionListener
 	
 	public void actionPerformed(ActionEvent e)
 	{
-		PreferenceData prefs = master.getPreferenceData();
-		prefs.setPreferences(emailField.getText().trim(), new String(passField.getPassword()), 
-							runOnStartCheck.isSelected(), availOnStartCheck.isSelected(), getAvailabilityTime());
-		prefs.saveToFile();
+		JButton source = (JButton) e.getSource();
 		
-		master.notifyUpdatedPreferences(); // notify MainCoordinator to take the appropriate actions
-		
-		dispatchEvent(new WindowEvent(this, WindowEvent.WINDOW_CLOSING));
+		if(source == btnSave)
+		{
+			PreferenceData prefs = master.getPreferenceData();
+			prefs.setPreferences(emailField.getText().trim(), new String(passField.getPassword()), 
+								runOnStartCheck.isSelected(), availOnStartCheck.isSelected(), getAvailabilityTime());
+			prefs.saveToFile();
+			
+			master.notifyUpdatedPreferences(); // notify MainCoordinator to take the appropriate actions
+			
+			dispatchEvent(new WindowEvent(this, WindowEvent.WINDOW_CLOSING));
+		}
+		else if(source == btnCancel) 
+		{
+			dispatchEvent(new WindowEvent(this, WindowEvent.WINDOW_CLOSING));
+		}
 	}
 	
 	// load the existing (saved) preferences into the GUI so user needs to update only the fields necessary
@@ -143,7 +159,6 @@ public class PreferencesWindow extends JFrame implements ActionListener
 		setTitle("LTB Desktop App Preferences");
 		setIconImage(master.getLogoImage());
 		setResizable(false);
-		setBounds(100, 100, 400, 275);
 		setLocationRelativeTo(null);
 		setVisible(true);
 	}

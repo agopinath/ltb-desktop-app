@@ -23,15 +23,15 @@ public class ScheduleWindow extends JFrame implements ActionListener {
 	private JPanel contentPane;
 	private JSpinner startTimePicker;
 	private MainCoordinator master;
-	
-	private final JComboBox<String> durations = new JComboBox<String>(new String[] 
+	private JButton btnScheduleMe, btnCancel;
+	private final JComboBox durations = new JComboBox(new String[] 
 			{
 					"1", "1.25", "1.5", "1.75", "2", "2.25", "2.5", "2.75", "3", "3.25", "3.5", "3.75", "4"
 			});
 	
 	public ScheduleWindow(MainCoordinator master) {
 		this.master = master;
-		
+		setBounds(100, 100, 325, 200);
 		contentPane = new JPanel();
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
 		setContentPane(contentPane);
@@ -67,24 +67,37 @@ public class ScheduleWindow extends JFrame implements ActionListener {
 		lblHours.setBounds(201, 82, 46, 14);
 		contentPane.add(lblHours);
 		
-		JButton btnNewButton = new JButton("Schedule me!");
-		btnNewButton.setBounds(111, 128, 97, 23);
-		btnNewButton.addActionListener(this);
-		contentPane.add(btnNewButton);
+		btnScheduleMe = new JButton("Schedule me!");
+		btnScheduleMe.setBounds(40, 128, 113, 23);
+		btnScheduleMe.addActionListener(this);
+		contentPane.add(btnScheduleMe);
+		
+		btnCancel = new JButton("Cancel");
+		btnCancel.setBounds(163, 128, 97, 23);
+		btnCancel.addActionListener(this);
+		contentPane.add(btnCancel);
 	}
 	
 	public void showWindow()
 	{	
 		setTitle("LTB Dekstop App - Schedule Me!");
-		setBounds(100, 100, 325, 200);
 		setLocationRelativeTo(null);
 		setVisible(true);
 	}
 	
 	public void actionPerformed(ActionEvent e)
 	{
-		master.scheduleAvailability((Date)startTimePicker.getValue(), 
-									Double.parseDouble((String) durations.getSelectedItem()));
-		dispatchEvent(new WindowEvent(this, WindowEvent.WINDOW_CLOSING));
+		JButton source = (JButton) e.getSource();
+		
+		if(source == btnScheduleMe)
+		{
+			master.scheduleAvailability((Date)startTimePicker.getValue(), 
+										Double.parseDouble((String) durations.getSelectedItem()));
+			dispatchEvent(new WindowEvent(this, WindowEvent.WINDOW_CLOSING));
+		}
+		else if(source == btnCancel) 
+		{
+			dispatchEvent(new WindowEvent(this, WindowEvent.WINDOW_CLOSING));
+		}
 	}
 }
