@@ -1,46 +1,70 @@
-import java.awt.*;
-import java.awt.event.*;
-import javax.swing.*;
+import java.awt.Font;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+import java.awt.event.ItemEvent;
+import java.awt.event.ItemListener;
+import java.awt.event.WindowEvent;
 
-public class PreferencesWindow extends JFrame implements ActionListener
-{
+import javax.swing.JButton;
+import javax.swing.JCheckBox;
+import javax.swing.JComboBox;
+import javax.swing.JFrame;
+import javax.swing.JLabel;
+import javax.swing.JPanel;
+import javax.swing.JPasswordField;
+import javax.swing.JTextField;
+import javax.swing.border.EmptyBorder;
+
+
+public class PreferencesWindow extends JFrame implements ActionListener {
+
+	private JPanel contentPane;
+	private JTextField emailField;
+	private JLabel lblTutorPass;
+	private JPasswordField passField;
+	private final MainCoordinator master;
 	private final JComboBox<String> timeChoices = new JComboBox<String>(
 			new String[] {"1 Hour", "1.5 Hours", "2 Hours", "2.5 Hours", "3 Hours", "3.5 Hours", "4 Hours"});
-	private JLabel emailLabel, passLabel, runOnStartLabel, availableOnStartLabel;
-	private JTextField emailField; 
-	private JPasswordField passField;
-	private JCheckBox runOnStartCheck, availOnStartCheck;
-	private JButton savePrefsBtn;
-	
-	private final MainCoordinator master;
+	JCheckBox runOnStartCheck = new JCheckBox("Start LTB Desktop App on computer startup");
+	JCheckBox availOnStartCheck = new JCheckBox("Schedule me as 'available' on app startup");
 	
 	public PreferencesWindow(MainCoordinator master) 
 	{
 		this.master = master;
-		PrefsLayout customLayout = new PrefsLayout();
-
-		getContentPane().setFont(new Font("Helvetica", Font.PLAIN, 12));
-		getContentPane().setLayout(customLayout);
-
-		emailLabel = new JLabel("Tutor email:");
-		getContentPane().add(emailLabel);
-
+		setTitle("LTB Desktop App Preferences");
+		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		setBounds(100, 100, 450, 250);
+		contentPane = new JPanel();
+		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
+		setContentPane(contentPane);
+		contentPane.setLayout(null);
+		
+		JLabel lblTutorEmail = new JLabel("Tutor email: ");
+		lblTutorEmail.setFont(new Font("Tahoma", Font.PLAIN, 14));
+		lblTutorEmail.setBounds(41, 23, 84, 19);
+		contentPane.add(lblTutorEmail);
+		
 		emailField = new JTextField();
-		getContentPane().add(emailField);
-
-		passLabel = new JLabel("Tutor pass:");
-		getContentPane().add(passLabel);
-
+		emailField.setBounds(135, 22, 200, 20);
+		contentPane.add(emailField);
+		emailField.setColumns(10);
+		
+		lblTutorPass = new JLabel("Tutor pass: ");
+		lblTutorPass.setFont(new Font("Tahoma", Font.PLAIN, 14));
+		lblTutorPass.setBounds(41, 48, 84, 20);
+		contentPane.add(lblTutorPass);
+		
 		passField = new JPasswordField();
-		getContentPane().add(passField);
-
-		runOnStartCheck = new JCheckBox();
-		getContentPane().add(runOnStartCheck);
-
-		runOnStartLabel = new JLabel("Start Notifications App on computer startup");
-		getContentPane().add(runOnStartLabel);
-
-		availOnStartCheck = new JCheckBox();
+		passField.setBounds(135, 48, 200, 20);
+		contentPane.add(passField);
+		passField.setColumns(10);
+		
+		runOnStartCheck.setFont(new Font("Tahoma", Font.PLAIN, 12));
+		runOnStartCheck.setBounds(41, 90, 294, 23);
+		contentPane.add(runOnStartCheck);
+		
+		availOnStartCheck.setFont(new Font("Tahoma", Font.PLAIN, 12));
+		availOnStartCheck.setBounds(41, 116, 294, 23);
 		availOnStartCheck.addItemListener(new ItemListener() 
 		{
 			public void itemStateChanged(ItemEvent e)
@@ -52,29 +76,26 @@ public class PreferencesWindow extends JFrame implements ActionListener
 				}
 			}
 		});
-		
-		getContentPane().add(availOnStartCheck);
-
-		availableOnStartLabel = new JLabel("Schedule me as 'available' on startup");
-		getContentPane().add(availableOnStartLabel);;
+		contentPane.add(availOnStartCheck);
 		
 		timeChoices.setEditable(false);
 		timeChoices.setEnabled(false);
-		getContentPane().add(timeChoices);
-
-		savePrefsBtn = new JButton("Save");
-		getContentPane().add(savePrefsBtn);
+		timeChoices.setToolTipText("Time in hours to be 'scheduled as available' on startup");
+		timeChoices.setBounds(65, 145, 120, 20);
+		contentPane.add(timeChoices);
 		
-		savePrefsBtn.addActionListener(this);
+		JButton btnNewButton = new JButton("Save");
+		btnNewButton.setBounds(175, 178, 110, 23);
+		btnNewButton.addActionListener(this);
+		contentPane.add(btnNewButton);
 		
 		if(master.getPreferenceData() != null) {
 			loadPrefsIntoGui();
 		}
-		
-		setSize(getPreferredSize());
 	}
 	
-	public void actionPerformed(ActionEvent e) {
+	public void actionPerformed(ActionEvent e)
+	{
 		PreferenceData prefs = master.getPreferenceData();
 		prefs.setPreferences(emailField.getText(), new String(passField.getPassword()), 
 					runOnStartCheck.isSelected(), availOnStartCheck.isSelected(), getAvailabilityTime());
@@ -86,7 +107,8 @@ public class PreferencesWindow extends JFrame implements ActionListener
 	}
 	
 	// load the existing preferences into the GUI so user needs to update only the fields necessary
-	private void loadPrefsIntoGui() {
+	private void loadPrefsIntoGui()
+	{
 		PreferenceData data = master.getPreferenceData();
 		if(data.getTutorEmail() != null)
 			emailField.setText(data.getTutorEmail());
@@ -100,81 +122,9 @@ public class PreferencesWindow extends JFrame implements ActionListener
 		timeChoices.setSelectedIndex(getIndexFromTime(data.getTimeOnStartup()));
 	}
 	
-	private class PrefsLayout implements LayoutManager 
-	{
-		public PrefsLayout() { }
-		public void addLayoutComponent(String name, Component comp) { }
-		public void removeLayoutComponent(Component comp) { }
-
-		public Dimension preferredLayoutSize(Container parent) 
-		{
-			Dimension dim = new Dimension(0, 0);
-
-			Insets insets = parent.getInsets();
-			dim.width = 369 + insets.left + insets.right;
-			dim.height = 282 + insets.top + insets.bottom;
-
-			return dim;
-		}
-
-		public Dimension minimumLayoutSize(Container parent) 
-		{
-			Dimension dim = new Dimension(0, 0);
-			return dim;
-		}
-
-		public void layoutContainer(Container parent) 
-		{
-			Insets insets = parent.getInsets();
-
-			Component c;
-			c = parent.getComponent(0);
-			if (c.isVisible()) {
-				c.setBounds(insets.left + 32, insets.top + 24, 72, 24);
-			}
-			c = parent.getComponent(1);
-			if (c.isVisible()) {
-				c.setBounds(insets.left + 112, insets.top + 24, 208, 24);
-			}
-			c = parent.getComponent(2);
-			if (c.isVisible()) {
-				c.setBounds(insets.left + 32, insets.top + 56, 72, 24);
-			}
-			c = parent.getComponent(3);
-			if (c.isVisible()) {
-				c.setBounds(insets.left + 112, insets.top + 56, 208, 24);
-			}
-			c = parent.getComponent(4);
-			if (c.isVisible()) {
-				c.setBounds(insets.left + 32, insets.top + 96, 24, 24);
-			}
-			c = parent.getComponent(5);
-			if (c.isVisible()) {
-				c.setBounds(insets.left + 72, insets.top + 96, 248, 24);
-			}
-			c = parent.getComponent(6);
-			if (c.isVisible()) {
-				c.setBounds(insets.left + 32, insets.top + 128, 24, 24);
-			}
-			c = parent.getComponent(7);
-			if (c.isVisible()) {
-				c.setBounds(insets.left + 72, insets.top + 128, 248, 24);
-			}
-			c = parent.getComponent(8);
-			if (c.isVisible()) {
-				c.setBounds(insets.left + 72, insets.top + 160, 72, 24);
-			}
-			c = parent.getComponent(9);
-			if (c.isVisible()) {
-				c.setBounds(insets.left + 120, insets.top + 224, 120, 24);
-			}
-		}
-	}
-	
 	public void showWindow()
 	{
-		setTitle("Preferences");
-		// setIconImage(master.getLogoImage());
+		setIconImage(master.getLogoImage());
 		setResizable(false);
 		setLocationRelativeTo(null);
 		setVisible(true);
