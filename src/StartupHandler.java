@@ -2,6 +2,7 @@ import java.io.File;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.net.URLDecoder;
+import java.util.Scanner;
 
 import javax.swing.JOptionPane;
 
@@ -72,19 +73,25 @@ public class StartupHandler
 		
 		if(basePath.endsWith("bin/")) 
 		{
-			basePath = basePath.substring(0, path.length()-4);
+			basePath = basePath.substring(0, path.length()-5);
 		}
 		
 		String binDir = basePath + "bin/";
 		String libDir = basePath + "lib/";
 		String assetsDir = basePath + "assets/";
 		String scriptInstructions = 
-				"@echo off\n start javaw -classpath \"" 
+				"@echo off\n "
+				+ "start javaw -classpath \"" 
 				+ binDir + ";" + libDir + "*;" + assetsDir + 
-				"\" MainCoordinator";
+				"\" MainCoordinator\n";
 		
 		PrintWriter writer = new PrintWriter(scriptToCreate);
-		writer.println(scriptInstructions);
+		
+		Scanner instructionScan = new Scanner(scriptInstructions);
+		while(instructionScan.hasNextLine())
+			writer.println(instructionScan.nextLine());
+		
+		instructionScan.close();
 		writer.close();
 	}
 	
