@@ -132,7 +132,7 @@ public class SysTray implements ActionListener
 	
 	public void openPrefs()
 	{
-		PreferencesWindow popup = new PreferencesWindow(creator);
+		PreferencesWindow popup = new PreferencesWindow(creator, false);
 		popup.showWindow();
 	}
 	

@@ -44,7 +44,8 @@ public class MainCoordinator
 		
 		if(isSetupNeeded())
 		{
-			PreferencesWindow preferences = new PreferencesWindow(this);
+			System.out.println("Setup needed");
+			PreferencesWindow preferences = new PreferencesWindow(this, true);
 			preferences.showWindow();
 		}
 		else
@@ -142,5 +143,6 @@ public class MainCoordinator
 	public void notifyUpdatedPreferences() 
 	{
 		StartupHandler.setToRunOnStartup(preferenceData.shouldOpenOnStartup());
+		preferenceData.saveToFile();
 	}
 }

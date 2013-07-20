@@ -16,25 +16,28 @@ import javax.swing.JPasswordField;
 import javax.swing.JTextField;
 import javax.swing.border.EmptyBorder;
 
+import sun.tools.jar.Main;
+
 
 public class PreferencesWindow extends JFrame implements ActionListener 
 {
 	private JTextField emailField;
 	private JPasswordField passField;
 	private JCheckBox runOnStartCheck, availOnStartCheck;
+	private JButton btnSave, btnCancel;
 	
 	private final MainCoordinator master;
 	private final JComboBox durations = new JComboBox(new String[] 
 			{
 					"1", "1.25", "1.5", "1.75", "2", "2.25", "2.5", "2.75", "3", "3.25", "3.5", "3.75", "4"
 			});
-	private JLabel lblNewLabel;
-	private JLabel lblHours;
-	private JButton btnSave, btnCancel;
+	private boolean isFirstRun;
 	
-	public PreferencesWindow(MainCoordinator master) 
+	public PreferencesWindow(MainCoordinator master, boolean isFirstRun) 
 	{
 		this.master = master;
+		this.isFirstRun = isFirstRun;
+		
 		setBounds(100, 100, 400, 275);
 		
 		JPanel contentPane = new JPanel();
@@ -65,11 +68,13 @@ public class PreferencesWindow extends JFrame implements ActionListener
 		runOnStartCheck = new JCheckBox("Start LTB Desktop App on computer startup");
 		runOnStartCheck.setFont(new Font("Tahoma", Font.PLAIN, 12));
 		runOnStartCheck.setBounds(41, 90, 294, 23);
+		runOnStartCheck.setSelected(isFirstRun);
 		contentPane.add(runOnStartCheck);
 		
 		availOnStartCheck = new JCheckBox("Schedule me as 'available' on app startup");
 		availOnStartCheck.setFont(new Font("Tahoma", Font.PLAIN, 12));
 		availOnStartCheck.setBounds(41, 116, 294, 23);
+		
 		availOnStartCheck.addItemListener(new ItemListener() 
 		{
 			public void itemStateChanged(ItemEvent e)
@@ -98,12 +103,12 @@ public class PreferencesWindow extends JFrame implements ActionListener
 		btnSave.addActionListener(this);
 		contentPane.add(btnSave);
 		
-		lblNewLabel = new JLabel("...for");
+		JLabel lblNewLabel = new JLabel("...for");
 		lblNewLabel.setFont(new Font("Tahoma", Font.PLAIN, 12));
 		lblNewLabel.setBounds(69, 150, 46, 14);
 		contentPane.add(lblNewLabel);
 		
-		lblHours = new JLabel("hours.");
+		JLabel lblHours = new JLabel("hours.");
 		lblHours.setFont(new Font("Tahoma", Font.PLAIN, 12));
 		lblHours.setBounds(162, 150, 46, 14);
 		contentPane.add(lblHours);
@@ -113,9 +118,16 @@ public class PreferencesWindow extends JFrame implements ActionListener
 		btnCancel.addActionListener(this);
 		contentPane.add(btnCancel);
 		
-		// if saved data exists
-		if(master.getPreferenceData() != null)
+		if(!isFirstRun) // if it isn't the first run of the app
+		{
 			loadPrefsIntoGui();
+		}
+		else
+		{
+			runOnStartCheck.setSelected(true);
+			availOnStartCheck.setSelected(true);
+			durations.setEnabled(true);
+		}
 	}
 	
 	public void actionPerformed(ActionEvent e)
@@ -135,7 +147,6 @@ public class PreferencesWindow extends JFrame implements ActionListener
 			PreferenceData prefs = master.getPreferenceData();
 			prefs.setPreferences(tutorEmail, tutorPass, runOnStartCheck.isSelected(),
 								 availOnStartCheck.isSelected(), getAvailabilityTime());
-			prefs.saveToFile();
 			
 			master.notifyUpdatedPreferences(); // notify MainCoordinator to take the appropriate actions
 			
@@ -144,6 +155,11 @@ public class PreferencesWindow extends JFrame implements ActionListener
 		else if(source == btnCancel) 
 		{
 			dispatchEvent(new WindowEvent(this, WindowEvent.WINDOW_CLOSING));
+			if(isFirstRun) // if settings haven't been saved and it is the app's first run, exit 
+			{
+				JOptionPane.showMessageDialog(null, "Preferences must be set up for the first time the app is run.", "Form error", JOptionPane.WARNING_MESSAGE);
+				return;
+			}
 		}
 	}
 	

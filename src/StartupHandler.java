@@ -13,7 +13,7 @@ import javax.swing.JOptionPane;
  */
 public class StartupHandler 
 {
-	private static final String STARTUP_SCRIPT_NAME = "ltb_notifsapp_startup.bat";
+	private static final String STARTUP_SCRIPT_NAME = "ltbdesktopapp_startup.bat";
 	
 	// sets this app to run on startup if shouldRun is true,
 	// or removes this app from startup if shouldRun is false
@@ -81,8 +81,7 @@ public class StartupHandler
 		String assetsDir = basePath + "assets/";
 		String scriptInstructions = 
 				"@echo off\n "
-				+ "start javaw -classpath \"" 
-				+ binDir + ";" + libDir + "*;" + assetsDir + 
+				+ "start javaw -classpath \"" + binDir + ";" + libDir + "*;" + assetsDir + 
 				"\" MainCoordinator\n";
 		
 		PrintWriter writer = new PrintWriter(scriptToCreate);
@@ -112,9 +111,8 @@ public class StartupHandler
 		} 
 		else 
 		{
-			JOptionPane.showMessageDialog(null,
-							"Supported OSes for running the app on startup are currently "
-							+ "Windows 7 and Windows XP only.");
+			JOptionPane.showMessageDialog(null, "Supported OSes for running the app on startup are currently "
+												+ "Windows 7 and Windows XP only.");
 		}
 		
 		return null;
