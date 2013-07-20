@@ -10,6 +10,7 @@ import javax.swing.JCheckBox;
 import javax.swing.JComboBox;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JPasswordField;
 import javax.swing.JTextField;
@@ -123,9 +124,17 @@ public class PreferencesWindow extends JFrame implements ActionListener
 		
 		if(source == btnSave)
 		{
+			String tutorEmail = emailField.getText().trim();
+			String tutorPass = new String(passField.getPassword());
+			if(tutorEmail.isEmpty() || tutorPass.isEmpty())
+			{
+				JOptionPane.showMessageDialog(null, "Email and password fields cannot be empty.", "Form error", JOptionPane.ERROR_MESSAGE);
+				return;
+			}
+			
 			PreferenceData prefs = master.getPreferenceData();
-			prefs.setPreferences(emailField.getText().trim(), new String(passField.getPassword()), 
-								runOnStartCheck.isSelected(), availOnStartCheck.isSelected(), getAvailabilityTime());
+			prefs.setPreferences(tutorEmail, tutorPass, runOnStartCheck.isSelected(),
+								 availOnStartCheck.isSelected(), getAvailabilityTime());
 			prefs.saveToFile();
 			
 			master.notifyUpdatedPreferences(); // notify MainCoordinator to take the appropriate actions
@@ -156,7 +165,7 @@ public class PreferencesWindow extends JFrame implements ActionListener
 	
 	public void showWindow()
 	{
-		setTitle("LTB Desktop App Preferences");
+		setTitle("LTB Desktop App - Preferences");
 		setIconImage(master.getLogoImage());
 		setResizable(false);
 		setLocationRelativeTo(null);
