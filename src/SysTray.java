@@ -1,5 +1,15 @@
-import java.awt.*;
-import java.awt.event.*;
+import java.awt.AWTException;
+import java.awt.Desktop;
+import java.awt.Image;
+import java.awt.MenuItem;
+import java.awt.PopupMenu;
+import java.awt.SystemTray;
+import java.awt.TrayIcon;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+import java.io.IOException;
+import java.net.URI;
+import java.net.URISyntaxException;
 
 /** 
  * Goutham Rajeev
@@ -103,6 +113,16 @@ public class SysTray implements ActionListener
 	public void openBrowser()
 	{
 		System.out.println("SysTray: Open in Browser clicked");
+		if(Desktop.isDesktopSupported())
+		{
+			try {
+				Desktop.getDesktop().browse(new URI("http://www.learntobe.org/dashboard"));
+			} catch (IOException e) {
+				e.printStackTrace();
+			} catch (URISyntaxException e) {
+				e.printStackTrace();
+			}
+		}
 	}
 	
 	public void openPrefs()
