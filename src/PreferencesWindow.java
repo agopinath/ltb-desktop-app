@@ -86,7 +86,6 @@ public class PreferencesWindow extends JFrame implements ActionListener
 		
 		durations.setEditable(false);
 		durations.setEnabled(false);
-		durations.setFont(new Font("Tahoma", Font.PLAIN, 12));
 		durations.setToolTipText("Time in hours to be 'scheduled as available' on startup");
 		durations.setBounds(106, 147, 46, 20);
 		contentPane.add(durations);
