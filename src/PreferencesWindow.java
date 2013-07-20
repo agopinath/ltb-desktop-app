@@ -95,7 +95,7 @@ public class PreferencesWindow extends JFrame implements ActionListener
 		durations.setEditable(false);
 		durations.setEnabled(false);
 		durations.setToolTipText("Time in hours to be 'scheduled as available' on startup");
-		durations.setBounds(106, 147, 46, 20);
+		durations.setBounds(106, 147, 58, 20);
 		contentPane.add(durations);
 		
 		btnSave = new JButton("Save");
@@ -110,7 +110,7 @@ public class PreferencesWindow extends JFrame implements ActionListener
 		
 		JLabel lblHours = new JLabel("hours.");
 		lblHours.setFont(new Font("Tahoma", Font.PLAIN, 12));
-		lblHours.setBounds(162, 150, 46, 14);
+		lblHours.setBounds(174, 149, 46, 14);
 		contentPane.add(lblHours);
 		
 		btnCancel = new JButton("Cancel");
