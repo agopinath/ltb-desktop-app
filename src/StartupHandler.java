@@ -29,9 +29,12 @@ public class StartupHandler
 		
 		if(shouldRun)  // if the app should run on Windows startup...
 		{
-			try {
+			try 
+			{
 				createStartupScript(startupScriptFile); // ...create the startup script
-			} catch (IOException e) { // if an error occured during the creation of the startup script
+			} 
+			catch (IOException e) // if an error occured during the creation of the startup script
+			{ 
 				e.printStackTrace();
 				return false;
 			}
@@ -58,14 +61,17 @@ public class StartupHandler
 			PrintWriter fileClearer = new PrintWriter(scriptToCreate);
 			fileClearer.print("");
 			fileClearer.close();
-		} else {
+		} 
+		else 
+		{
 			scriptToCreate.createNewFile();
 		}
 		
 		String path = MainCoordinator.class.getProtectionDomain().getCodeSource().getLocation().getPath();
 		String basePath = URLDecoder.decode(path, "UTF-8").substring(1);
 		
-		if(basePath.endsWith("bin/")) {
+		if(basePath.endsWith("bin/")) 
+		{
 			basePath = basePath.substring(0, path.length()-4);
 		}
 		

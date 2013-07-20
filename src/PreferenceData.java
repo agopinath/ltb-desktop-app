@@ -94,11 +94,13 @@ public class PreferenceData
         return true;
 	}
 	
-	public void loadFromFile() {
+	public void loadFromFile() 
+	{
 		loadFromFile(new File(DEFAULT_PREFS_FILENAME));
 	}
 	
-	public void saveToFile() {
+	public void saveToFile() 
+	{
 		saveToFile(new File(DEFAULT_PREFS_FILENAME));
 	}
 	
@@ -111,27 +113,15 @@ public class PreferenceData
 	            + ", timeOnStartup=" + timeOnStartup + "]";
     }
 	
-	public static String getDefaultPrefsFilename() {
-		return DEFAULT_PREFS_FILENAME;
-	}
+	public static String getDefaultPrefsFilename() { return DEFAULT_PREFS_FILENAME; }
 
-	public String getTutorEmail() {
-		return tutorEmail;
-	}
+	public String getTutorEmail() { return tutorEmail; }
 
-	public String getTutorPassword() {
-		return tutorPassword;
-	}
+	public String getTutorPassword() { return tutorPassword; }
 
-	public boolean shouldOpenOnStartup() {
-		return openOnStartup;
-	}
+	public boolean shouldOpenOnStartup() { return openOnStartup; }
 
-	public boolean isAvailableOnStartup() {
-		return availableOnStartup;
-	}
+	public boolean isAvailableOnStartup() { return availableOnStartup; }
 
-	public double getTimeOnStartup() {
-		return timeOnStartup;
-	}
+	public double getTimeOnStartup() { return timeOnStartup; }
 }

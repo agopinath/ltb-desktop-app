@@ -23,8 +23,10 @@ public class PreferencesWindow extends JFrame implements ActionListener
 	private JCheckBox runOnStartCheck, availOnStartCheck;
 	
 	private final MainCoordinator master;
-	private final JComboBox<String> timeChoices = new JComboBox<String>(
-			new String[] {"1 Hour", "1.5 Hours", "2 Hours", "2.5 Hours", "3 Hours", "3.5 Hours", "4 Hours"});
+	private final JComboBox<String> timeChoices = new JComboBox<String>(new String[] 
+			{
+					"1 Hour", "1.5 Hours", "2 Hours", "2.5 Hours", "3 Hours", "3.5 Hours", "4 Hours"
+			});
 	
 	public PreferencesWindow(MainCoordinator master) 
 	{
@@ -67,13 +69,17 @@ public class PreferencesWindow extends JFrame implements ActionListener
 		{
 			public void itemStateChanged(ItemEvent e)
 			{
-				if(((JCheckBox)e.getSource()).isSelected()) {
+				if(((JCheckBox)e.getSource()).isSelected()) 
+				{
 					timeChoices.setEnabled(true);
-				} else {
+				} 
+				else 
+				{
 					timeChoices.setEnabled(false);
 				}
 			}
 		});
+		
 		contentPane.add(availOnStartCheck);
 		
 		timeChoices.setEditable(false);
@@ -86,19 +92,18 @@ public class PreferencesWindow extends JFrame implements ActionListener
 		JButton btnNewButton = new JButton("Save");
 		btnNewButton.setBounds(150, 200, 110, 23);
 		btnNewButton.addActionListener(this);
-		btnNewButton.setFont(new Font("Tahoma", Font.PLAIN, 12));
 		contentPane.add(btnNewButton);
 		
-		if(master.getPreferenceData() != null) {
+		// if saved data exists
+		if(master.getPreferenceData() != null)
 			loadPrefsIntoGui();
-		}
 	}
 	
 	public void actionPerformed(ActionEvent e)
 	{
 		PreferenceData prefs = master.getPreferenceData();
 		prefs.setPreferences(emailField.getText().trim(), new String(passField.getPassword()), 
-					runOnStartCheck.isSelected(), availOnStartCheck.isSelected(), getAvailabilityTime());
+							runOnStartCheck.isSelected(), availOnStartCheck.isSelected(), getAvailabilityTime());
 		prefs.saveToFile();
 		
 		master.notifyUpdatedPreferences(); // notify MainCoordinator to take the appropriate actions

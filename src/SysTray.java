@@ -115,11 +115,16 @@ public class SysTray implements ActionListener
 		System.out.println("SysTray: Open in Browser clicked");
 		if(Desktop.isDesktopSupported())
 		{
-			try {
+			try 
+			{
 				Desktop.getDesktop().browse(new URI("http://www.learntobe.org/dashboard"));
-			} catch (IOException e) {
+			} 
+			catch (IOException e) 
+			{
 				e.printStackTrace();
-			} catch (URISyntaxException e) {
+			} 
+			catch (URISyntaxException e) 
+			{
 				e.printStackTrace();
 			}
 		}
