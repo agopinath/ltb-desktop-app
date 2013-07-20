@@ -5,9 +5,7 @@ import javax.swing.text.StyledDocument;
 
 import java.awt.*;
 import java.awt.event.*;
-import javax.swing.border.LineBorder;
-import javax.swing.border.SoftBevelBorder;
-import javax.swing.border.BevelBorder;
+import javax.swing.border.EtchedBorder;
 
 /**
  * Notification window that appears in the bottom right corner of the screen.
@@ -25,17 +23,23 @@ public class NotificationWindow extends JFrame implements ActionListener
 	private static int ANIMATION_MOVE_SPEED = 10; //pixel movement per refresh
 	private static float ANIMATION_FADEIN_SPEED = 0.05f; //change in opacity per refresh
 	private static float ANIMATION_FADEOUT_SPEED = 0.10f; //change in opacity per refresh
+	private JTextPane requestTimeText;
 	
 	public NotificationWindow()
 	{
+		setDefaultCloseOperation(JFrame.DO_NOTHING_ON_CLOSE);
 		setUndecorated(true);
-		getContentPane().setLayout(null);
-		setSize(180, 140);
+		setSize(180, 180);
 		setAlwaysOnTop(true);
 		setOpacity(0.0f);
 		
+		JPanel contentPane = new JPanel();
+		contentPane.setLayout(null);
+		contentPane.setBorder(new EtchedBorder(EtchedBorder.LOWERED, null, null));
+		setContentPane(contentPane);
+		
 		JPanel ButtonPanel = new JPanel();
-		ButtonPanel.setBounds(0, 87, 180, 53);
+		ButtonPanel.setBounds(10, 127, 160, 42);
 		getContentPane().add(ButtonPanel);
 		ButtonPanel.setLayout(new GridLayout(0, 2, 0, 0));
 		acceptButton = new JButton("Accept");
@@ -46,15 +50,23 @@ public class NotificationWindow extends JFrame implements ActionListener
 		ButtonPanel.add(declineButton);
 		
 		messageText = new JTextPane();
-		messageText.setBounds(0, 0, 180, 87);
+		messageText.setOpaque(false);
+		messageText.setBounds(10, 11, 160, 87);
 		messageText.setEditable(false);
-		messageText.setFont(new Font("Monospaced", Font.PLAIN, 20));
+		messageText.setFont(new Font("Tahoma", Font.PLAIN, 22));
 		messageText.setText("Name needs your help in Subject!");
 		StyledDocument doc = messageText.getStyledDocument();
 		SimpleAttributeSet center = new SimpleAttributeSet();
 		StyleConstants.setAlignment(center, StyleConstants.ALIGN_CENTER);
 		doc.setParagraphAttributes(0, doc.getLength(), center, false);
 		getContentPane().add(messageText);
+		
+		requestTimeText = new JTextPane();
+		requestTimeText.setFont(new Font("Tahoma", Font.PLAIN, 14));
+		requestTimeText.setOpaque(false);
+		requestTimeText.setText("Requested at: Time");
+		requestTimeText.setBounds(10, 96, 160, 23);
+		contentPane.add(requestTimeText);
 		
 		xLoc = yLoc = 0;
 		
