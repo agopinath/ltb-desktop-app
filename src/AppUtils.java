@@ -8,6 +8,9 @@ import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.io.UnsupportedEncodingException;
 
+import com.google.gson.JsonParseException;
+import com.google.gson.JsonParser;
+
 
 public class AppUtils {
 	public static String getUnformattedJson(InputStream stream) {
@@ -100,5 +103,35 @@ public class AppUtils {
 	    String osName = System.getProperty("os.name");
 	    String osVersion = System.getProperty("os.version");
 	    return "Windows 8".equalsIgnoreCase(osName) && "6.2".equals(osVersion);
+	}
+	
+	// returns if the app needs to be setup by checking if the preferences file a) exists, and b) has valid JSON 
+	public static boolean isSetupNeeded()
+	{
+		File prefsFile = new File(PreferenceData.getDefaultPrefsFilename());
+		
+		if(!prefsFile.exists()) // if the file doesn't exist, the app needs to be setup
+			return true;
+		
+		boolean hasValidJson = false;
+		try 
+		{
+			String unformattedJson = getUnformattedJson(prefsFile);
+			if(unformattedJson == null)
+			{
+				hasValidJson = false;
+			}
+			else 
+			{
+			    new JsonParser().parse(getUnformattedJson(prefsFile));
+			    hasValidJson = true;
+			}
+		} 
+		catch (JsonParseException e) 
+		{
+			hasValidJson = false;
+		}
+	    
+	    return !(prefsFile.exists() && hasValidJson); // if the file exists and has valid json, no setup is needed
 	}
 }

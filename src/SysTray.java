@@ -11,6 +11,8 @@ import java.io.IOException;
 import java.net.URI;
 import java.net.URISyntaxException;
 
+import javax.swing.JOptionPane;
+
 /** 
  * Goutham Rajeev
  * 5/10/13
@@ -90,6 +92,14 @@ public class SysTray implements ActionListener
 	
 	public void actionPerformed(ActionEvent e)
 	{
+		if(AppUtils.isSetupNeeded())
+		{
+			JOptionPane.showMessageDialog(null, "Preferences file does not exist and must be set up first."
+												+ " Try saving your preferences.", "Error", JOptionPane.ERROR_MESSAGE);
+			openPrefs(true);
+			return;
+		}
+		
 		Object src = e.getSource();
 		
 		if(src == scheduleItem)
@@ -97,7 +107,7 @@ public class SysTray implements ActionListener
 		else if(src == openItem)
 			openBrowser();
 		else if(src == prefItem)
-			openPrefs();
+			openPrefs(false);
 		else if(src == checkItem)
 			checkForNotifs();
 		else if(src == quit)
@@ -130,9 +140,9 @@ public class SysTray implements ActionListener
 		}
 	}
 	
-	public void openPrefs()
+	public void openPrefs(boolean firstRun)
 	{
-		PreferencesWindow popup = new PreferencesWindow(creator, false);
+		PreferencesWindow popup = new PreferencesWindow(creator, firstRun);
 		popup.showWindow();
 	}
 	

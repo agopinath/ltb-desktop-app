@@ -42,7 +42,7 @@ public class MainCoordinator
 		SysTray sysTray = new SysTray(this);
 		sysTray.setup();
 		
-		if(isSetupNeeded())
+		if(AppUtils.isSetupNeeded())
 		{
 			System.out.println("Setup needed");
 			PreferencesWindow preferences = new PreferencesWindow(this, true);
@@ -98,35 +98,7 @@ public class MainCoordinator
 		return returnPic; //returns image
 	}
 	
-	// returns if the app needs to be setup by checking if the preferences file a) exists, and b) has valid JSON 
-	private boolean isSetupNeeded()
-	{
-		File prefsFile = new File(PreferenceData.getDefaultPrefsFilename());
-		
-		if(!prefsFile.exists()) // if the file doesn't exist, the app needs to be setup
-			return true;
-		
-		boolean hasValidJson = false;
-		try 
-		{
-			String unformattedJson = AppUtils.getUnformattedJson(prefsFile);
-			if(unformattedJson == null)
-			{
-				hasValidJson = false;
-			}
-			else 
-			{
-			    new JsonParser().parse(AppUtils.getUnformattedJson(prefsFile));
-			    hasValidJson = true;
-			}
-		} 
-		catch (JsonParseException e) 
-		{
-			hasValidJson = false;
-		}
-	    
-	    return !(prefsFile.exists() && hasValidJson); // if the file exists and has valid json, no setup is needed
-	}
+
 	
 	public void scheduleAvailability(Date startTime, double duration)
 	{

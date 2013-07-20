@@ -140,7 +140,7 @@ public class PreferencesWindow extends JFrame implements ActionListener
 			String tutorPass = new String(passField.getPassword());
 			if(tutorEmail.isEmpty() || tutorPass.isEmpty())
 			{
-				JOptionPane.showMessageDialog(null, "Email and password fields cannot be empty.", "Form error", JOptionPane.ERROR_MESSAGE);
+				JOptionPane.showMessageDialog(null, "Email and password fields cannot be empty.", "Error", JOptionPane.ERROR_MESSAGE);
 				return;
 			}
 			
@@ -154,12 +154,13 @@ public class PreferencesWindow extends JFrame implements ActionListener
 		}
 		else if(source == btnCancel) 
 		{
-			dispatchEvent(new WindowEvent(this, WindowEvent.WINDOW_CLOSING));
 			if(isFirstRun) // if settings haven't been saved and it is the app's first run, exit 
 			{
-				JOptionPane.showMessageDialog(null, "Preferences must be set up for the first time the app is run.", "Form error", JOptionPane.WARNING_MESSAGE);
+				JOptionPane.showMessageDialog(null, "Preferences must be set up for the first time the app is run.", "Warning", JOptionPane.WARNING_MESSAGE);
 				return;
 			}
+			
+			dispatchEvent(new WindowEvent(this, WindowEvent.WINDOW_CLOSING));
 		}
 	}
 	
