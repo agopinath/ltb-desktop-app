@@ -23,10 +23,12 @@ public class PreferencesWindow extends JFrame implements ActionListener
 	private JCheckBox runOnStartCheck, availOnStartCheck;
 	
 	private final MainCoordinator master;
-	private final JComboBox<String> timeChoices = new JComboBox<String>(new String[] 
+	private final JComboBox durations = new JComboBox(new String[] 
 			{
-					"1 Hour", "1.5 Hours", "2 Hours", "2.5 Hours", "3 Hours", "3.5 Hours", "4 Hours"
+					"1", "1.25", "1.5", "1.75", "2", "2.25", "2.5", "2.75", "3", "3.25", "3.5", "3.75", "4"
 			});
+	private JLabel lblNewLabel;
+	private JLabel lblHours;
 	
 	public PreferencesWindow(MainCoordinator master) 
 	{
@@ -71,28 +73,38 @@ public class PreferencesWindow extends JFrame implements ActionListener
 			{
 				if(((JCheckBox)e.getSource()).isSelected()) 
 				{
-					timeChoices.setEnabled(true);
+					durations.setEnabled(true);
 				} 
 				else 
 				{
-					timeChoices.setEnabled(false);
+					durations.setEnabled(false);
 				}
 			}
 		});
 		
 		contentPane.add(availOnStartCheck);
 		
-		timeChoices.setEditable(false);
-		timeChoices.setEnabled(false);
-		timeChoices.setFont(new Font("Tahoma", Font.PLAIN, 12));
-		timeChoices.setToolTipText("Time in hours to be 'scheduled as available' on startup");
-		timeChoices.setBounds(65, 145, 120, 20);
-		contentPane.add(timeChoices);
+		durations.setEditable(false);
+		durations.setEnabled(false);
+		durations.setFont(new Font("Tahoma", Font.PLAIN, 12));
+		durations.setToolTipText("Time in hours to be 'scheduled as available' on startup");
+		durations.setBounds(106, 147, 46, 20);
+		contentPane.add(durations);
 		
 		JButton btnNewButton = new JButton("Save");
 		btnNewButton.setBounds(150, 200, 110, 23);
 		btnNewButton.addActionListener(this);
 		contentPane.add(btnNewButton);
+		
+		lblNewLabel = new JLabel("...for");
+		lblNewLabel.setFont(new Font("Tahoma", Font.PLAIN, 12));
+		lblNewLabel.setBounds(69, 150, 46, 14);
+		contentPane.add(lblNewLabel);
+		
+		lblHours = new JLabel("hours.");
+		lblHours.setFont(new Font("Tahoma", Font.PLAIN, 12));
+		lblHours.setBounds(162, 150, 46, 14);
+		contentPane.add(lblHours);
 		
 		// if saved data exists
 		if(master.getPreferenceData() != null)
@@ -124,7 +136,7 @@ public class PreferencesWindow extends JFrame implements ActionListener
 		runOnStartCheck.setSelected(data.shouldOpenOnStartup());
 		availOnStartCheck.setSelected(data.isAvailableOnStartup());
 		
-		timeChoices.setSelectedIndex(getIndexFromTime(data.getTimeOnStartup()));
+		durations.setSelectedIndex(getIndexFromTime(data.getTimeOnStartup()));
 	}
 	
 	public void showWindow()
@@ -139,7 +151,7 @@ public class PreferencesWindow extends JFrame implements ActionListener
 
 	private double getAvailabilityTime() 
 	{
-		return timeChoices.getSelectedIndex() * 0.5 + 1;
+		return durations.getSelectedIndex() * 0.25 + 1;
 	}
 	
 	// convert from a time to an index in timeChoices
@@ -148,6 +160,6 @@ public class PreferencesWindow extends JFrame implements ActionListener
 		if(time < 1) 
 			return 0;
 		
-		return (int) ((time - 1) / 0.5);
+		return (int) ((time - 1) / 0.25);
 	}
 }
