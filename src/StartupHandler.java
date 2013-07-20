@@ -95,7 +95,7 @@ public class StartupHandler
 	private static String getStartupScriptFilename() 
 	{
 		String userHome = System.getProperty("user.home");
-		if(AppUtils.runningOnWindows7()) 
+		if(AppUtils.runningOnWindows7() || AppUtils.runningOnWindows8()) 
 		{
 			return userHome + "\\AppData\\Roaming\\Microsoft\\Windows\\Start Menu\\Programs\\Startup\\" + STARTUP_SCRIPT_NAME;
 		} 

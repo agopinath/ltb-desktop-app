@@ -94,4 +94,11 @@ public class AppUtils {
 	    String osVersion = System.getProperty("os.version");
 	    return "Windows XP".equalsIgnoreCase(osName) && "5.1".equals(osVersion);
 	}
+	
+	public static boolean runningOnWindows8()
+	{
+	    String osName = System.getProperty("os.name");
+	    String osVersion = System.getProperty("os.version");
+	    return "Windows 8".equalsIgnoreCase(osName) && "6.2".equals(osVersion);
+	}
 }
