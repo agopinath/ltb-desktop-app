@@ -1,6 +1,8 @@
 import java.awt.Image;
 import java.io.File;
 import java.io.IOException;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 
 import javax.imageio.ImageIO;
 
@@ -106,8 +108,16 @@ public class MainCoordinator
 		boolean hasValidJson = false;
 		try 
 		{
-		    new JsonParser().parse(AppUtils.getUnformattedJson(prefsFile));
-		    hasValidJson = true;
+			String unformattedJson = AppUtils.getUnformattedJson(prefsFile);
+			if(unformattedJson == null)
+			{
+				hasValidJson = false;
+			}
+			else 
+			{
+			    new JsonParser().parse(AppUtils.getUnformattedJson(prefsFile));
+			    hasValidJson = true;
+			}
 		} 
 		catch (JsonParseException e) 
 		{
@@ -117,24 +127,9 @@ public class MainCoordinator
 	    return !(prefsFile.exists() && hasValidJson); // if the file exists and has valid json, no setup is needed
 	}
 	
-	//called by Schedule.java right before it closes
-	public void setAvailability(String time)
+	public void scheduleAvailability(Date startTime, double duration)
 	{
-		if (time.equals("1 Hour"))
-			timeLeft = 1.0;
-		else if (time.equals("1.5 Hours"))
-			timeLeft = 1.5;
-		else if (time.equals("2 Hours"))
-			timeLeft = 2.0;
-		else if (time.equals("2.5 Hours"))
-			timeLeft = 2.5;
-		else if (time.equals("3 Hours"))
-			timeLeft = 3.0;
-		else if (time.equals("3.5 Hours"))
-			timeLeft = 3.5;
-		else if (time.equals("4 Hours"))
-			timeLeft = 4.0;
-		System.out.println("timeLeft = " + timeLeft);
+		System.out.println("Scheduled for: " + duration + " hours starting from " + new SimpleDateFormat().format(startTime));
 	}
 	
 	public void closeApp()

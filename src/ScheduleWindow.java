@@ -83,7 +83,8 @@ public class ScheduleWindow extends JFrame implements ActionListener {
 	
 	public void actionPerformed(ActionEvent e)
 	{
-		master.setAvailability((String) durations.getSelectedItem());
+		master.scheduleAvailability((Date)startTimePicker.getValue(), 
+									Double.parseDouble((String) durations.getSelectedItem()));
 		dispatchEvent(new WindowEvent(this, WindowEvent.WINDOW_CLOSING));
 	}
 }
