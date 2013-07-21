@@ -16,8 +16,6 @@ import javax.swing.JPasswordField;
 import javax.swing.JTextField;
 import javax.swing.border.EmptyBorder;
 
-import sun.tools.jar.Main;
-
 
 public class PreferencesWindow extends JFrame implements ActionListener 
 {

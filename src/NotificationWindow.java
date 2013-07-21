@@ -25,7 +25,7 @@ public class NotificationWindow extends JFrame implements ActionListener
 	private static float ANIMATION_FADEOUT_SPEED = 0.10f; //change in opacity per refresh
 	private JTextPane requestTimeText;
 	
-	public NotificationWindow()
+	public NotificationWindow(PingedData pingedData)
 	{
 		setDefaultCloseOperation(JFrame.DO_NOTHING_ON_CLOSE);
 		setUndecorated(true);
@@ -54,7 +54,7 @@ public class NotificationWindow extends JFrame implements ActionListener
 		messageText.setBounds(10, 11, 160, 87);
 		messageText.setEditable(false);
 		messageText.setFont(new Font("Tahoma", Font.PLAIN, 22));
-		messageText.setText("Name needs your help in Subject!");
+		messageText.setText(String.format("%d needs your help in %d!", pingedData.getStudentName(), pingedData.getSubject()));
 		StyledDocument doc = messageText.getStyledDocument();
 		SimpleAttributeSet center = new SimpleAttributeSet();
 		StyleConstants.setAlignment(center, StyleConstants.ALIGN_CENTER);
@@ -64,7 +64,7 @@ public class NotificationWindow extends JFrame implements ActionListener
 		requestTimeText = new JTextPane();
 		requestTimeText.setFont(new Font("Tahoma", Font.PLAIN, 14));
 		requestTimeText.setOpaque(false);
-		requestTimeText.setText("Requested at: Time");
+		requestTimeText.setText("Requested at: " + pingedData.getRequestTime());
 		requestTimeText.setBounds(10, 96, 160, 23);
 		contentPane.add(requestTimeText);
 		
