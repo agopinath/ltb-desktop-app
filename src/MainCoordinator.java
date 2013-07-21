@@ -1,13 +1,10 @@
 import java.awt.Image;
-import java.io.File;
 import java.io.IOException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 
 import javax.imageio.ImageIO;
-
-import com.google.gson.JsonParseException;
-import com.google.gson.JsonParser;
+import javax.swing.JOptionPane;
 
 /**
  * Goutham Rajeev
@@ -26,7 +23,7 @@ public class MainCoordinator
 	public MainCoordinator()
 	{
 		logo = loadImage("logo.png");
-		api = new LTBApi(this);
+		api = new LTBApi();
 		preferenceData = new PreferenceData();
 		
 		timeLeft = 0;
@@ -51,11 +48,17 @@ public class MainCoordinator
 		else
 		{
 			preferenceData.loadFromFile();
+			if(!api.login(preferenceData.getTutorEmail(), preferenceData.getTutorPassword()))
+			{
+				JOptionPane.showMessageDialog(null, "Could not authenticate with server. Check the supplied email and password.", 
+												"Error", JOptionPane.ERROR_MESSAGE);
+				sysTray.openPrefs(true);
+			} else {
+				CheckForNotifsTask notifsTask = new CheckForNotifsTask(this);
+				Thread taskThread = new Thread(notifsTask);
+				taskThread.start();
+			}
 		}
-		
-		CheckForNotifsTask notifsTask = new CheckForNotifsTask(this);
-		Thread taskThread = new Thread(notifsTask);
-		taskThread.start();
 	}
 
 	public Image getLogoImage()

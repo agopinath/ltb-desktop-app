@@ -140,11 +140,23 @@ public class PreferencesWindow extends JFrame implements ActionListener
 			String tutorPass = new String(passField.getPassword());
 			if(tutorEmail.isEmpty() || tutorPass.isEmpty())
 			{
-				JOptionPane.showMessageDialog(null, "Email and password fields cannot be empty.", "Error", JOptionPane.ERROR_MESSAGE);
+				JOptionPane.showMessageDialog(null, "Email and password fields cannot be empty.", 
+												"Error", JOptionPane.ERROR_MESSAGE);
 				return;
 			}
 			
 			PreferenceData prefs = master.getPreferenceData();
+			
+			// if it is the app's first run or if the email or password values have been changed, try logging in to check the new credentials
+			if(isFirstRun || (!isFirstRun && !(prefs.getTutorEmail().equals(tutorEmail) && prefs.getTutorPassword().equals(tutorPass))))
+			{
+				if(!master.getLTBApi().login(tutorEmail, tutorPass)) {
+					JOptionPane.showMessageDialog(null, "Could not authenticate with server. Check the supplied email and password.", 
+													"Error", JOptionPane.ERROR_MESSAGE);
+					return;
+				}
+			}
+			
 			prefs.setPreferences(tutorEmail, tutorPass, runOnStartCheck.isSelected(),
 								 availOnStartCheck.isSelected(), getAvailabilityTime());
 			

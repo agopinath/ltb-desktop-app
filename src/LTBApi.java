@@ -26,17 +26,14 @@ public class LTBApi
 {
 	private String lrtoken;
 	private final String token;
-	private MainCoordinator master;
 	
 	private class LoginToken
 	{
 		private String token;
 	}
 	
-	public LTBApi(MainCoordinator master)
-	{
-		this.master = master;
-		
+	public LTBApi()
+	{		
 		lrtoken = null;
 		token = "dd5fdd39c723f0c93568ede5e0ab4de4";
 	}
@@ -51,13 +48,14 @@ public class LTBApi
 		else
 			return true;
 	}
+	
 	private String loginRequest(String email, String password)
 	{
 		HttpPost post = new HttpPost("http://www.learntobe.org/api/v1/tokens");
 		//post.addHeader("Content-Type", "application/x-www-form-urlencoded");
 		post.addHeader("Authorization", "Token token=" + token);
 		
-		ArrayList<NameValuePair> nameValuePairs = new ArrayList<NameValuePair>(1);
+		ArrayList<NameValuePair> nameValuePairs = new ArrayList<NameValuePair>(2);
 		nameValuePairs.add(new BasicNameValuePair("email", email));
 		nameValuePairs.add(new BasicNameValuePair("password", password));
 		
@@ -139,7 +137,7 @@ public class LTBApi
 	}
 	
 	// Higher-level API methods which are more convenient to use
-	public PingedData getTutorNotification() 
+	public PingedData getTutorNotification(String email) 
 	{
 		PingedData[] data = getCurrentPingedTutors();
 		
@@ -147,7 +145,7 @@ public class LTBApi
 		{
 			PingedData currTutorData = data[i];
 			//if current data email = user tutor email
-			if(currTutorData.getTutorEmail().equalsIgnoreCase(master.getPreferenceData().getTutorEmail()))
+			if(currTutorData.getTutorEmail().equalsIgnoreCase(email))
 				return currTutorData;
 		}
 		
