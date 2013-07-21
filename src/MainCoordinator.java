@@ -42,7 +42,7 @@ public class MainCoordinator
 		if(AppUtils.isSetupNeeded())
 		{
 			System.out.println("Setup needed");
-			PreferencesWindow preferences = new PreferencesWindow(this, true);
+			PreferencesWindow preferences = new PreferencesWindow(this, AppLaunchStatus.FULL_SETUP_NEEDED);
 			preferences.showWindow();
 		}
 		else
@@ -52,7 +52,7 @@ public class MainCoordinator
 			{
 				JOptionPane.showMessageDialog(null, "Could not authenticate with server. Check the supplied email and password.", 
 												"Error", JOptionPane.ERROR_MESSAGE);
-				sysTray.openPrefs(true);
+				sysTray.openPrefs(AppLaunchStatus.CREDENTIALS_SETUP_NEEDED);
 			} else {
 				CheckForNotifsTask notifsTask = new CheckForNotifsTask(this);
 				Thread taskThread = new Thread(notifsTask);

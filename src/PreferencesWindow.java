@@ -25,18 +25,18 @@ public class PreferencesWindow extends JFrame implements ActionListener
 	private JPasswordField passField;
 	private JCheckBox runOnStartCheck, availOnStartCheck;
 	private JButton btnSave, btnCancel;
-	
+	private AppLaunchStatus launchType;
+
 	private final MainCoordinator master;
 	private final JComboBox durations = new JComboBox(new String[] 
 			{
 					"1", "1.25", "1.5", "1.75", "2", "2.25", "2.5", "2.75", "3", "3.25", "3.5", "3.75", "4"
 			});
-	private boolean isFirstRun;
 	
-	public PreferencesWindow(MainCoordinator master, boolean isFirstRun) 
+	public PreferencesWindow(MainCoordinator master, AppLaunchStatus launchType) 
 	{
 		this.master = master;
-		this.isFirstRun = isFirstRun;
+		this.launchType = launchType;
 		
 		setBounds(100, 100, 400, 275);
 		
@@ -68,7 +68,6 @@ public class PreferencesWindow extends JFrame implements ActionListener
 		runOnStartCheck = new JCheckBox("Start LTB Desktop App on computer startup");
 		runOnStartCheck.setFont(new Font("Tahoma", Font.PLAIN, 12));
 		runOnStartCheck.setBounds(41, 90, 294, 23);
-		runOnStartCheck.setSelected(isFirstRun);
 		contentPane.add(runOnStartCheck);
 		
 		availOnStartCheck = new JCheckBox("Schedule me as 'available' on app startup");
@@ -118,15 +117,15 @@ public class PreferencesWindow extends JFrame implements ActionListener
 		btnCancel.addActionListener(this);
 		contentPane.add(btnCancel);
 		
-		if(!isFirstRun) // if it isn't the first run of the app
-		{
-			loadPrefsIntoGui();
-		}
-		else
+		if(launchType == AppLaunchStatus.FULL_SETUP_NEEDED)
 		{
 			runOnStartCheck.setSelected(true);
 			availOnStartCheck.setSelected(true);
 			durations.setEnabled(true);
+		}
+		else
+		{
+			loadPrefsIntoGui();	
 		}
 	}
 	
@@ -148,7 +147,9 @@ public class PreferencesWindow extends JFrame implements ActionListener
 			PreferenceData prefs = master.getPreferenceData();
 			
 			// if it is the app's first run or if the email or password values have been changed, try logging in to check the new credentials
-			if(isFirstRun || (!isFirstRun && !(prefs.getTutorEmail().equals(tutorEmail) && prefs.getTutorPassword().equals(tutorPass))))
+			if((launchType == AppLaunchStatus.FULL_SETUP_NEEDED) || 
+			   (launchType == AppLaunchStatus.CREDENTIALS_SETUP_NEEDED) || 
+			   (!(launchType == AppLaunchStatus.NO_SETUP_NEEDED) && !(prefs.getTutorEmail().equals(tutorEmail) && prefs.getTutorPassword().equals(tutorPass))))
 			{
 				if(!master.getLTBApi().login(tutorEmail, tutorPass)) {
 					JOptionPane.showMessageDialog(null, "Could not authenticate with server. Check the supplied email and password.", 
@@ -166,7 +167,7 @@ public class PreferencesWindow extends JFrame implements ActionListener
 		}
 		else if(source == btnCancel) 
 		{
-			if(isFirstRun) // if settings haven't been saved and it is the app's first run, exit 
+			if((launchType == AppLaunchStatus.FULL_SETUP_NEEDED)) // if settings haven't been saved and it is the app's first run, exit 
 			{
 				JOptionPane.showMessageDialog(null, "Preferences must be set up for the first time the app is run.", "Warning", JOptionPane.WARNING_MESSAGE);
 				return;

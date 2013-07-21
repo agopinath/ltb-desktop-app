@@ -96,7 +96,7 @@ public class SysTray implements ActionListener
 		{
 			JOptionPane.showMessageDialog(null, "Preferences file does not exist and must be set up first."
 												+ " Try saving your preferences.", "Error", JOptionPane.ERROR_MESSAGE);
-			openPrefs(true);
+			openPrefs(AppLaunchStatus.FULL_SETUP_NEEDED);
 			return;
 		}
 		
@@ -107,7 +107,7 @@ public class SysTray implements ActionListener
 		else if(src == openItem)
 			openBrowser();
 		else if(src == prefItem)
-			openPrefs(false);
+			openPrefs(AppLaunchStatus.NO_SETUP_NEEDED);
 		else if(src == checkItem)
 			checkForNotifs();
 		else if(src == quit)
@@ -140,17 +140,16 @@ public class SysTray implements ActionListener
 		}
 	}
 	
-	public void openPrefs(boolean firstRun)
+	public void openPrefs(AppLaunchStatus launchType)
 	{
-		PreferencesWindow popup = new PreferencesWindow(creator, firstRun);
+		PreferencesWindow popup = new PreferencesWindow(creator, launchType);
 		popup.showWindow();
 	}
 	
 	public void checkForNotifs()
 	{
 		System.out.println("SysTray: Check for notifications clicked");
-		PingedData notif = creator.getLTBApi()
-						.getTutorNotification(creator.getPreferenceData().getTutorEmail());
+		PingedData notif = creator.getLTBApi().getTutorNotification(creator.getPreferenceData().getTutorEmail());
 		
 		if(notif != null)
 			System.out.println("New notification!");
