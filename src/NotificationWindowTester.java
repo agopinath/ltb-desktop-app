@@ -10,6 +10,6 @@ public class NotificationWindowTester
 {
 	public static void main(String[] args)
 	{
-		new NotificationWindow().showNotification();
+		new NotificationWindow(new PingedData()).showNotification();
 	}
 }

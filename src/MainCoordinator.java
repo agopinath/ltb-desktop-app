@@ -54,11 +54,16 @@ public class MainCoordinator
 												"Error", JOptionPane.ERROR_MESSAGE);
 				sysTray.openPrefs(AppLaunchStatus.CREDENTIALS_SETUP_NEEDED);
 			} else {
-				CheckForNotifsTask notifsTask = new CheckForNotifsTask(this);
-				Thread taskThread = new Thread(notifsTask);
-				taskThread.start();
+				startNotifTask();
 			}
 		}
+	}
+	
+	private void startNotifTask()
+	{
+		CheckForNotifsTask notifsTask = new CheckForNotifsTask(this);
+		Thread taskThread = new Thread(notifsTask);
+		taskThread.start();
 	}
 
 	public Image getLogoImage()
@@ -101,8 +106,6 @@ public class MainCoordinator
 		return returnPic; //returns image
 	}
 	
-
-	
 	public void scheduleAvailability(Date startTime, double duration)
 	{
 		System.out.println("Scheduled for: " + duration + " hours starting from " + new SimpleDateFormat().format(startTime));
@@ -113,11 +116,28 @@ public class MainCoordinator
 		System.out.println("Exiting program.");
 		System.exit(0);
 	}
-
-	// should be called when any preferences in preferenceData are updated
-	public void notifyUpdatedPreferences() 
+	
+	/**
+	 * Attempts to update preferences.
+	 * @return if login is successful
+	 */
+	public boolean updatePreferences(String email, String password, 
+			boolean openOnStartup, boolean availableOnStartup, double timeOnStartup) 
 	{
-		StartupHandler.setToRunOnStartup(preferenceData.shouldOpenOnStartup());
+		// if email and password have been changed, attempt to log in
+		if(!(preferenceData.getTutorEmail().equals(email) && 
+			preferenceData.getTutorPassword().equals(password))) 
+		{
+			if(api.login(email, password) == false)
+				return false;
+		}
+		
+		preferenceData.setPreferences(email, password, openOnStartup, availableOnStartup, timeOnStartup);
+		
 		preferenceData.saveToFile();
+		StartupHandler.setToRunOnStartup(preferenceData.shouldOpenOnStartup());
+		startNotifTask();
+		
+		return true;
 	}
 }

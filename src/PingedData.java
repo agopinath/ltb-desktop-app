@@ -10,11 +10,6 @@ public class PingedData
 	private int tutor_id, student_id;
 	private String tutor_name, tutor_email, student_name, subject, requested_at;
 	
-	public PingedData()
-	{
-		tutor_id = student_id = 0;
-		tutor_name = tutor_email = student_name = subject = requested_at = null; //or ""?
-	}
 	@Override
     public String toString()
     {
@@ -27,5 +22,17 @@ public class PingedData
 	public String getTutorEmail()
 	{
 		return tutor_email;
+	}
+	public String getStudentName()
+	{
+		return student_name;
+	}
+	public String getRequestTime()
+	{
+		return requested_at;
+	}
+	public String getSubject()
+	{
+		return subject;
 	}
 }

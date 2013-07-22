@@ -16,8 +16,6 @@ import javax.swing.JPasswordField;
 import javax.swing.JTextField;
 import javax.swing.border.EmptyBorder;
 
-import sun.tools.jar.Main;
-
 
 public class PreferencesWindow extends JFrame implements ActionListener 
 {
@@ -139,31 +137,17 @@ public class PreferencesWindow extends JFrame implements ActionListener
 			String tutorPass = new String(passField.getPassword());
 			if(tutorEmail.isEmpty() || tutorPass.isEmpty())
 			{
-				JOptionPane.showMessageDialog(null, "Email and password fields cannot be empty.", 
-												"Error", JOptionPane.ERROR_MESSAGE);
+				JOptionPane.showMessageDialog(null, "Email and password fields cannot be empty.", "Error", JOptionPane.ERROR_MESSAGE);
 				return;
 			}
 			
-			PreferenceData prefs = master.getPreferenceData();
+			boolean updateSuccess = master.updatePreferences(tutorEmail, tutorPass, runOnStartCheck.isSelected(),
+															availOnStartCheck.isSelected(), getAvailabilityTime());
 			
-			// if it is the app's first run or if the email or password values have been changed, try logging in to check the new credentials
-			if((launchType == AppLaunchStatus.FULL_SETUP_NEEDED) || 
-			   (launchType == AppLaunchStatus.CREDENTIALS_SETUP_NEEDED) || 
-			   (!(launchType == AppLaunchStatus.NO_SETUP_NEEDED) && !(prefs.getTutorEmail().equals(tutorEmail) && prefs.getTutorPassword().equals(tutorPass))))
-			{
-				if(!master.getLTBApi().login(tutorEmail, tutorPass)) {
-					JOptionPane.showMessageDialog(null, "Could not authenticate with server. Check the supplied email and password.", 
-													"Error", JOptionPane.ERROR_MESSAGE);
-					return;
-				}
-			}
-			
-			prefs.setPreferences(tutorEmail, tutorPass, runOnStartCheck.isSelected(),
-								 availOnStartCheck.isSelected(), getAvailabilityTime());
-			
-			master.notifyUpdatedPreferences(); // notify MainCoordinator to take the appropriate actions
-			
-			dispatchEvent(new WindowEvent(this, WindowEvent.WINDOW_CLOSING));
+			if(updateSuccess == true)
+				dispatchEvent(new WindowEvent(this, WindowEvent.WINDOW_CLOSING));
+			else
+				JOptionPane.showMessageDialog(null, "Incorrect email and/or password.", "Error", JOptionPane.ERROR_MESSAGE);
 		}
 		else if(source == btnCancel) 
 		{

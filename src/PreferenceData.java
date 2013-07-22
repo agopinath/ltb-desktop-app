@@ -20,7 +20,11 @@ public class PreferenceData
 	// since the preferences file name will not change, we declare it final static
 	private final static String DEFAULT_PREFS_FILENAME = "preferences.ini"; 
 	
-	public PreferenceData() { }
+	public PreferenceData() { 
+		tutorEmail = tutorPassword = "";
+		openOnStartup = availableOnStartup = false;
+		timeOnStartup = 1.0;
+	}
 	
 	public void setPreferences(String tutorEmail, String tutorPassword, 
 			boolean openOnStartup, boolean availableOnStartup, double timeOnStartup)
