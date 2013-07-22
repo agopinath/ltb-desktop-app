@@ -155,7 +155,7 @@ public class LTBApi
 		return null;
 	}
 	
-	public boolean isServerUp()
+	public boolean canConnectToServer()
 	{
 		HttpGet request = new HttpGet("http://www.learntobe.org/");
 		HttpResponse response = null;

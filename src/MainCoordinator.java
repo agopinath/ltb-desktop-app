@@ -36,9 +36,10 @@ public class MainCoordinator
 	}
 	
 	private void startApp() {
-		if(!api.isServerUp())
+		if(!api.canConnectToServer())
 		{
-			JOptionPane.showMessageDialog(null, "LearnToBe server is currently down, please try again later.", "Error", JOptionPane.ERROR_MESSAGE);
+			JOptionPane.showMessageDialog(null, "LearnToBe server appears to be down. Check your network " +
+											"connectivity and try again later.", "Error", JOptionPane.ERROR_MESSAGE);
 			return;
 		}	
 		
