@@ -92,6 +92,11 @@ public class SysTray implements ActionListener
 	
 	public void actionPerformed(ActionEvent e)
 	{
+		Object src = e.getSource();
+		
+		if(src == quit)
+			creator.closeApp();
+		
 		if(AppUtils.isSetupNeeded())
 		{
 			JOptionPane.showMessageDialog(null, "Preferences file does not exist and must be set up first."
@@ -99,8 +104,6 @@ public class SysTray implements ActionListener
 			openPrefs(AppLaunchStatus.FULL_SETUP_NEEDED);
 			return;
 		}
-		
-		Object src = e.getSource();
 		
 		if(src == scheduleItem)
 			schedule();
@@ -110,8 +113,6 @@ public class SysTray implements ActionListener
 			openPrefs(AppLaunchStatus.NO_SETUP_NEEDED);
 		else if(src == checkItem)
 			checkForNotifs();
-		else if(src == quit)
-			creator.closeApp();
 	}
 	
 	public void schedule()
