@@ -4,6 +4,7 @@ import java.util.ArrayList;
 
 import org.apache.http.HttpEntity;
 import org.apache.http.HttpResponse;
+import org.apache.http.HttpStatus;
 import org.apache.http.NameValuePair;
 import org.apache.http.client.ClientProtocolException;
 import org.apache.http.client.entity.UrlEncodedFormEntity;
@@ -82,6 +83,7 @@ public class LTBApi
 		System.out.println(currentPingedRequest());
 		return new Gson().fromJson(currentPingedRequest(), PingedData[].class);
 	}
+	
 	private String currentPingedRequest()
 	{
 		HttpGet get = new HttpGet("http://www.learntobe.org/api/v1/getCurrentPingedTutors");
@@ -109,6 +111,7 @@ public class LTBApi
 		//if error occurred and data was not added, will return null
 		return returnString;
 	}
+	
 	private String HTTPRequest(HttpRequestBase request)
 	{
 		String returnString = null;
@@ -150,5 +153,24 @@ public class LTBApi
 		}
 		
 		return null;
+	}
+	
+	public boolean isServerUp()
+	{
+		HttpGet request = new HttpGet("http://www.learntobe.org/");
+		HttpResponse response = null;
+		try {
+			response = new DefaultHttpClient().execute(request);
+		} catch (ClientProtocolException e) {
+			e.printStackTrace();
+		} catch (IOException e) {
+			e.printStackTrace();
+			return false;
+		}
+		
+		if(response == null)
+			return false;
+		
+		return (response.getStatusLine().getStatusCode() == HttpStatus.SC_OK);
 	}
 }

@@ -36,6 +36,12 @@ public class MainCoordinator
 	}
 	
 	private void startApp() {
+		if(!api.isServerUp())
+		{
+			JOptionPane.showMessageDialog(null, "LearnToBe server is currently down, please try again later.", "Error", JOptionPane.ERROR_MESSAGE);
+			return;
+		}	
+		
 		SysTray sysTray = new SysTray(this);
 		sysTray.setup();
 		
