@@ -142,13 +142,13 @@ public class PreferencesWindow extends JFrame implements ActionListener
 				return;
 			}
 			
-			PreferenceData prefs = master.getPreferenceData();
-			prefs.setPreferences(tutorEmail, tutorPass, runOnStartCheck.isSelected(),
-								 availOnStartCheck.isSelected(), getAvailabilityTime());
+			boolean login = master.updatePreferences(tutorEmail, tutorPass, runOnStartCheck.isSelected(),
+					 availOnStartCheck.isSelected(), getAvailabilityTime());
 			
-			master.notifyUpdatedPreferences(); // notify MainCoordinator to take the appropriate actions
-			
-			dispatchEvent(new WindowEvent(this, WindowEvent.WINDOW_CLOSING));
+			if(login == true)
+				dispatchEvent(new WindowEvent(this, WindowEvent.WINDOW_CLOSING));
+			else
+				JOptionPane.showMessageDialog(null, "Incorrect email or password.", "Warning", JOptionPane.WARNING_MESSAGE);
 		}
 		else if(source == btnCancel) 
 		{

@@ -110,11 +110,21 @@ public class MainCoordinator
 		System.out.println("Exiting program.");
 		System.exit(0);
 	}
-
-	// should be called when any preferences in preferenceData are updated
-	public void notifyUpdatedPreferences() 
+	/**
+	 * Attempts to update preferences.
+	 * @return if login info is valid
+	 */
+	public boolean updatePreferences(String email, String password, 
+			boolean openOnStartup, boolean availableOnStartup, double timeOnStartup) 
 	{
-		StartupHandler.setToRunOnStartup(preferenceData.shouldOpenOnStartup());
+		preferenceData.setPreferences(email, password, openOnStartup, availableOnStartup, timeOnStartup);
+		
+		if(api.login() == false) //if login unsuccessful
+			return false;
+		//else, execute following:
+		
 		preferenceData.saveToFile();
+		StartupHandler.setToRunOnStartup(preferenceData.shouldOpenOnStartup());
+		return true;
 	}
 }

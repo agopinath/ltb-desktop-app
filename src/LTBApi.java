@@ -41,9 +41,11 @@ public class LTBApi
 		token = "dd5fdd39c723f0c93568ede5e0ab4de4";
 	}
 	
-	public boolean login(String email, String password)
+	public boolean login()
 	{
-		lrtoken = (new Gson().fromJson(loginRequest(email, password), LoginToken.class)).token;
+		PreferenceData data = master.getPreferenceData();
+		
+		lrtoken = (new Gson().fromJson(loginRequest(data.getTutorEmail(), data.getTutorPassword()), LoginToken.class)).token;
 		System.out.println("lrtoken = " + lrtoken);
 		
 		if(lrtoken == null)
