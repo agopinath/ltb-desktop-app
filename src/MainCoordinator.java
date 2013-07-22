@@ -51,8 +51,12 @@ public class MainCoordinator
 		else
 		{
 			preferenceData.loadFromFile();
+			
+			startNotifTask();
 		}
-		
+	}
+	private void startNotifTask()
+	{
 		CheckForNotifsTask notifsTask = new CheckForNotifsTask(this);
 		Thread taskThread = new Thread(notifsTask);
 		taskThread.start();
@@ -125,6 +129,8 @@ public class MainCoordinator
 		
 		preferenceData.saveToFile();
 		StartupHandler.setToRunOnStartup(preferenceData.shouldOpenOnStartup());
+		startNotifTask();
+		
 		return true;
 	}
 }
