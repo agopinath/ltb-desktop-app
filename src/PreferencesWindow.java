@@ -137,7 +137,7 @@ public class PreferencesWindow extends JFrame implements ActionListener
 			String tutorPass = new String(passField.getPassword());
 			if(tutorEmail.isEmpty() || tutorPass.isEmpty())
 			{
-				JOptionPane.showMessageDialog(null, "Email and password fields cannot be empty.", GUIConstants.POPUP_MESSAGE_TITLE, JOptionPane.ERROR_MESSAGE);
+				JOptionPane.showMessageDialog(null, GUIConstants.POPUP_CREDENTIALS_EMPTY, GUIConstants.POPUP_MESSAGE_TITLE, JOptionPane.ERROR_MESSAGE);
 				return;
 			}
 			
@@ -147,14 +147,13 @@ public class PreferencesWindow extends JFrame implements ActionListener
 			if(updateSuccess == true)
 				dispatchEvent(new WindowEvent(this, WindowEvent.WINDOW_CLOSING));
 			else
-				JOptionPane.showMessageDialog(null, "Incorrect email and/or password.", GUIConstants.POPUP_MESSAGE_TITLE, JOptionPane.ERROR_MESSAGE);
+				JOptionPane.showMessageDialog(null, GUIConstants.POPUP_CREDENTIALS_INVALID, GUIConstants.POPUP_MESSAGE_TITLE, JOptionPane.ERROR_MESSAGE);
 		}
 		else if(source == btnCancel) 
 		{
 			if((launchType == AppLaunchStatus.FULL_SETUP_NEEDED)) // if settings haven't been saved and it is the app's first run, exit 
 			{
-				JOptionPane.showMessageDialog(null, "Preferences must be set up for the first time the app is run.", 
-													GUIConstants.POPUP_MESSAGE_TITLE, JOptionPane.WARNING_MESSAGE);
+				JOptionPane.showMessageDialog(null, GUIConstants.POPUP_PREFS_SETUP_NEEDED, GUIConstants.POPUP_MESSAGE_TITLE, JOptionPane.WARNING_MESSAGE);
 				return;
 			}
 			
@@ -180,7 +179,7 @@ public class PreferencesWindow extends JFrame implements ActionListener
 	
 	public void showWindow()
 	{
-		setTitle("LTB Desktop App - Preferences");
+		setTitle(GUIConstants.PREFS_WINDOW_TITLE);
 		setIconImage(master.getLogoImage());
 		setResizable(false);
 		setLocationRelativeTo(null);

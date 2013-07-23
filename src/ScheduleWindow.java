@@ -80,7 +80,7 @@ public class ScheduleWindow extends JFrame implements ActionListener {
 	
 	public void showWindow()
 	{	
-		setTitle("LTB Dekstop App - Schedule Me!");
+		setTitle(GUIConstants.SCHEDULE_WINDOW_TITLE);
 		setLocationRelativeTo(null);
 		setVisible(true);
 	}
