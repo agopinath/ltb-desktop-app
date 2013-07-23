@@ -38,8 +38,7 @@ public class MainCoordinator
 	private void startApp() {
 		if(!api.canConnectToServer())
 		{
-			JOptionPane.showMessageDialog(null, "LearnToBe server appears to be down. Check your network " +
-											"connectivity and try again later.", GUIConstants.POPUP_MESSAGE_TITLE, JOptionPane.ERROR_MESSAGE);
+			JOptionPane.showMessageDialog(null, GUIConstants.POPUP_CONNECTION_ERROR, GUIConstants.POPUP_MESSAGE_TITLE, JOptionPane.ERROR_MESSAGE);
 			return;
 		}	
 		
@@ -57,8 +56,7 @@ public class MainCoordinator
 			preferenceData.loadFromFile();
 			if(!api.login(preferenceData.getTutorEmail(), preferenceData.getTutorPassword()))
 			{
-				JOptionPane.showMessageDialog(null, "Could not authenticate with server. Check the supplied email and password.", 
-														GUIConstants.POPUP_MESSAGE_TITLE, JOptionPane.ERROR_MESSAGE);
+				JOptionPane.showMessageDialog(null, GUIConstants.POPUP_AUTHENTICATION_ERROR, GUIConstants.POPUP_MESSAGE_TITLE, JOptionPane.ERROR_MESSAGE);
 				sysTray.openPrefs(AppLaunchStatus.CREDENTIALS_SETUP_NEEDED);
 			} else {
 				startNotifTask();

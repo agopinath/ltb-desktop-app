@@ -33,11 +33,11 @@ public class SysTray implements ActionListener
 		
 		sysTraySupported = false;
 		
-		scheduleItem = new MenuItem("Schedule Me!");
-		openItem = new MenuItem("Open in Browser");
-		prefItem = new MenuItem("Preferences");
-		checkItem = new MenuItem("Check for Notifications");
-		quit = new MenuItem("Exit");
+		scheduleItem = new MenuItem(GUIConstants.SYSTRAY_SCHEDULE_ITEM_STRING);
+		openItem = new MenuItem(GUIConstants.SYSTRAY_OPEN_BROWSER_ITEM_STRING);
+		prefItem = new MenuItem(GUIConstants.SYSTRAY_PREFS_ITEM_STRING);
+		checkItem = new MenuItem(GUIConstants.SYSTRAY_CHECK_NOTIFS_ITEM_STRING);
+		quit = new MenuItem(GUIConstants.SYSTRAY_EXIT_ITEM_STRING);
 		
 		scheduleItem.addActionListener(this);
 		openItem.addActionListener(this);
@@ -99,9 +99,7 @@ public class SysTray implements ActionListener
 		
 		if(AppUtils.isSetupNeeded())
 		{
-			JOptionPane.showMessageDialog(null, "Preferences file does not exist and must be set up first."
-												+ " Try saving your preferences.", 
-												GUIConstants.POPUP_MESSAGE_TITLE, JOptionPane.ERROR_MESSAGE);
+			JOptionPane.showMessageDialog(null, GUIConstants.POPUP_PREFS_SETUP_NEEDED, GUIConstants.POPUP_MESSAGE_TITLE, JOptionPane.ERROR_MESSAGE);
 			openPrefs(AppLaunchStatus.FULL_SETUP_NEEDED);
 			return;
 		}
@@ -161,8 +159,7 @@ public class SysTray implements ActionListener
 		else
 		{
 			System.out.println("No notifications.");
-			JOptionPane.showMessageDialog(null, "There are no students waiting to be tutored by you!", 
-												GUIConstants.POPUP_MESSAGE_TITLE, JOptionPane.INFORMATION_MESSAGE);
+			JOptionPane.showMessageDialog(null, GUIConstants.POPUP_NO_NEW_NOTIFS, GUIConstants.POPUP_MESSAGE_TITLE, JOptionPane.INFORMATION_MESSAGE);
 		}
 	}
 }

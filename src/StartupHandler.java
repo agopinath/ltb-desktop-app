@@ -110,9 +110,7 @@ public class StartupHandler
 		} 
 		else 
 		{
-			JOptionPane.showMessageDialog(null, "Supported OSes for running the app on startup are currently "
-												+ "Windows 7 and Windows XP only.", GUIConstants.POPUP_MESSAGE_TITLE, 
-												JOptionPane.WARNING_MESSAGE);
+			JOptionPane.showMessageDialog(null, GUIConstants.POPUP_SUPPORTED_OSES_ERROR, GUIConstants.POPUP_MESSAGE_TITLE, JOptionPane.WARNING_MESSAGE);
 		}
 		
 		return null;
