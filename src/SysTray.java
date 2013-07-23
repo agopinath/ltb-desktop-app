@@ -100,7 +100,8 @@ public class SysTray implements ActionListener
 		if(AppUtils.isSetupNeeded())
 		{
 			JOptionPane.showMessageDialog(null, "Preferences file does not exist and must be set up first."
-												+ " Try saving your preferences.", "Error", JOptionPane.ERROR_MESSAGE);
+												+ " Try saving your preferences.", 
+												GUIConstants.POPUP_MESSAGE_TITLE, JOptionPane.ERROR_MESSAGE);
 			openPrefs(AppLaunchStatus.FULL_SETUP_NEEDED);
 			return;
 		}
@@ -160,7 +161,8 @@ public class SysTray implements ActionListener
 		else
 		{
 			System.out.println("No notifications.");
-			JOptionPane.showMessageDialog(null, "There are no students waiting to be tutored by you!", "No new notifications!", JOptionPane.INFORMATION_MESSAGE);
+			JOptionPane.showMessageDialog(null, "There are no students waiting to be tutored by you!", 
+												GUIConstants.POPUP_MESSAGE_TITLE, JOptionPane.INFORMATION_MESSAGE);
 		}
 	}
 }
