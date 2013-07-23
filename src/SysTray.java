@@ -153,8 +153,14 @@ public class SysTray implements ActionListener
 		PingedData notif = creator.getLTBApi().getTutorNotification(creator.getPreferenceData().getTutorEmail());
 		
 		if(notif != null)
-			System.out.println("New notification!");
+		{
+			System.out.println("New notification!\n ");
+			new NotificationWindow(notif).showNotification();
+		}
 		else
+		{
 			System.out.println("No notifications.");
+			JOptionPane.showMessageDialog(null, "There are no students waiting to be tutored by you!", "No new notifications!", JOptionPane.INFORMATION_MESSAGE);
+		}
 	}
 }
