@@ -1,3 +1,4 @@
+import java.awt.Image;
 import java.io.BufferedReader;
 import java.io.ByteArrayInputStream;
 import java.io.File;
@@ -7,6 +8,8 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.io.UnsupportedEncodingException;
+
+import javax.imageio.ImageIO;
 
 import com.google.gson.JsonParseException;
 import com.google.gson.JsonParser;
@@ -133,5 +136,30 @@ public class AppUtils {
 		}
 	    
 	    return !(prefsFile.exists() && hasValidJson); // if the file exists and has valid json, no setup is needed
+	}
+	
+	//loads an image with the imageName, returns the image
+	public static Image loadImage(String imageName) //parameter - name of image file
+	{
+		Image returnPic = null; //Image to be returned by method
+
+		try
+		{
+			//reads from URL of file with name imageName
+			returnPic = ImageIO.read(AppUtils.class.getResource(imageName));
+
+			if(returnPic == null) //if image file type is not supported
+			{
+				System.out.println("Unsupported image file");
+			}
+		}
+		catch(IOException e) //if error in reading file
+		{
+			System.out.println("IO Exception on Image file - " + imageName);
+			e.printStackTrace();
+		}
+
+		//if here, program has not exited and image file is valid
+		return returnPic; //returns image
 	}
 }

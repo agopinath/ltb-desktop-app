@@ -22,7 +22,7 @@ public class MainCoordinator
 	
 	public MainCoordinator()
 	{
-		logo = loadImage("logo.png");
+		logo = AppUtils.loadImage("logo.png");
 		api = new LTBApi();
 		preferenceData = new PreferenceData();
 		
@@ -84,31 +84,6 @@ public class MainCoordinator
 	public PreferenceData getPreferenceData()
 	{
 		return preferenceData;
-	}
-	
-	//loads an image with the imageName, returns the image
-	private Image loadImage(String imageName) //parameter - name of image file
-	{
-		Image returnPic = null; //Image to be returned by method
-		
-		try
-		{
-			//reads from URL of file with name imageName
-			returnPic = ImageIO.read(getClass().getResource(imageName));
-			
-			if(returnPic == null) //if image file type is not supported
-			{
-				System.out.println("Unsupported image file");
-			}
-		}
-		catch(IOException e) //if error in reading file
-		{
-			System.out.println("IO Exception on Image file - " + imageName);
-			e.printStackTrace();
-		}
-		
-		//if here, program has not exited and image file is valid
-		return returnPic; //returns image
 	}
 	
 	public void scheduleAvailability(Date startTime, double duration)

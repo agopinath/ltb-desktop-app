@@ -23,7 +23,7 @@ import javax.swing.JOptionPane;
 public class SysTray implements ActionListener
 {
 	private boolean sysTraySupported;
-	private MenuItem scheduleItem, openItem, prefItem, checkItem, quit;
+	private MenuItem scheduleItem, openItem, prefItem, checkItem, aboutItem, quit;
 	private Image iconImage;
 	private MainCoordinator creator;
 	
@@ -38,11 +38,13 @@ public class SysTray implements ActionListener
 		prefItem = new MenuItem(GUIConstants.SYSTRAY_PREFS_ITEM_STRING);
 		checkItem = new MenuItem(GUIConstants.SYSTRAY_CHECK_NOTIFS_ITEM_STRING);
 		quit = new MenuItem(GUIConstants.SYSTRAY_EXIT_ITEM_STRING);
+		aboutItem = new MenuItem(GUIConstants.SYSTRAY_ABOUT_ITEM_STRING);
 		
 		scheduleItem.addActionListener(this);
 		openItem.addActionListener(this);
 		prefItem.addActionListener(this);
 		checkItem.addActionListener(this);
+		aboutItem.addActionListener(this);
 		quit.addActionListener(this);
 	}
 	
@@ -77,6 +79,7 @@ public class SysTray implements ActionListener
 		popup.add(openItem);
 		popup.add(prefItem);
 		popup.add(checkItem);
+		popup.add(aboutItem);
 		popup.add(quit);
 		trayIcon.setPopupMenu(popup); //opens on right click
 		
@@ -112,6 +115,8 @@ public class SysTray implements ActionListener
 			openPrefs(AppLaunchStatus.NO_SETUP_NEEDED);
 		else if(src == checkItem)
 			checkForNotifs();
+		else if(src == aboutItem)
+			openAbout();
 	}
 	
 	public void schedule()
@@ -138,6 +143,13 @@ public class SysTray implements ActionListener
 				e.printStackTrace();
 			}
 		}
+	}
+	
+	public void openAbout()
+	{
+		System.out.println("Opening about window");
+		AboutWindow about = new AboutWindow(creator);
+		about.showWindow();
 	}
 	
 	public void openPrefs(AppLaunchStatus launchType)
