@@ -14,7 +14,7 @@ import javax.swing.JOptionPane;
  */
 public class MainCoordinator
 {
-	private Image logo;
+	private Image logo, fullLogo;
 	private LTBApi api;
 	private PreferenceData preferenceData;
 	
@@ -23,6 +23,7 @@ public class MainCoordinator
 	public MainCoordinator()
 	{
 		logo = AppUtils.loadImage("logo.png");
+		fullLogo = AppUtils.loadImage("logo_full.png");
 		api = new LTBApi();
 		preferenceData = new PreferenceData();
 		
@@ -74,6 +75,11 @@ public class MainCoordinator
 	public Image getLogoImage()
 	{
 		return logo;
+	}
+	
+	public Image getFullLogoImage()
+	{
+		return fullLogo;
 	}
 	
 	public LTBApi getLTBApi()

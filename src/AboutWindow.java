@@ -26,8 +26,8 @@ public class AboutWindow extends JFrame
 		getContentPane().add(lblNewLabel);
 		
 		int imWidth = 350, imHeight = 150;
-		Image fullLogo = AppUtils.loadImage("logo_full.png")
-												.getScaledInstance(imWidth, imHeight, Image.SCALE_SMOOTH);
+		Image fullLogo = master.getFullLogoImage()
+								.getScaledInstance(imWidth, imHeight, Image.SCALE_SMOOTH);
 		JLabel picLabel = new JLabel(new ImageIcon(fullLogo));
 		picLabel.setBounds(25, 10, imWidth, imHeight);
 		getContentPane().add(picLabel);
