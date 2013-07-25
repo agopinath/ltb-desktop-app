@@ -96,6 +96,7 @@ public class SysTray implements ActionListener
 		popup.add(quitItem);
 
 		trayIcon.setPopupMenu(popup); //opens on right click
+		trayIcon.setToolTip(GUIConstants.SYSTRAY_TRAYICON_TOOLTIP_STRING);
 		
 		try
 		{

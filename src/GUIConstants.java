@@ -20,7 +20,8 @@ public final class GUIConstants
 	public static final String SYSTRAY_SEND_FEEDBACK_ITEM_STRING = "Send Feedback";
 	public static final String SYSTRAY_CHECK_UPDATES_ITEM_STRING = "Check for App Updates";
 	public static final String SYSTRAY_OTHER_MENU_STRING = "Other";
-
+	public static final String SYSTRAY_TRAYICON_TOOLTIP_STRING = "Learn To Be Desktop App";
+	
 	// constants for popup messages
 	public static final String POPUP_MESSAGE_TITLE = APP_TITLE;
 	public static final String POPUP_CONNECTION_ERROR = "LearnToBe server appears to be down. Check your network connectivity and try again later.";
