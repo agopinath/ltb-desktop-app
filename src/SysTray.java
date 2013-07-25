@@ -23,7 +23,8 @@ import javax.swing.JOptionPane;
 public class SysTray implements ActionListener
 {
 	private boolean sysTraySupported;
-	private MenuItem scheduleItem, openItem, prefItem, checkItem, aboutItem, quit;
+	private MenuItem scheduleItem, openItem, prefItem, checkItem, quitItem,
+						aboutItem, feedbackItem, updatesItem;
 	private Image iconImage;
 	private MainCoordinator creator;
 	
@@ -37,15 +38,19 @@ public class SysTray implements ActionListener
 		openItem = new MenuItem(GUIConstants.SYSTRAY_OPEN_BROWSER_ITEM_STRING);
 		prefItem = new MenuItem(GUIConstants.SYSTRAY_PREFS_ITEM_STRING);
 		checkItem = new MenuItem(GUIConstants.SYSTRAY_CHECK_NOTIFS_ITEM_STRING);
-		quit = new MenuItem(GUIConstants.SYSTRAY_EXIT_ITEM_STRING);
+		quitItem = new MenuItem(GUIConstants.SYSTRAY_EXIT_ITEM_STRING);
 		aboutItem = new MenuItem(GUIConstants.SYSTRAY_ABOUT_ITEM_STRING);
+		feedbackItem = new MenuItem(GUIConstants.SYSTRAY_SEND_FEEDBACK_ITEM_STRING);
+		updatesItem = new MenuItem(GUIConstants.SYSTRAY_CHECK_UPDATES_ITEM_STRING);
 		
 		scheduleItem.addActionListener(this);
 		openItem.addActionListener(this);
 		prefItem.addActionListener(this);
 		checkItem.addActionListener(this);
+		quitItem.addActionListener(this);
 		aboutItem.addActionListener(this);
-		quit.addActionListener(this);
+		feedbackItem.addActionListener(this);
+		updatesItem.addActionListener(this);
 	}
 	
 	public boolean isSupported()
@@ -80,7 +85,10 @@ public class SysTray implements ActionListener
 		popup.add(prefItem);
 		popup.add(checkItem);
 		popup.add(aboutItem);
-		popup.add(quit);
+		popup.add(feedbackItem);
+		popup.add(updatesItem);
+		popup.add(quitItem);
+
 		trayIcon.setPopupMenu(popup); //opens on right click
 		
 		try
@@ -97,7 +105,7 @@ public class SysTray implements ActionListener
 	{
 		Object src = e.getSource();
 		
-		if(src == quit)
+		if(src == quitItem)
 			creator.closeApp();
 		
 		if(AppUtils.isSetupNeeded())
@@ -117,6 +125,10 @@ public class SysTray implements ActionListener
 			checkForNotifs();
 		else if(src == aboutItem)
 			openAbout();
+		else if(src == feedbackItem)
+			openFeedbackForm();
+		else if(src == updatesItem)
+			checkForUpdates();
 	}
 	
 	public void schedule()
@@ -145,13 +157,6 @@ public class SysTray implements ActionListener
 		}
 	}
 	
-	public void openAbout()
-	{
-		System.out.println("Opening about window");
-		AboutWindow about = new AboutWindow(creator);
-		about.showWindow();
-	}
-	
 	public void openPrefs(AppLaunchStatus launchType)
 	{
 		PreferencesWindow popup = new PreferencesWindow(creator, launchType);
@@ -173,5 +178,22 @@ public class SysTray implements ActionListener
 			System.out.println("No notifications.");
 			JOptionPane.showMessageDialog(null, GUIConstants.POPUP_NO_NEW_NOTIFS, GUIConstants.POPUP_MESSAGE_TITLE, JOptionPane.INFORMATION_MESSAGE);
 		}
+	}
+	
+	public void openAbout()
+	{
+		System.out.println("Opening about window");
+		AboutWindow about = new AboutWindow(creator);
+		about.showWindow();
+	}
+	
+	public void openFeedbackForm()
+	{
+		System.out.println("Opening feedback form");
+	}
+	
+	public void checkForUpdates()
+	{
+		System.out.println("Checking for updates");
 	}
 }

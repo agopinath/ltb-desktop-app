@@ -15,9 +15,11 @@ public final class GUIConstants
 	public static final String SYSTRAY_OPEN_BROWSER_ITEM_STRING = "Open in Browser";
 	public static final String SYSTRAY_CHECK_NOTIFS_ITEM_STRING = "Check for Notifications";
 	public static final String SYSTRAY_PREFS_ITEM_STRING = "Preferences";
-	public static final String SYSTRAY_ABOUT_ITEM_STRING = "About";
 	public static final String SYSTRAY_EXIT_ITEM_STRING = "Quit";
-	
+	public static final String SYSTRAY_ABOUT_ITEM_STRING = "About";
+	public static final String SYSTRAY_SEND_FEEDBACK_ITEM_STRING = "Send Feedback";
+	public static final String SYSTRAY_CHECK_UPDATES_ITEM_STRING = "Check for App Updates";
+
 	// constants for popup messages
 	public static final String POPUP_MESSAGE_TITLE = APP_TITLE;
 	public static final String POPUP_CONNECTION_ERROR = "LearnToBe server appears to be down. Check your network connectivity and try again later.";
