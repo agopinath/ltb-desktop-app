@@ -8,11 +8,15 @@ import java.awt.SystemTray;
 import java.awt.TrayIcon;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.MouseEvent;
+import java.awt.event.MouseListener;
 import java.io.IOException;
 import java.net.URI;
 import java.net.URISyntaxException;
 
 import javax.swing.JOptionPane;
+import javax.swing.UIManager;
+import javax.swing.UnsupportedLookAndFeelException;
 
 /** 
  * Goutham Rajeev
@@ -81,6 +85,42 @@ public class SysTray implements ActionListener
 		int trayIconWidth = new TrayIcon(iconImage).getSize().width;
 		TrayIcon trayIcon = new TrayIcon(iconImage.getScaledInstance(trayIconWidth, -1, Image.SCALE_SMOOTH));
 		
+		PopupMenu items = setupTrayItems();
+		
+		trayIcon.setPopupMenu(items); //opens on right click
+		trayIcon.setToolTip(GUIConstants.SYSTRAY_TRAYICON_TOOLTIP_STRING);
+		trayIcon.addMouseListener(new MouseListener() 
+		{
+			@Override
+			public void mouseReleased(MouseEvent e) {}
+			@Override
+			public void mousePressed(MouseEvent e) {}
+			@Override
+			public void mouseExited(MouseEvent e) {}
+			@Override
+			public void mouseEntered(MouseEvent e) {}
+			@Override
+			public void mouseClicked(MouseEvent e) 
+			{
+				if(e.getClickCount() >= 2)
+				{
+					openBrowser();
+		        }
+			}
+		});
+		
+		try
+		{
+			tray.add(trayIcon);
+        }
+        catch(AWTException e)
+        {
+			System.out.println("TrayIcon could not be added.");
+        }
+	}
+	
+	private PopupMenu setupTrayItems()
+	{
 		PopupMenu popup = new PopupMenu();
 		otherMenu = new Menu(GUIConstants.SYSTRAY_OTHER_MENU_STRING);
 		otherMenu.add(aboutItem);
@@ -94,18 +134,8 @@ public class SysTray implements ActionListener
 		popup.add(prefItem);
 		popup.add(checkItem);
 		popup.add(quitItem);
-
-		trayIcon.setPopupMenu(popup); //opens on right click
-		trayIcon.setToolTip(GUIConstants.SYSTRAY_TRAYICON_TOOLTIP_STRING);
 		
-		try
-		{
-			tray.add(trayIcon);
-        }
-        catch(AWTException e)
-        {
-			System.out.println("TrayIcon could not be added.");
-        }
+		return popup;
 	}
 	
 	public void actionPerformed(ActionEvent e)
