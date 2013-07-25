@@ -19,6 +19,7 @@ public final class GUIConstants
 	public static final String SYSTRAY_ABOUT_ITEM_STRING = "About";
 	public static final String SYSTRAY_SEND_FEEDBACK_ITEM_STRING = "Send Feedback";
 	public static final String SYSTRAY_CHECK_UPDATES_ITEM_STRING = "Check for App Updates";
+	public static final String SYSTRAY_OTHER_MENU_STRING = "Other";
 
 	// constants for popup messages
 	public static final String POPUP_MESSAGE_TITLE = APP_TITLE;

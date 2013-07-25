@@ -1,6 +1,7 @@
 import java.awt.AWTException;
 import java.awt.Desktop;
 import java.awt.Image;
+import java.awt.Menu;
 import java.awt.MenuItem;
 import java.awt.PopupMenu;
 import java.awt.SystemTray;
@@ -25,6 +26,7 @@ public class SysTray implements ActionListener
 	private boolean sysTraySupported;
 	private MenuItem scheduleItem, openItem, prefItem, checkItem, quitItem,
 						aboutItem, feedbackItem, updatesItem;
+	private Menu otherMenu;
 	private Image iconImage;
 	private MainCoordinator creator;
 	
@@ -80,13 +82,17 @@ public class SysTray implements ActionListener
 		TrayIcon trayIcon = new TrayIcon(iconImage.getScaledInstance(trayIconWidth, -1, Image.SCALE_SMOOTH));
 		
 		PopupMenu popup = new PopupMenu();
+		otherMenu = new Menu(GUIConstants.SYSTRAY_OTHER_MENU_STRING);
+		otherMenu.add(aboutItem);
+		otherMenu.add(feedbackItem);
+		otherMenu.add(updatesItem);
+		
+		popup.add(otherMenu);
+		popup.addSeparator();
 		popup.add(scheduleItem);
 		popup.add(openItem);
 		popup.add(prefItem);
 		popup.add(checkItem);
-		popup.add(aboutItem);
-		popup.add(feedbackItem);
-		popup.add(updatesItem);
 		popup.add(quitItem);
 
 		trayIcon.setPopupMenu(popup); //opens on right click
