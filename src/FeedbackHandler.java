@@ -29,7 +29,7 @@ public class FeedbackHandler
 	{
 		String subject = "LTB Notifs App Feedback at " + new Date().toString();
 	    String body = "Reply address: " + replyEmail + "\n\n" + feedback;
-	    System.out.println(subject + body);
+	    System.out.println("Sending feedback: \n" + subject + body);
 	    
 	    Properties props = new Properties();
 		props.put("mail.smtp.auth", "true");

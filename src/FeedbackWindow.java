@@ -7,13 +7,15 @@ import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
+import javax.swing.JScrollPane;
 import javax.swing.JTextArea;
 import javax.swing.JTextField;
 import javax.swing.SwingUtilities;
 import javax.swing.border.EtchedBorder;
 
 
-public class FeedbackWindow extends JFrame implements ActionListener {
+public class FeedbackWindow extends JFrame implements ActionListener
+{
 	private JTextField emailField;
 	private JTextArea feedbackArea;
 	private MainCoordinator master;
@@ -43,10 +45,11 @@ public class FeedbackWindow extends JFrame implements ActionListener {
 		emailField.setColumns(10);
 		
 		feedbackArea = new JTextArea();
-		feedbackArea.setBorder(new EtchedBorder(EtchedBorder.LOWERED, null, null));
-		feedbackArea.setBounds(20, 114, 380, 178);
 		feedbackArea.setLineWrap(true);
-		getContentPane().add(feedbackArea);
+		JScrollPane scrollPane = new JScrollPane(feedbackArea); 
+		scrollPane.setBounds(20, 114, 380, 178);
+		feedbackArea.setEditable(true);
+		getContentPane().add(scrollPane);
 		
 		JButton submitBtn = new JButton("Send Feedback");
 		submitBtn.setBounds(149, 303, 125, 23);
@@ -68,7 +71,7 @@ public class FeedbackWindow extends JFrame implements ActionListener {
 	public void actionPerformed(ActionEvent e) {
 		final String replyEmail = emailField.getText().trim();
 		final String feedback = feedbackArea.getText().trim();
-		
+
 		// notify user if feedback area is empty
 		if(feedback.isEmpty())
 		{
