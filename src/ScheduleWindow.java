@@ -81,6 +81,7 @@ public class ScheduleWindow extends JFrame implements ActionListener {
 	public void showWindow()
 	{	
 		setTitle(GUIConstants.SCHEDULE_WINDOW_TITLE);
+		setIconImage(master.getLogoImage());
 		setLocationRelativeTo(null);
 		setVisible(true);
 	}
