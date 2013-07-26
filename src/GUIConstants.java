@@ -9,6 +9,7 @@ public final class GUIConstants
 	public static final String PREFS_WINDOW_TITLE = APP_TITLE + " - Preferences";
 	public static final String SCHEDULE_WINDOW_TITLE = APP_TITLE + " - Schedule Me!";
 	public static final String ABOUT_WINDOW_TITLE = APP_TITLE + " - About the App";
+	public static final String SEND_FEEDBACK_WINDOW_TITLE = APP_TITLE + " - Send Feedback";
 	
 	// constants for SysTray
 	public static final String SYSTRAY_SCHEDULE_ITEM_STRING = "Schedule me!";

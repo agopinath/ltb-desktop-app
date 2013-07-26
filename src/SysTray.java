@@ -227,6 +227,8 @@ public class SysTray implements ActionListener
 	public void openFeedbackForm()
 	{
 		System.out.println("Opening feedback form");
+		FeedbackWindow feedback = new FeedbackWindow(creator);
+		feedback.showWindow();
 	}
 	
 	public void checkForUpdates()
