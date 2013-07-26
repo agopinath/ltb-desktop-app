@@ -67,8 +67,7 @@ public class MainCoordinator
 	
 	private void startNotifTask()
 	{
-		CheckForNotifsTask notifsTask = new CheckForNotifsTask(this);
-		Thread taskThread = new Thread(notifsTask);
+		Thread taskThread = new Thread(new CheckForNotifsTask(this));
 		taskThread.start();
 	}
 
@@ -86,7 +85,6 @@ public class MainCoordinator
 	{
 		return api;
 	}
-	
 	public PreferenceData getPreferenceData()
 	{
 		return preferenceData;
@@ -125,5 +123,23 @@ public class MainCoordinator
 		startNotifTask();
 		
 		return true;
+	}
+	public boolean checkForNotifs()
+	{
+		PingedData notif = getLTBApi().getTutorNotification(preferenceData.getTutorEmail());
+		
+		if(notif != null)
+		{
+			System.out.println("New notification!\n ");
+			new NotificationWindow(notif).showNotification();
+			
+			return true;
+		}
+		else
+		{
+			System.out.println("No notifications.");
+			
+			return false;
+		}
 	}
 }

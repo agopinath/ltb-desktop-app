@@ -14,28 +14,15 @@ public class CheckForNotifsTask implements Runnable
 	{
 		while(true) 
 		{
-			checkForNotifs();
+			System.out.println("CheckNotifsThread: checking for notifs...");
+			master.checkForNotifs();
+			
 			try 
 			{
 				Thread.sleep(PING_INTERVAL);
 			} catch (InterruptedException e) {
 				e.printStackTrace();
 			}
-		}
-	}
-	public void checkForNotifs()
-	{
-		System.out.println("CheckNotifsThread: checking for notifs...");
-		PingedData notif = master.getLTBApi().getTutorNotification(master.getPreferenceData().getTutorEmail());
-		
-		if(notif != null)
-		{
-			System.out.println("New notification!\n ");
-			new NotificationWindow(notif).showNotification();
-		}
-		else
-		{
-			System.out.println("No notifications.");
 		}
 	}
 }
