@@ -32,4 +32,6 @@ public final class GUIConstants
 	public static final String POPUP_PREFS_SETUP_NEEDED = "Preferences file does not exist and must be set up first. Try saving your preferences.";
 	public static final String POPUP_SUPPORTED_OSES_ERROR = "Supported OSes for running the app on startup are currently Windows 7 and Windows XP only.";
 	public static final String POPUP_NO_NEW_NOTIFS = "No students have requested a session for you to take.";
+	public static final String POPUP_FEEDBACK_SEND_ERROR = "Error while sending feedback. Please try again.";
+	public static final String POPUP_FEEDBACK_TEXT_EMPTY = "Please enter some feedback in the given text area.";
 }
