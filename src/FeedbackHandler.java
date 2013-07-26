@@ -54,12 +54,13 @@ public class FeedbackHandler
 	        message.setText(body);
 	        
 	        Transport.send(message);
-	        System.out.println("Sent message successfully....");
-	     }
-	     catch (MessagingException mex) 
-	     {
-	    	 JOptionPane.showMessageDialog(null, GUIConstants.POPUP_FEEDBACK_SEND_ERROR, GUIConstants.POPUP_MESSAGE_TITLE, JOptionPane.ERROR_MESSAGE);
-	         mex.printStackTrace();
-	     }
+	        JOptionPane.showMessageDialog(null, GUIConstants.POPUP_FEEDBACK_SEND_SUCCESS, GUIConstants.POPUP_MESSAGE_TITLE, JOptionPane.INFORMATION_MESSAGE);
+	    }
+	    catch (MessagingException mex) 
+	    {
+	    	
+	   	    JOptionPane.showMessageDialog(null, GUIConstants.POPUP_FEEDBACK_SEND_ERROR, GUIConstants.POPUP_MESSAGE_TITLE, JOptionPane.ERROR_MESSAGE);
+	        mex.printStackTrace();
+	    }
 	}
 }
