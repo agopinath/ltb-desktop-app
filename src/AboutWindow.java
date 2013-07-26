@@ -19,7 +19,7 @@ public class AboutWindow extends JFrame
 				String.format("<html><div style=\"width:%dpx;\">%s</div><html>", 
 				270, 
 				"This app was developed for Learn To Be by Monta Vista High School's <b>MV Java Club</b>. " +
-				"The Learn To Be logo is a property of the LearnToBe Foundation."));
+				"The Learn To Be logo is a property of the Learn To Be Foundation."));
 		lblNewLabel.setHorizontalAlignment(SwingConstants.TRAILING);
 		lblNewLabel.setFont(new Font("Tahoma", Font.PLAIN, 14));
 		lblNewLabel.setBounds(10, 160, 365, 55);
