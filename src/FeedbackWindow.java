@@ -2,6 +2,7 @@ import java.awt.Dimension;
 import java.awt.Font;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.WindowEvent;
 
 import javax.swing.JButton;
 import javax.swing.JFrame;
@@ -18,9 +19,11 @@ public class FeedbackWindow extends JFrame implements ActionListener
 {
 	private JTextField emailField;
 	private JTextArea feedbackArea;
+	private JButton submitBtn, cancelBtn;
 	private MainCoordinator master;
 	
-	public FeedbackWindow(MainCoordinator master) {
+	public FeedbackWindow(MainCoordinator master)
+	{
 		this.master = master;
 		getContentPane().setLayout(null);
 		
@@ -51,14 +54,20 @@ public class FeedbackWindow extends JFrame implements ActionListener
 		feedbackArea.setEditable(true);
 		getContentPane().add(scrollPane);
 		
-		JButton submitBtn = new JButton("Send Feedback");
-		submitBtn.setBounds(149, 303, 125, 23);
+		submitBtn = new JButton("Send Feedback");
+		submitBtn.setBounds(91, 303, 125, 23);
 		submitBtn.addActionListener(this);
 		getContentPane().add(submitBtn);
 		getContentPane().setPreferredSize(new Dimension(430, 375));
+		
+		cancelBtn = new JButton("Cancel");
+		cancelBtn.setBounds(226, 303, 89, 23);
+		cancelBtn.addActionListener(this);
+		getContentPane().add(cancelBtn);
 	}
 	
-	public void showWindow() {
+	public void showWindow()
+	{
 		setTitle(GUIConstants.SEND_FEEDBACK_WINDOW_TITLE);
 		setIconImage(master.getLogoImage());
 		setSize(430, 375);
@@ -68,29 +77,38 @@ public class FeedbackWindow extends JFrame implements ActionListener
 	}
 
 	@Override
-	public void actionPerformed(ActionEvent e) {
-		final String replyEmail = emailField.getText().trim();
-		final String feedback = feedbackArea.getText().trim();
-
-		// notify user if feedback area is empty
-		if(feedback.isEmpty())
+	public void actionPerformed(ActionEvent e)
+	{
+		JButton source = (JButton) e.getSource();
+		if(source == submitBtn) 
 		{
-	    	 JOptionPane.showMessageDialog(null, GUIConstants.POPUP_FEEDBACK_TEXT_EMPTY, GUIConstants.POPUP_MESSAGE_TITLE, JOptionPane.ERROR_MESSAGE);
-	    	 return;
+			final String replyEmail = emailField.getText().trim();
+			final String feedback = feedbackArea.getText().trim();
+	
+			// notify user if feedback area is empty
+			if(feedback.isEmpty())
+			{
+		    	 JOptionPane.showMessageDialog(null, GUIConstants.POPUP_FEEDBACK_TEXT_EMPTY, GUIConstants.POPUP_MESSAGE_TITLE, JOptionPane.ERROR_MESSAGE);
+		    	 return;
+			}
+			
+			// run network operation on a separate thread to avoid lagging the Swing thread
+			SwingUtilities.invokeLater(
+					new Runnable()
+					{
+						@Override
+						public void run() {
+							// create a FeedbackHandler object to send the email
+							// if the replyEmail is empty (i.e. none given), then
+							// provide "anonymous" instead.
+							FeedbackHandler feedbackHandler = new FeedbackHandler(feedback, (replyEmail.isEmpty() ? "anonymous" : replyEmail));
+							feedbackHandler.sendEmail();
+						}
+					});
 		}
-		
-		// run network operation on a separate thread to avoid lagging the Swing thread
-		SwingUtilities.invokeLater(
-				new Runnable()
-				{
-					@Override
-					public void run() {
-						// create a FeedbackHandler object to send the email
-						// if the replyEmail is empty (i.e. none given), then
-						// provide "anonymous" instead.
-						FeedbackHandler feedbackHandler = new FeedbackHandler(feedback, (replyEmail.isEmpty() ? "anonymous" : replyEmail));
-						feedbackHandler.sendEmail();
-					}
-				});
+		else if(source == cancelBtn)
+		{
+			dispatchEvent(new WindowEvent(this, WindowEvent.WINDOW_CLOSING));
+		}
 	}
 }

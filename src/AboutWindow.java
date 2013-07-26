@@ -33,7 +33,8 @@ public class AboutWindow extends JFrame
 		getContentPane().add(picLabel);
 	}
 
-	public void showWindow() {
+	public void showWindow() 
+	{
 		setTitle(GUIConstants.ABOUT_WINDOW_TITLE);
 		setIconImage(master.getLogoImage());
 		setSize(400, 250);
