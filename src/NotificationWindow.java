@@ -1,11 +1,26 @@
-import javax.swing.*;
+import java.applet.Applet;
+import java.applet.AudioClip;
+import java.awt.Font;
+import java.awt.GraphicsConfiguration;
+import java.awt.GraphicsEnvironment;
+import java.awt.GridLayout;
+import java.awt.Insets;
+import java.awt.Rectangle;
+import java.awt.Toolkit;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+import java.net.URL;
+
+import javax.swing.JButton;
+import javax.swing.JFrame;
+import javax.swing.JPanel;
+import javax.swing.JTextPane;
+import javax.swing.SwingUtilities;
+import javax.swing.Timer;
+import javax.swing.border.EtchedBorder;
 import javax.swing.text.SimpleAttributeSet;
 import javax.swing.text.StyleConstants;
 import javax.swing.text.StyledDocument;
-
-import java.awt.*;
-import java.awt.event.*;
-import javax.swing.border.EtchedBorder;
 
 /**
  * Notification window that appears in the bottom right corner of the screen.
@@ -26,7 +41,7 @@ public class NotificationWindow extends JFrame implements ActionListener
 	private JTextPane requestTimeText;
 	
 	public NotificationWindow(PingedData pingedData)
-	{
+	{	
 		setDefaultCloseOperation(JFrame.DO_NOTHING_ON_CLOSE);
 		setUndecorated(true);
 		setSize(180, 180);
@@ -73,8 +88,11 @@ public class NotificationWindow extends JFrame implements ActionListener
 		animateInTimer = new Timer(REFRESH_RATE, this);
 		animateOutTimer = new Timer(REFRESH_RATE, this);
 	}
+	
 	public void showNotification()
 	{
+		playNotifSound();
+		
 		this.setVisible(true);
 		calculateLocation();
 		
@@ -84,6 +102,7 @@ public class NotificationWindow extends JFrame implements ActionListener
 		this.setLocation(xLoc, startYLoc);
 		animateInTimer.start();
 	}
+	
 	/**
 	 * Calculates final x and y location of window.
 	 */
@@ -102,6 +121,7 @@ public class NotificationWindow extends JFrame implements ActionListener
 		
 		System.out.printf("final x = %d, final y = %d\n", xLoc, yLoc);
 	}
+	
 	@Override
     public void actionPerformed(ActionEvent e)
     {
@@ -116,21 +136,25 @@ public class NotificationWindow extends JFrame implements ActionListener
 	    else if(src == animateOutTimer)
 	    	incrementOutAnimation();
     }
+	
 	private void accept()
 	{
 		System.out.println("NotificationWindow: accept button clicked");
 		this.dispose();
 	}
+	
 	private void decline()
 	{
 		System.out.println("NotificationWindow: decline button clicked");
 		this.dispose();
 	}
+	
 	@Override
 	public void dispose()
 	{
 		animateOutTimer.start();
 	}
+	
 	private void incrementInAnimation()
 	{
 		if(this.getY() > yLoc || this.getOpacity() < 1.0f) //if lower than final y location or not opaque
@@ -145,6 +169,7 @@ public class NotificationWindow extends JFrame implements ActionListener
 			animateInTimer.stop();
 		}
 	}
+	
 	private void incrementOutAnimation()
 	{
 		if(this.getOpacity() > 0.0f) //if opaque
@@ -156,5 +181,19 @@ public class NotificationWindow extends JFrame implements ActionListener
 			animateOutTimer.stop();
 			super.dispose();
 		}
+	}
+	
+	private void playNotifSound()
+	{
+		SwingUtilities.invokeLater(new Runnable()
+		{
+			@Override
+			public void run()
+			{
+				URL url = getClass().getResource("session_request_alert.wav");
+				AudioClip clip = Applet.newAudioClip(url);
+				clip.play();
+			}	
+		});
 	}
 }
