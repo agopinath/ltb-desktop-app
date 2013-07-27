@@ -41,13 +41,19 @@ public class LTBApi
 	
 	public boolean login(String email, String password)
 	{
-		lrtoken = (new Gson().fromJson(loginRequest(email, password), LoginToken.class)).token;
-		System.out.println("lrtoken = " + lrtoken);
+		String returnedLrtoken = (new Gson().fromJson(loginRequest(email, password), LoginToken.class)).token;
+		System.out.println("returned lrtoken = " + returnedLrtoken);
 		
-		if(lrtoken == null)
+		if(returnedLrtoken == null)
+		{
 			return false;
+		}
 		else
+		{
+			lrtoken = returnedLrtoken;
+			System.out.println("Login success, new lrtoken = " + lrtoken);
 			return true;
+		}
 	}
 	
 	private String loginRequest(String email, String password)
