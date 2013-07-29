@@ -85,6 +85,7 @@ public class ScheduleWindow extends JFrame implements ActionListener {
 		setTitle(GUIConstants.SCHEDULE_WINDOW_TITLE);
 		setIconImage(master.getLogoImage());
 		setLocationRelativeTo(null);
+		setResizable(false);
 		setVisible(true);
 	}
 	
@@ -123,6 +124,7 @@ public class ScheduleWindow extends JFrame implements ActionListener {
 			{
 				JOptionPane.showMessageDialog(null, GUIConstants.POPUP_SCHEDULE_ERROR, GUIConstants.POPUP_MESSAGE_TITLE, JOptionPane.ERROR_MESSAGE);
 			}
+			
 			dispatchEvent(new WindowEvent(this, WindowEvent.WINDOW_CLOSING));
 		}
 		else if(source == btnCancel) 
