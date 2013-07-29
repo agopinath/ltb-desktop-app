@@ -7,12 +7,14 @@ import java.awt.Font;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.WindowEvent;
+import java.util.Calendar;
 import java.util.Date;
 
 import javax.swing.JButton;
 import javax.swing.JComboBox;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JSpinner;
 import javax.swing.SpinnerDateModel;
@@ -53,10 +55,10 @@ public class ScheduleWindow extends JFrame implements ActionListener {
 		contentPane.add(lblFor);
 		
 		startTimePicker = new JSpinner( new SpinnerDateModel() );
-		JSpinner.DateEditor timeEditor = new JSpinner.DateEditor(startTimePicker, "h:mm a");
+		JSpinner.DateEditor timeEditor = new JSpinner.DateEditor(startTimePicker, "MM-dd-yy h:mm a");
 		startTimePicker.setEditor(timeEditor);
 		startTimePicker.setValue(new Date()); // will only show the current time
-		startTimePicker.setBounds(136, 49, 72, 20);
+		startTimePicker.setBounds(136, 49, 120, 20);
 		contentPane.add(startTimePicker);
 		
 		durations.setBounds(136, 80, 55, 20);
@@ -92,8 +94,35 @@ public class ScheduleWindow extends JFrame implements ActionListener {
 		
 		if(source == btnScheduleMe)
 		{
-			master.scheduleAvailability((Date)startTimePicker.getValue(), 
-										Double.parseDouble((String) durations.getSelectedItem()));
+			Date toSchedule = (Date) startTimePicker.getValue();
+			Calendar nowCal = Calendar.getInstance();
+			nowCal.setTime(new Date());
+			nowCal.set(Calendar.SECOND, 0);
+			Date now = nowCal.getTime();
+			
+			// if user attempts to schedule starting from a time in the past, reject
+			if(toSchedule.compareTo(now) < 0)
+			{	
+				JOptionPane.showMessageDialog(null, GUIConstants.POPUP_SCHEDULE_EARLY_ERROR, GUIConstants.POPUP_MESSAGE_TITLE, JOptionPane.ERROR_MESSAGE);
+				return;
+			}
+			
+			// increment the starting schedule time by one minute
+			toSchedule = new Date(toSchedule.getTime() + 60000);
+			
+			boolean success = master.scheduleAvailability(toSchedule, Double.parseDouble((String) durations.getSelectedItem()));
+			
+			if(success)
+			{
+				JOptionPane.showMessageDialog(null, 
+						"Successfully scheduled you to tutor for " + (String) durations.getSelectedItem() +
+						" hours starting from " + toSchedule,
+						GUIConstants.POPUP_MESSAGE_TITLE, JOptionPane.INFORMATION_MESSAGE);
+			}
+			else
+			{
+				JOptionPane.showMessageDialog(null, GUIConstants.POPUP_SCHEDULE_ERROR, GUIConstants.POPUP_MESSAGE_TITLE, JOptionPane.ERROR_MESSAGE);
+			}
 			dispatchEvent(new WindowEvent(this, WindowEvent.WINDOW_CLOSING));
 		}
 		else if(source == btnCancel) 

@@ -35,4 +35,7 @@ public final class GUIConstants
 	public static final String POPUP_FEEDBACK_SEND_ERROR = "Error while sending feedback. Please try again.";
 	public static final String POPUP_FEEDBACK_TEXT_EMPTY = "Please enter some feedback in the given text area.";
 	public static final String POPUP_FEEDBACK_SEND_SUCCESS = "Thank you for your feedback!";
+	public static final String POPUP_SCHEDULE_EARLY_ERROR = "The time to schedule cannot be in the past.";
+	public static final String POPUP_SCHEDULE_ERROR = "There was an error while scheduling you to tutor. Please try again.";
+
 }

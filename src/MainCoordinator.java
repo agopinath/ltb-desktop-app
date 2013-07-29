@@ -90,9 +90,10 @@ public class MainCoordinator
 		return preferenceData;
 	}
 	
-	public void scheduleAvailability(Date startTime, double duration)
+	public boolean scheduleAvailability(Date startTime, double duration)
 	{
 		System.out.println("Scheduled for: " + duration + " hours starting from " + new SimpleDateFormat().format(startTime));
+		return true;
 	}
 	
 	public void closeApp()
