@@ -68,7 +68,7 @@ public class NotificationWindow extends JFrame implements ActionListener
 		messageText.setOpaque(false);
 		messageText.setBounds(10, 11, 160, 87);
 		messageText.setEditable(false);
-		messageText.setFont(new Font("Tahoma", Font.PLAIN, 22));
+		messageText.setFont(new Font("Tahoma", Font.PLAIN, 18));
 		messageText.setText(String.format("%s needs your help in %s!", pingedData.getStudentName(), pingedData.getSubject()));
 		StyledDocument doc = messageText.getStyledDocument();
 		SimpleAttributeSet center = new SimpleAttributeSet();
