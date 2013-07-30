@@ -92,19 +92,11 @@ public class FeedbackWindow extends JFrame implements ActionListener
 		    	 return;
 			}
 			
-			// run network operation on a separate thread to avoid lagging the Swing thread
-			SwingUtilities.invokeLater(
-					new Runnable()
-					{
-						@Override
-						public void run() {
-							// create a FeedbackHandler object to send the email
-							// if the replyEmail is empty (i.e. none given), then
-							// provide "anonymous" instead.
-							FeedbackHandler feedbackHandler = new FeedbackHandler(feedback, (replyEmail.isEmpty() ? "anonymous" : replyEmail));
-							feedbackHandler.sendEmail();
-						}
-					});
+			// create a FeedbackHandler object to send the email
+			// if the replyEmail is empty (i.e. none given), then
+			// provide "anonymous" instead.
+			FeedbackHandler feedbackHandler = new FeedbackHandler(feedback, (replyEmail.isEmpty() ? "anonymous" : replyEmail));
+			feedbackHandler.sendEmail();
 		}
 		else if(source == cancelBtn)
 		{
