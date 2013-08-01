@@ -1,6 +1,7 @@
 import java.awt.Image;
 import java.io.IOException;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Date;
 
 import javax.imageio.ImageIO;
@@ -17,7 +18,7 @@ public class MainCoordinator
 	private Image logo, fullLogo;
 	private LTBApi api;
 	private PreferenceData preferenceData;
-	private PingedData [] handledNotifications; //notifications that are already displayed in this session
+	private ArrayList<PingedData> handledNotifications; //notifications that were already displayed in this session
 	
 	public MainCoordinator()
 	{
@@ -25,6 +26,7 @@ public class MainCoordinator
 		fullLogo = AppUtils.loadImage("logo_full.png");
 		api = new LTBApi();
 		preferenceData = new PreferenceData();
+		handledNotifications = new ArrayList<PingedData>();
 	}
 	
 	public static void main(String[] args)
@@ -132,16 +134,41 @@ public class MainCoordinator
 		
 		if(notif != null)
 		{
-			System.out.println("New notification!\n ");
-			new NotificationWindow(notif).showNotification();
+			System.out.println("User is pinged.");
 			
-			return true;
+			if(!notifIsHandled(notif))
+			{
+				System.out.println("New ping was not handled - showing notification!");
+				new NotificationWindow(notif).showNotification();
+				
+				handledNotifications.add(notif);
+				
+				return true;
+			}
+			else
+			{
+				System.out.println("New ping was handled.");
+				//returns false below
+			}
 		}
 		else
 		{
-			System.out.println("No notifications.");
-			
-			return false;
+			System.out.println("User is not pinged.");
+			//returns false below
 		}
+		
+		return false;
+	}
+	private boolean notifIsHandled(PingedData notif)
+	{
+		String notifData = notif.toString();
+		
+		for(PingedData currentData : handledNotifications)
+		{
+			if(notifData.equals(currentData.toString()))
+				return true;
+		}
+		
+		return false;
 	}
 }
