@@ -171,7 +171,7 @@ public class SysTray implements ActionListener
 	{
 		System.out.println("SysTray: Open in Browser clicked");
 		
-		creator.openBrowser();
+		MainCoordinator.openBrowser();
 	}
 	
 	public void openPrefs(AppLaunchStatus launchType)

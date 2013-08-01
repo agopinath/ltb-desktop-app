@@ -174,7 +174,7 @@ public class MainCoordinator
 		
 		return false;
 	}
-	public void openBrowser()
+	public static void openBrowser()
 	{
 		if(Desktop.isDesktopSupported())
 		{

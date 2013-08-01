@@ -141,6 +141,8 @@ public class NotificationWindow extends JFrame implements ActionListener
 	{
 		System.out.println("NotificationWindow: accept button clicked");
 		this.dispose();
+		
+		MainCoordinator.openBrowser();
 	}
 	
 	private void decline()
