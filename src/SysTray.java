@@ -1,5 +1,4 @@
 import java.awt.AWTException;
-import java.awt.Desktop;
 import java.awt.Image;
 import java.awt.Menu;
 import java.awt.MenuItem;
@@ -10,13 +9,7 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
-import java.io.IOException;
-import java.net.URI;
-import java.net.URISyntaxException;
-
 import javax.swing.JOptionPane;
-import javax.swing.UIManager;
-import javax.swing.UnsupportedLookAndFeelException;
 
 /** 
  * Goutham Rajeev
@@ -177,21 +170,8 @@ public class SysTray implements ActionListener
 	public void openBrowser()
 	{
 		System.out.println("SysTray: Open in Browser clicked");
-		if(Desktop.isDesktopSupported())
-		{
-			try 
-			{
-				Desktop.getDesktop().browse(new URI("http://www.learntobe.org/dashboard"));
-			} 
-			catch (IOException e) 
-			{
-				e.printStackTrace();
-			} 
-			catch (URISyntaxException e) 
-			{
-				e.printStackTrace();
-			}
-		}
+		
+		creator.openBrowser();
 	}
 	
 	public void openPrefs(AppLaunchStatus launchType)

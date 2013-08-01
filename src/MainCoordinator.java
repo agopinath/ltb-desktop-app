@@ -1,5 +1,8 @@
+import java.awt.Desktop;
 import java.awt.Image;
 import java.io.IOException;
+import java.net.URI;
+import java.net.URISyntaxException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
@@ -170,5 +173,23 @@ public class MainCoordinator
 		}
 		
 		return false;
+	}
+	public void openBrowser()
+	{
+		if(Desktop.isDesktopSupported())
+		{
+			try 
+			{
+				Desktop.getDesktop().browse(new URI("http://www.learntobe.org/dashboard"));
+			} 
+			catch (IOException e) 
+			{
+				e.printStackTrace();
+			} 
+			catch (URISyntaxException e) 
+			{
+				e.printStackTrace();
+			}
+		}
 	}
 }
