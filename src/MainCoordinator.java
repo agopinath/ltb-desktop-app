@@ -17,8 +17,7 @@ public class MainCoordinator
 	private Image logo, fullLogo;
 	private LTBApi api;
 	private PreferenceData preferenceData;
-	
-	private double timeLeft;
+	private PingedData [] handledNotifications; //notifications that are already displayed in this session
 	
 	public MainCoordinator()
 	{
@@ -26,8 +25,6 @@ public class MainCoordinator
 		fullLogo = AppUtils.loadImage("logo_full.png");
 		api = new LTBApi();
 		preferenceData = new PreferenceData();
-		
-		timeLeft = 0;
 	}
 	
 	public static void main(String[] args)
@@ -41,7 +38,7 @@ public class MainCoordinator
 		{
 			JOptionPane.showMessageDialog(null, GUIConstants.POPUP_CONNECTION_ERROR, GUIConstants.POPUP_MESSAGE_TITLE, JOptionPane.ERROR_MESSAGE);
 			return;
-		}	
+		}
 		
 		SysTray sysTray = new SysTray(this);
 		sysTray.setup();
@@ -125,6 +122,10 @@ public class MainCoordinator
 		
 		return true;
 	}
+	/**
+	 * Checks for notifications by calling LTB API.
+	 * @return true if new notification, false if none
+	 */
 	public boolean checkForNotifs()
 	{
 		PingedData notif = getLTBApi().getTutorNotification(preferenceData.getTutorEmail());
