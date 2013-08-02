@@ -13,16 +13,7 @@ public class LTBApiTester
 		
 		if(api.login("javaclub.mv@gmail.com", "mvjavaclub"))
 		{
-			PingedData[] pinged = api.getCurrentPingedTutors();
-			for (PingedData ping : pinged)
-            {
-				System.out.println(ping);
-            }
-			//if user in PingedData[]
-			{
-				AppointmentData data = api.getAppointments()[0]; //get latest appointment data
-				//notify user
-			}
+			
 		}
 		else
 		{

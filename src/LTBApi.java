@@ -39,6 +39,25 @@ public class LTBApi
 		token = "dd5fdd39c723f0c93568ede5e0ab4de4";
 	}
 	
+	public boolean canConnectToServer()
+	{
+		HttpGet request = new HttpGet("http://www.learntobe.org/");
+		HttpResponse response = null;
+		try {
+			response = new DefaultHttpClient().execute(request);
+		} catch (ClientProtocolException e) {
+			e.printStackTrace();
+		} catch (IOException e) {
+			e.printStackTrace();
+			return false;
+		}
+		
+		if(response == null)
+			return false;
+		
+		return (response.getStatusLine().getStatusCode() == HttpStatus.SC_OK);
+	}
+	
 	public boolean login(String email, String password)
 	{
 		String returnedLrtoken = (new Gson().fromJson(loginRequest(email, password), LoginToken.class)).token;
@@ -84,7 +103,22 @@ public class LTBApi
 		return HTTPRequest(get);
 	}
 	
-	public PingedData[] getCurrentPingedTutors()
+	// Higher-level API methods which are more convenient to use
+	public PingedData getTutorNotification(String email) 
+	{
+		PingedData[] data = getCurrentPingedTutors();
+		
+		for(int i = 0; i < data.length; i++) 
+		{
+			PingedData currTutorData = data[i];
+			//if current data email = user tutor email
+			if(currTutorData.getTutorEmail().equalsIgnoreCase(email))
+				return currTutorData;
+		}
+		
+		return null;
+	}
+	private PingedData[] getCurrentPingedTutors()
 	{
 		System.out.println(currentPingedRequest());
 		return new Gson().fromJson(currentPingedRequest(), PingedData[].class);
@@ -143,40 +177,5 @@ public class LTBApi
 		
 		//if error occurred and data was not added, will return null
 		return returnString;
-	}
-	
-	// Higher-level API methods which are more convenient to use
-	public PingedData getTutorNotification(String email) 
-	{
-		PingedData[] data = getCurrentPingedTutors();
-		
-		for(int i = 0; i < data.length; i++) 
-		{
-			PingedData currTutorData = data[i];
-			//if current data email = user tutor email
-			if(currTutorData.getTutorEmail().equalsIgnoreCase(email))
-				return currTutorData;
-		}
-		
-		return null;
-	}
-	
-	public boolean canConnectToServer()
-	{
-		HttpGet request = new HttpGet("http://www.learntobe.org/");
-		HttpResponse response = null;
-		try {
-			response = new DefaultHttpClient().execute(request);
-		} catch (ClientProtocolException e) {
-			e.printStackTrace();
-		} catch (IOException e) {
-			e.printStackTrace();
-			return false;
-		}
-		
-		if(response == null)
-			return false;
-		
-		return (response.getStatusLine().getStatusCode() == HttpStatus.SC_OK);
 	}
 }
