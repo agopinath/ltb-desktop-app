@@ -15,6 +15,7 @@ import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.JTextPane;
+import javax.swing.JWindow;
 import javax.swing.SwingUtilities;
 import javax.swing.Timer;
 import javax.swing.border.EtchedBorder;
@@ -26,7 +27,7 @@ import javax.swing.text.StyledDocument;
  * Notification window that appears in the bottom right corner of the screen.
  * @author Goutham Rajeev
  */
-public class NotificationWindow extends JFrame implements ActionListener
+public class NotificationWindow extends JWindow implements ActionListener
 {
 	private JButton acceptButton, declineButton;
 	private JTextPane messageText;
@@ -41,9 +42,7 @@ public class NotificationWindow extends JFrame implements ActionListener
 	private JTextPane requestTimeText;
 	
 	public NotificationWindow(PingedData pingedData)
-	{	
-		setDefaultCloseOperation(JFrame.DO_NOTHING_ON_CLOSE);
-		setUndecorated(true);
+	{
 		setSize(180, 180);
 		setAlwaysOnTop(true);
 		setOpacity(0.0f);

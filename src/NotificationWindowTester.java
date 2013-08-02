@@ -1,5 +1,3 @@
-
-
 public class NotificationWindowTester
 {
 	public static void main(String[] args)
