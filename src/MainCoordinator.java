@@ -60,7 +60,9 @@ public class MainCoordinator
 			{
 				JOptionPane.showMessageDialog(null, GUIConstants.POPUP_AUTHENTICATION_ERROR, GUIConstants.POPUP_MESSAGE_TITLE, JOptionPane.ERROR_MESSAGE);
 				sysTray.openPrefs(AppLaunchStatus.CREDENTIALS_SETUP_NEEDED);
-			} else {
+			}
+			else
+			{
 				startNotifTask();
 			}
 		}
@@ -93,8 +95,8 @@ public class MainCoordinator
 	
 	public boolean scheduleAvailability(Date startTime, double duration)
 	{
-		System.out.println("Scheduled for: " + duration + " hours starting from " + new SimpleDateFormat().format(startTime));
-		return true;
+		System.out.println("Scheduling for: " + duration + " hours starting from " + new SimpleDateFormat().format(startTime));
+		return api.scheduleAvailability(startTime, duration); 
 	}
 	
 	public void closeApp()

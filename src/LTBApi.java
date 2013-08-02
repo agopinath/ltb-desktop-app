@@ -137,7 +137,9 @@ public class LTBApi
 	
 	/**
 	 * Schedules tutor availability.
-	 * @return true if successful, false if not.
+	 * @param start start time
+	 * @param duration duration of availability
+	 * @return true if successful, false if not
 	 */
 	public boolean scheduleAvailability(Date start, double duration)
 	{
