@@ -1,7 +1,9 @@
 import java.io.IOException;
 import java.io.UnsupportedEncodingException;
 import java.net.URISyntaxException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 
 import org.apache.http.HttpEntity;
 import org.apache.http.HttpResponse;
@@ -137,12 +139,14 @@ public class LTBApi
 	 * Schedules tutor availability.
 	 * @return true if successful, false if not.
 	 */
-	public boolean scheduleAvailability()
-	{	
+	public boolean scheduleAvailability(Date start, double duration)
+	{
 		URIBuilder builder = new URIBuilder();
 		builder.setScheme("http").setHost("www.learntobe.org").setPath("/api/v1/new_appointment")
-			.setParameter("start_at", "2013-08-03 21:00:00")
-			.setParameter("duration", "1");
+			.setParameter("start_at", new SimpleDateFormat("yyyy-MM-dd HH:mm:ss").format(start))
+			.setParameter("duration", new String(""+duration));
+		
+		System.out.println(builder.getQueryParams());
 		
         try
         {   
