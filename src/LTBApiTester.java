@@ -13,7 +13,7 @@ public class LTBApiTester
 		
 		if(api.login("javaclub.mv@gmail.com", "mvjavaclub"))
 		{
-			
+			api.scheduleAvailability();
 		}
 		else
 		{

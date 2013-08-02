@@ -1,5 +1,6 @@
 import java.io.IOException;
 import java.io.UnsupportedEncodingException;
+import java.net.URISyntaxException;
 import java.util.ArrayList;
 
 import org.apache.http.HttpEntity;
@@ -11,9 +12,9 @@ import org.apache.http.client.entity.UrlEncodedFormEntity;
 import org.apache.http.client.methods.HttpGet;
 import org.apache.http.client.methods.HttpPost;
 import org.apache.http.client.methods.HttpRequestBase;
+import org.apache.http.client.utils.URIBuilder;
 import org.apache.http.impl.client.DefaultHttpClient;
 import org.apache.http.message.BasicNameValuePair;
-
 import com.google.gson.Gson;
 
 /**
@@ -103,7 +104,6 @@ public class LTBApi
 		return HTTPRequest(get);
 	}
 	
-	// Higher-level API methods which are more convenient to use
 	public PingedData getTutorNotification(String email) 
 	{
 		PingedData[] data = getCurrentPingedTutors();
@@ -131,6 +131,38 @@ public class LTBApi
 		get.addHeader("lrtoken", lrtoken);
 		
 		return HTTPRequest(get);
+	}
+	
+	/**
+	 * Schedules tutor availability.
+	 * @return true if successful, false if not.
+	 */
+	public boolean scheduleAvailability()
+	{	
+		URIBuilder builder = new URIBuilder();
+		builder.setScheme("http").setHost("www.learntobe.org").setPath("/api/v1/new_appointment")
+			.setParameter("start_at", "2013-08-03 21:00:00")
+			.setParameter("duration", "1");
+		
+        try
+        {   
+	        HttpGet get = new HttpGet(builder.build());
+	        get.addHeader("Authorization", "Token token=" + token);
+			get.addHeader("lrtoken", lrtoken);
+			
+	        System.out.println(get.getURI());
+			
+			if(HTTPRequest(get) != null)
+				return true;
+			//else return false below
+        }
+        catch (URISyntaxException e)
+        {
+	        e.printStackTrace();
+	        //return false below
+        }
+        
+		return false;
 	}
 	
 	private String postRequest(HttpPost post, ArrayList<NameValuePair> nameValuePairs)
