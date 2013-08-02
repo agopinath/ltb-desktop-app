@@ -64,6 +64,9 @@ public class MainCoordinator
 			else
 			{
 				startNotifTask();
+
+				if(preferenceData.isAvailableOnStartup())
+					scheduleAvailability(new Date(), preferenceData.getTimeOnStartup());
 			}
 		}
 	}
