@@ -1,3 +1,5 @@
+package com.mvjava.ui;
+
 import java.awt.Dimension;
 import java.awt.Font;
 import java.awt.event.ActionEvent;
@@ -11,8 +13,10 @@ import javax.swing.JOptionPane;
 import javax.swing.JScrollPane;
 import javax.swing.JTextArea;
 import javax.swing.JTextField;
-import javax.swing.SwingUtilities;
-import javax.swing.border.EtchedBorder;
+
+import com.mvjava.core.MainCoordinator;
+import com.mvjava.net.FeedbackHandler;
+
 
 
 public class FeedbackWindow extends JFrame implements ActionListener

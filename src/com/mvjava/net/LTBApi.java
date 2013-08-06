@@ -1,3 +1,5 @@
+package com.mvjava.net;
+
 import java.io.IOException;
 import java.io.UnsupportedEncodingException;
 import java.net.URISyntaxException;
@@ -17,7 +19,11 @@ import org.apache.http.client.methods.HttpRequestBase;
 import org.apache.http.client.utils.URIBuilder;
 import org.apache.http.impl.client.DefaultHttpClient;
 import org.apache.http.message.BasicNameValuePair;
+
 import com.google.gson.Gson;
+import com.mvjava.misc.AppUtils;
+import com.mvjava.misc.AppointmentData;
+import com.mvjava.misc.PingedData;
 
 /**
  * Goutham Rajeev

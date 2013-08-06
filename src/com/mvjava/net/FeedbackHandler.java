@@ -1,3 +1,4 @@
+package com.mvjava.net;
 import java.util.Date;
 import java.util.Properties;
 
@@ -9,6 +10,8 @@ import javax.mail.Transport;
 import javax.mail.internet.InternetAddress;
 import javax.mail.internet.MimeMessage;
 import javax.swing.JOptionPane;
+
+import com.mvjava.ui.GUIConstants;
 
 
 public class FeedbackHandler

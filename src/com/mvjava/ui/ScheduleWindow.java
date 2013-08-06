@@ -1,7 +1,9 @@
+package com.mvjava.ui;
 // Jerry Tang
 // 6/10/2013
 // Schedule.java
 // This class is used to set a time for which the user is available
+
 
 import java.awt.Font;
 import java.awt.event.ActionEvent;
@@ -19,6 +21,9 @@ import javax.swing.JPanel;
 import javax.swing.JSpinner;
 import javax.swing.SpinnerDateModel;
 import javax.swing.border.EmptyBorder;
+
+import com.mvjava.core.MainCoordinator;
+
 
 public class ScheduleWindow extends JFrame implements ActionListener {
 

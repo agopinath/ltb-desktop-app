@@ -1,3 +1,4 @@
+package com.mvjava.misc;
 import java.awt.Image;
 import java.io.BufferedReader;
 import java.io.ByteArrayInputStream;
@@ -139,7 +140,7 @@ public class AppUtils {
 	}
 	
 	//loads an image with the imageName, returns the image
-	public static Image loadImage(String imageName) //parameter - name of image file
+	/*public static Image loadImage(String imageName) //parameter - name of image file
 	{
 		Image returnPic = null; //Image to be returned by method
 
@@ -161,5 +162,5 @@ public class AppUtils {
 
 		//if here, program has not exited and image file is valid
 		return returnPic; //returns image
-	}
+	}*/
 }

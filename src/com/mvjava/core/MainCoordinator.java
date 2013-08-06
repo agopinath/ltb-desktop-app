@@ -1,5 +1,10 @@
+package com.mvjava.core;
+
+
+
 import java.awt.Desktop;
 import java.awt.Image;
+import java.io.File;
 import java.io.IOException;
 import java.net.URI;
 import java.net.URISyntaxException;
@@ -7,7 +12,19 @@ import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 
+import javax.imageio.ImageIO;
 import javax.swing.JOptionPane;
+
+import com.mvjava.misc.AppLaunchStatus;
+import com.mvjava.misc.AppUtils;
+import com.mvjava.misc.PingedData;
+import com.mvjava.misc.PreferenceData;
+import com.mvjava.misc.StartupHandler;
+import com.mvjava.net.CheckForNotifsTask;
+import com.mvjava.net.LTBApi;
+import com.mvjava.ui.GUIConstants;
+import com.mvjava.ui.NotificationWindow;
+import com.mvjava.ui.PreferencesWindow;
 
 /**
  * Goutham Rajeev
@@ -24,8 +41,16 @@ public class MainCoordinator
 	
 	public MainCoordinator()
 	{
-		logo = AppUtils.loadImage("logo.png");
-		fullLogo = AppUtils.loadImage("logo_full.png");
+		try 
+		{
+			logo = ImageIO.read(new File("assets/logo.png"));
+			fullLogo = ImageIO.read(new File("assets/logo_full.png"));
+		} 
+		catch (IOException e) 
+		{
+			e.printStackTrace();
+		}
+		
 		api = new LTBApi();
 		preferenceData = new PreferenceData();
 		handledNotifications = new ArrayList<PingedData>();

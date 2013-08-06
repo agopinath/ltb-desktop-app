@@ -1,3 +1,4 @@
+package com.mvjava.misc;
 import java.io.File;
 import java.io.IOException;
 import java.io.PrintWriter;
@@ -5,6 +6,10 @@ import java.net.URLDecoder;
 import java.util.Scanner;
 
 import javax.swing.JOptionPane;
+
+import com.mvjava.core.MainCoordinator;
+import com.mvjava.ui.GUIConstants;
+
 
 /*
  * This class handles any functionality related to actions that should be taken

@@ -1,3 +1,4 @@
+package com.mvjava.ui;
 // class holds constants (mainly string values)
 // used in the GUIs
 public final class GUIConstants 

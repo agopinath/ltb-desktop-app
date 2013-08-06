@@ -1,3 +1,8 @@
+package com.mvjava.test;
+
+import com.mvjava.misc.PreferenceData;
+
+
 /**
  * Tests PreferenceData class.
  * @author Goutham Rajeev

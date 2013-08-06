@@ -1,3 +1,5 @@
+package com.mvjava.ui;
+
 import java.awt.Font;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -15,6 +17,11 @@ import javax.swing.JPanel;
 import javax.swing.JPasswordField;
 import javax.swing.JTextField;
 import javax.swing.border.EmptyBorder;
+
+import com.mvjava.core.MainCoordinator;
+import com.mvjava.misc.AppLaunchStatus;
+import com.mvjava.misc.PreferenceData;
+
 
 
 public class PreferencesWindow extends JFrame implements ActionListener 

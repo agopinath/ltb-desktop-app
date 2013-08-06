@@ -1,3 +1,7 @@
+package com.mvjava.net;
+import com.mvjava.core.MainCoordinator;
+
+
 
 public class CheckForNotifsTask implements Runnable 
 {

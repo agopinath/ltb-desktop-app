@@ -1,3 +1,5 @@
+package com.mvjava.ui;
+
 import java.applet.Applet;
 import java.applet.AudioClip;
 import java.awt.Font;
@@ -9,10 +11,11 @@ import java.awt.Rectangle;
 import java.awt.Toolkit;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.io.File;
+import java.net.MalformedURLException;
 import java.net.URL;
 
 import javax.swing.JButton;
-import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.JTextPane;
 import javax.swing.JWindow;
@@ -22,6 +25,10 @@ import javax.swing.border.EtchedBorder;
 import javax.swing.text.SimpleAttributeSet;
 import javax.swing.text.StyleConstants;
 import javax.swing.text.StyledDocument;
+
+import com.mvjava.core.MainCoordinator;
+import com.mvjava.misc.PingedData;
+
 
 /**
  * Notification window that appears in the bottom right corner of the screen.
@@ -191,9 +198,17 @@ public class NotificationWindow extends JWindow implements ActionListener
 			@Override
 			public void run()
 			{
-				URL url = getClass().getResource("session_request_alert.wav");
-				AudioClip clip = Applet.newAudioClip(url);
-				clip.play();
+				URL url = null;
+				try {
+					url = (new File("assets/session_request_alert.wav")).toURI().toURL();
+				} catch (MalformedURLException e) {
+					e.printStackTrace();
+				}
+				
+				if(url != null) {
+					AudioClip clip = Applet.newAudioClip(url);
+					clip.play();
+				}
 			}	
 		});
 	}
