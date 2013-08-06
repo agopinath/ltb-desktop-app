@@ -26,10 +26,7 @@ public class PreferencesWindow extends JFrame implements ActionListener
 	private AppLaunchStatus launchType;
 
 	private final MainCoordinator master;
-	private final JComboBox durations = new JComboBox(new String[] 
-			{
-					"1", "1.25", "1.5", "1.75", "2", "2.25", "2.5", "2.75", "3", "3.25", "3.5", "3.75", "4", "4.5", "5", "5.5", "6"
-			});
+	private final JComboBox durations = new JComboBox(GUIConstants.DURATION_TIMES);
 	
 	public PreferencesWindow(MainCoordinator master, AppLaunchStatus launchType) 
 	{
@@ -142,7 +139,7 @@ public class PreferencesWindow extends JFrame implements ActionListener
 			}
 			
 			boolean updateSuccess = master.updatePreferences(tutorEmail, tutorPass, runOnStartCheck.isSelected(),
-															availOnStartCheck.isSelected(), getAvailabilityTime());
+															availOnStartCheck.isSelected(), getDurationTime());
 			
 			if(updateSuccess == true)
 				dispatchEvent(new WindowEvent(this, WindowEvent.WINDOW_CLOSING));
@@ -186,17 +183,17 @@ public class PreferencesWindow extends JFrame implements ActionListener
 		setVisible(true);
 	}
 
-	private double getAvailabilityTime() 
+	private double getDurationTime() 
 	{
-		return durations.getSelectedIndex() * 0.25 + 1;
+		return Double.parseDouble(GUIConstants.DURATION_TIMES[durations.getSelectedIndex()]);
 	}
 	
 	// convert from a time to an index in timeChoices
 	private int getIndexFromTime(double time) 
 	{
-		if(time < 1) 
+		if(time < 0.5) 
 			return 0;
 		
-		return (int) ((time - 1) / 0.25);
+		return (int) ((time - 0.5) / 0.25);
 	}
 }

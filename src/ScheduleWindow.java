@@ -26,10 +26,7 @@ public class ScheduleWindow extends JFrame implements ActionListener {
 	private JSpinner startTimePicker;
 	private MainCoordinator master;
 	private JButton btnScheduleMe, btnCancel;
-	private final JComboBox durations = new JComboBox(new String[] 
-			{
-					"1", "1.25", "1.5", "1.75", "2", "2.25", "2.5", "2.75", "3", "3.25", "3.5", "3.75", "4", "4.5", "5", "5.5", "6"
-			});
+	private final JComboBox durations = new JComboBox(GUIConstants.DURATION_TIMES);
 	
 	public ScheduleWindow(MainCoordinator master) {
 		this.master = master;
@@ -54,7 +51,7 @@ public class ScheduleWindow extends JFrame implements ActionListener {
 		lblFor.setBounds(87, 82, 34, 14);
 		contentPane.add(lblFor);
 		
-		startTimePicker = new JSpinner( new SpinnerDateModel() );
+		startTimePicker = new JSpinner(new SpinnerDateModel());
 		JSpinner.DateEditor timeEditor = new JSpinner.DateEditor(startTimePicker, "MM-dd-yy h:mm a");
 		startTimePicker.setEditor(timeEditor);
 		startTimePicker.setValue(new Date()); // will only show the current time

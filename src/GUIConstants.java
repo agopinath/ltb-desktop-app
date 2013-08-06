@@ -38,4 +38,8 @@ public final class GUIConstants
 	public static final String POPUP_SCHEDULE_EARLY_ERROR = "The time to schedule cannot be in the past.";
 	public static final String POPUP_SCHEDULE_ERROR = "There was an error while scheduling you to tutor. Please try again.";
 
+	public static final String[] DURATION_TIMES = new String[]
+		{
+			"0.5","0.75","1","1.25","1.5","1.75","2","2.25","2.5","2.75","3","3.25","3.5","3.75","4","4.5","5","5.5","6"
+		};
 }
