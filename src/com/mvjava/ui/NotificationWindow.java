@@ -11,8 +11,6 @@ import java.awt.Rectangle;
 import java.awt.Toolkit;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.io.File;
-import java.net.MalformedURLException;
 import java.net.URL;
 
 import javax.swing.JButton;
@@ -27,6 +25,7 @@ import javax.swing.text.StyleConstants;
 import javax.swing.text.StyledDocument;
 
 import com.mvjava.core.MainCoordinator;
+import com.mvjava.misc.AppUtils;
 import com.mvjava.misc.PingedData;
 
 
@@ -198,12 +197,7 @@ public class NotificationWindow extends JWindow implements ActionListener
 			@Override
 			public void run()
 			{
-				URL url = null;
-				try {
-					url = (new File("assets/session_request_alert.wav")).toURI().toURL();
-				} catch (MalformedURLException e) {
-					e.printStackTrace();
-				}
+				URL url = AppUtils.getURL("com/mvjava/assets/session_request_alert.wav");
 				
 				if(url != null) {
 					AudioClip clip = Applet.newAudioClip(url);

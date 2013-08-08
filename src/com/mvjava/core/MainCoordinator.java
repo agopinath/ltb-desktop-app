@@ -41,16 +41,9 @@ public class MainCoordinator
 	
 	public MainCoordinator()
 	{
-		try 
-		{
-			logo = ImageIO.read(new File("assets/logo.png"));
-			fullLogo = ImageIO.read(new File("assets/logo_full.png"));
-		} 
-		catch (IOException e) 
-		{
-			e.printStackTrace();
-		}
-		
+		logo = AppUtils.loadImage("com/mvjava/assets/logo.png");//ImageIO.read(new File("assets/logo.png"));
+		fullLogo = AppUtils.loadImage("com/mvjava/assets/logo_full.png");//ImageIO.read(new File("assets/logo_full.png"));
+			
 		api = new LTBApi();
 		preferenceData = new PreferenceData();
 		handledNotifications = new ArrayList<PingedData>();

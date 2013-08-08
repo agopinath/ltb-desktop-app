@@ -9,6 +9,7 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.io.UnsupportedEncodingException;
+import java.net.URL;
 
 import javax.imageio.ImageIO;
 
@@ -140,14 +141,15 @@ public class AppUtils {
 	}
 	
 	//loads an image with the imageName, returns the image
-	/*public static Image loadImage(String imageName) //parameter - name of image file
+	public static Image loadImage(String imageName) //parameter - name of image file
 	{
 		Image returnPic = null; //Image to be returned by method
 
 		try
 		{
+			ClassLoader cl = AppUtils.class.getClassLoader();
 			//reads from URL of file with name imageName
-			returnPic = ImageIO.read(AppUtils.class.getResource(imageName));
+			returnPic = ImageIO.read(cl.getResource(imageName));
 
 			if(returnPic == null) //if image file type is not supported
 			{
@@ -162,5 +164,12 @@ public class AppUtils {
 
 		//if here, program has not exited and image file is valid
 		return returnPic; //returns image
-	}*/
+	}
+	
+	//loads a resource with the specified resource name
+	public static URL getURL(String resName)
+	{
+		ClassLoader cl = AppUtils.class.getClassLoader();
+		return cl.getResource(resName);
+	}
 }
