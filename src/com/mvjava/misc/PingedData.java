@@ -11,6 +11,16 @@ public class PingedData
 	private int tutor_id, student_id;
 	private String tutor_name, tutor_email, student_name, subject, requested_at;
 	
+	public PingedData() {}
+	
+	public PingedData(String tutor_name, String student_name, String subject, String requested_at) 
+	{
+		this.tutor_name = tutor_name;
+		this.student_name = student_name;
+		this.subject = subject;
+		this.requested_at = requested_at;
+	}
+	
 	@Override
     public String toString()
     {

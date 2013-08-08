@@ -35,7 +35,7 @@ import com.mvjava.misc.PingedData;
  */
 public class NotificationWindow extends JWindow implements ActionListener
 {
-	private JButton acceptButton, declineButton;
+	private JButton respondButton;
 	private JTextPane messageText;
 	
 	private Timer animateInTimer, animateOutTimer;
@@ -61,20 +61,19 @@ public class NotificationWindow extends JWindow implements ActionListener
 		JPanel ButtonPanel = new JPanel();
 		ButtonPanel.setBounds(10, 127, 160, 42);
 		getContentPane().add(ButtonPanel);
-		ButtonPanel.setLayout(new GridLayout(0, 2, 0, 0));
-		acceptButton = new JButton("Accept");
-		acceptButton.addActionListener(this);
-		ButtonPanel.add(acceptButton);
-		declineButton = new JButton("Decline");
-		declineButton.addActionListener(this);
-		ButtonPanel.add(declineButton);
+		ButtonPanel.setLayout(new GridLayout(0, 1, 0, 0));
+		respondButton = new JButton("Respond");
+		respondButton.addActionListener(this);
+		ButtonPanel.add(respondButton);
 		
 		messageText = new JTextPane();
 		messageText.setOpaque(false);
 		messageText.setBounds(10, 11, 160, 87);
 		messageText.setEditable(false);
 		messageText.setFont(new Font("Tahoma", Font.PLAIN, 18));
-		messageText.setText(String.format("%s needs your help in %s!", pingedData.getStudentName(), pingedData.getSubject()));
+		String messageTextStr = String.format("%s needs your help in %s!", pingedData.getStudentName(), pingedData.getSubject());
+		messageText.setText(messageTextStr);
+		//respondButton.setToolTipText("SDFLJK");
 		StyledDocument doc = messageText.getStyledDocument();
 		SimpleAttributeSet center = new SimpleAttributeSet();
 		StyleConstants.setAlignment(center, StyleConstants.ALIGN_CENTER);
@@ -132,28 +131,20 @@ public class NotificationWindow extends JWindow implements ActionListener
     {
 		Object src = e.getSource();
 		
-	    if(src == acceptButton)
-	    	accept();
-	    else if(src == declineButton)
-	    	decline();
+	    if(src == respondButton)
+	    	respondToRequest();
 	    else if(src == animateInTimer)
 	    	incrementInAnimation();
 	    else if(src == animateOutTimer)
 	    	incrementOutAnimation();
     }
 	
-	private void accept()
+	private void respondToRequest()
 	{
-		System.out.println("NotificationWindow: accept button clicked");
+		System.out.println("NotificationWindow: respond button clicked");
 		this.dispose();
 		
 		MainCoordinator.openBrowser();
-	}
-	
-	private void decline()
-	{
-		System.out.println("NotificationWindow: decline button clicked");
-		this.dispose();
 	}
 	
 	@Override
