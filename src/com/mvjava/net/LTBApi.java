@@ -22,8 +22,6 @@ import org.apache.http.message.BasicNameValuePair;
 
 import com.google.gson.Gson;
 import com.mvjava.misc.AppUtils;
-import com.mvjava.misc.AppointmentData;
-import com.mvjava.misc.PingedData;
 
 /**
  * Goutham Rajeev

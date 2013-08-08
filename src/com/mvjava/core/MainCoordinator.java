@@ -17,11 +17,11 @@ import javax.swing.JOptionPane;
 
 import com.mvjava.misc.AppLaunchStatus;
 import com.mvjava.misc.AppUtils;
-import com.mvjava.misc.PingedData;
-import com.mvjava.misc.PreferenceData;
 import com.mvjava.misc.StartupHandler;
 import com.mvjava.net.CheckForNotifsTask;
 import com.mvjava.net.LTBApi;
+import com.mvjava.net.PingedData;
+import com.mvjava.net.PreferenceData;
 import com.mvjava.ui.GUIConstants;
 import com.mvjava.ui.NotificationWindow;
 import com.mvjava.ui.PreferencesWindow;

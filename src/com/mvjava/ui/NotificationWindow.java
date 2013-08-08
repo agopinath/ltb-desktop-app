@@ -26,7 +26,7 @@ import javax.swing.text.StyledDocument;
 
 import com.mvjava.core.MainCoordinator;
 import com.mvjava.misc.AppUtils;
-import com.mvjava.misc.PingedData;
+import com.mvjava.net.PingedData;
 
 
 /**

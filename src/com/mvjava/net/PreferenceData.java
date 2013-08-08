@@ -1,4 +1,4 @@
-package com.mvjava.misc;
+package com.mvjava.net;
 import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileNotFoundException;

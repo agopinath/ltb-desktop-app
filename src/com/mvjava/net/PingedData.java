@@ -1,4 +1,4 @@
-package com.mvjava.misc;
+package com.mvjava.net;
 /**
  * Goutham Rajeev
  * 6/15/13

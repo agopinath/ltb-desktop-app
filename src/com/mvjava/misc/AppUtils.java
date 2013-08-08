@@ -15,6 +15,7 @@ import javax.imageio.ImageIO;
 
 import com.google.gson.JsonParseException;
 import com.google.gson.JsonParser;
+import com.mvjava.net.PreferenceData;
 
 
 public class AppUtils {

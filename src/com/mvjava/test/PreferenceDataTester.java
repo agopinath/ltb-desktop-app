@@ -1,6 +1,6 @@
 package com.mvjava.test;
 
-import com.mvjava.misc.PreferenceData;
+import com.mvjava.net.PreferenceData;
 
 
 /**

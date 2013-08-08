@@ -20,7 +20,7 @@ import javax.swing.border.EmptyBorder;
 
 import com.mvjava.core.MainCoordinator;
 import com.mvjava.misc.AppLaunchStatus;
-import com.mvjava.misc.PreferenceData;
+import com.mvjava.net.PreferenceData;
 
 
 
