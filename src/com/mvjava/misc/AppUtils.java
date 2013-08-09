@@ -12,6 +12,9 @@ import java.io.UnsupportedEncodingException;
 import java.net.URL;
 
 import javax.imageio.ImageIO;
+import java.security.*;
+import javax.crypto.*;
+import javax.crypto.spec.*;
 
 import com.google.gson.JsonParseException;
 import com.google.gson.JsonParser;
@@ -173,4 +176,5 @@ public class AppUtils {
 		ClassLoader cl = AppUtils.class.getClassLoader();
 		return cl.getResource(resName);
 	}
+
 }

@@ -38,6 +38,10 @@ public final class GUIConstants
 	public static final String POPUP_FEEDBACK_SEND_SUCCESS = "Thank you for your feedback!";
 	public static final String POPUP_SCHEDULE_EARLY_ERROR = "The time to schedule cannot be in the past.";
 	public static final String POPUP_SCHEDULE_ERROR = "There was an error while scheduling you to tutor. Please try again.";
+	public static final String POPUP_LOAD_PASS_ERROR = "There was an error while loading your preferences. Please try again. " +
+														"If problem persists, delete preferences.ini and try again.";
+	public static final String POPUP_SAVE_PASS_ERROR = "There was an error while saving your preferences. Please try again. " +
+														"If problem persists, delete preferences.ini and try again.";
 
 	public static final String[] DURATION_TIMES = new String[]
 		{

@@ -6,7 +6,11 @@ import java.io.FileReader;
 import java.io.IOException;
 import java.io.PrintWriter;
 
+import javax.swing.JOptionPane;
+
 import com.google.gson.Gson;
+import com.mvjava.misc.EncryptionHandler;
+import com.mvjava.ui.GUIConstants;
 
 /**
  * Stores user preferences, and saves and loads them from a file. 
@@ -51,7 +55,18 @@ public class PreferenceData
 				json += (currentLine + "\n");
 			
 			PreferenceData data = new Gson().fromJson(json, PreferenceData.class);
-			this.setPreferences(data.tutorEmail, data.tutorPassword, data.openOnStartup, data.availableOnStartup, data.timeOnStartup);
+			String unencryptedPass = null;
+			try 
+			{
+				unencryptedPass = EncryptionHandler.decrypt(data.tutorPassword, PreferenceData.class);
+			} 
+			catch (Exception e) 
+			{
+				JOptionPane.showMessageDialog(null, GUIConstants.POPUP_SAVE_PASS_ERROR, GUIConstants.POPUP_MESSAGE_TITLE, JOptionPane.ERROR_MESSAGE);
+				e.printStackTrace();
+				return false;
+			}
+			this.setPreferences(data.tutorEmail, unencryptedPass, data.openOnStartup, data.availableOnStartup, data.timeOnStartup);
 			
 			return true;
         }
@@ -79,8 +94,22 @@ public class PreferenceData
 	
 	public boolean saveToFile(File outputFile)
 	{
-		String data = new Gson().toJson(this);
+		PreferenceData encryptedData = new PreferenceData();
+		encryptedData.tutorEmail = tutorEmail;
+		try 
+		{
+			encryptedData.tutorPassword = EncryptionHandler.encrypt(tutorPassword, PreferenceData.class);
+		} 
+		catch (Exception e) 
+		{
+			JOptionPane.showMessageDialog(null, GUIConstants.POPUP_SAVE_PASS_ERROR, GUIConstants.POPUP_MESSAGE_TITLE, JOptionPane.ERROR_MESSAGE);
+			return false;
+		}
+		encryptedData.openOnStartup = openOnStartup;
+		encryptedData.availableOnStartup = availableOnStartup;
+		encryptedData.timeOnStartup = timeOnStartup;
 		
+		String data = new Gson().toJson(encryptedData);
 		PrintWriter writer = null;
         try
         {
