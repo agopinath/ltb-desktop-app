@@ -1,4 +1,6 @@
-package com.mvjava.misc;
+package com.mvjava.test;
+
+import com.mvjava.misc.EncryptionHandler;
 
 public class ETester {
 	
