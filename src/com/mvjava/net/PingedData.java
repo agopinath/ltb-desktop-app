@@ -1,8 +1,7 @@
 package com.mvjava.net;
 
-import java.text.ParseException;
-import java.text.SimpleDateFormat;
-import java.util.TimeZone;
+import org.joda.time.DateTime;
+import org.joda.time.format.DateTimeFormat;
 
 /**
  * Goutham Rajeev
@@ -53,14 +52,7 @@ public class PingedData
 	}
 	private String formatTime(String time)
 	{
-		try
-        {
-	        return new SimpleDateFormat("hh:mm zzz").format(new SimpleDateFormat("hh:mm aa zzz").parse(time));
-        }
-        catch (ParseException e)
-        {
-	        e.printStackTrace();
-	        return time; //returns param if exception, instead of returning nothing
-        }
+		DateTime date = DateTimeFormat.forPattern("hh:mm aa zzz").parseDateTime(time);
+		return date.toString(DateTimeFormat.forPattern("hh:mm"));
 	}
 }

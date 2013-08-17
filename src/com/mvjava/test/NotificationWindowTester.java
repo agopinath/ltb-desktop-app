@@ -1,7 +1,5 @@
 package com.mvjava.test;
 
-import java.util.Date;
-
 import com.mvjava.net.PingedData;
 import com.mvjava.ui.NotificationWindow;
 
