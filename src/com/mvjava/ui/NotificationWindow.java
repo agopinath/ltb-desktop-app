@@ -123,7 +123,7 @@ public class NotificationWindow extends JWindow implements ActionListener
 		xLoc = (int)(effectiveScreenArea.width - this.getSize().getWidth());
 		yLoc = (int)(effectiveScreenArea.height - this.getSize().getHeight());
 		
-		System.out.printf("final x = %d, final y = %d\n", xLoc, yLoc);
+		System.out.printf("notification window: x = %d, y = %d\n", xLoc, yLoc);
 	}
 	
 	@Override

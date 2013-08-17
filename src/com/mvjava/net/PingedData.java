@@ -1,4 +1,9 @@
 package com.mvjava.net;
+
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.TimeZone;
+
 /**
  * Goutham Rajeev
  * 6/15/13
@@ -28,7 +33,7 @@ public class PingedData
                 .format("PingedData [tutor_id=%s, tutor_name=%s, tutor_email=%s, student_id=%s, student_name=%s, subject=%s, requested_at=%s]",
                         tutor_id, tutor_name, tutor_email,
                         student_id, student_name,
-                        subject, requested_at);
+                        subject, getRequestTime());
     }
 	public String getTutorEmail()
 	{
@@ -38,12 +43,24 @@ public class PingedData
 	{
 		return student_name;
 	}
-	public String getRequestTime()
-	{
-		return requested_at;
-	}
 	public String getSubject()
 	{
 		return subject;
+	}
+	public String getRequestTime()
+	{
+		return formatTime(requested_at);
+	}
+	private String formatTime(String time)
+	{
+		try
+        {
+	        return new SimpleDateFormat("hh:mm zzz").format(new SimpleDateFormat("hh:mm aa zzz").parse(time));
+        }
+        catch (ParseException e)
+        {
+	        e.printStackTrace();
+	        return time; //returns param if exception, instead of returning nothing
+        }
 	}
 }
