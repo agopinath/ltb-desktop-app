@@ -40,14 +40,14 @@ public class PreferencesWindow extends JFrame implements ActionListener
 		this.master = master;
 		this.launchType = launchType;
 		
-		setBounds(100, 100, 400, 275);
+		setBounds(100, 100, 400, 240);
 		
 		JPanel contentPane = new JPanel();
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
 		setContentPane(contentPane);
 		contentPane.setLayout(null);
 		
-		JLabel lblTutorEmail = new JLabel("Tutor email: ");
+		JLabel lblTutorEmail = new JLabel("Email: ");
 		lblTutorEmail.setFont(new Font("Tahoma", Font.PLAIN, 14));
 		lblTutorEmail.setBounds(41, 23, 84, 19);
 		contentPane.add(lblTutorEmail);
@@ -57,7 +57,7 @@ public class PreferencesWindow extends JFrame implements ActionListener
 		contentPane.add(emailField);
 		emailField.setColumns(10);
 		
-		JLabel lblTutorPass = new JLabel("Tutor pass: ");
+		JLabel lblTutorPass = new JLabel("Password: ");
 		lblTutorPass.setFont(new Font("Tahoma", Font.PLAIN, 14));
 		lblTutorPass.setBounds(41, 48, 84, 20);
 		contentPane.add(lblTutorPass);
@@ -67,14 +67,14 @@ public class PreferencesWindow extends JFrame implements ActionListener
 		contentPane.add(passField);
 		passField.setColumns(50);
 		
-		runOnStartCheck = new JCheckBox("Start LTB Desktop App on computer startup");
+		runOnStartCheck = new JCheckBox("Launch on computer startup");
 		runOnStartCheck.setFont(new Font("Tahoma", Font.PLAIN, 12));
 		runOnStartCheck.setBounds(41, 90, 294, 23);
 		contentPane.add(runOnStartCheck);
 		
-		availOnStartCheck = new JCheckBox("Schedule me as 'available' on app startup");
+		availOnStartCheck = new JCheckBox("Schedule me as 'available' for");
 		availOnStartCheck.setFont(new Font("Tahoma", Font.PLAIN, 12));
-		availOnStartCheck.setBounds(41, 116, 294, 23);
+		availOnStartCheck.setBounds(41, 117, 185, 23);
 		
 		availOnStartCheck.addItemListener(new ItemListener() 
 		{
@@ -96,26 +96,21 @@ public class PreferencesWindow extends JFrame implements ActionListener
 		durations.setEditable(false);
 		durations.setEnabled(false);
 		durations.setToolTipText("Time in hours to be 'scheduled as available' on startup");
-		durations.setBounds(106, 147, 58, 20);
+		durations.setBounds(231, 119, 58, 20);
 		contentPane.add(durations);
 		
 		btnSave = new JButton("Save");
-		btnSave.setBounds(98, 202, 110, 23);
+		btnSave.setBounds(208, 158, 110, 23);
 		btnSave.addActionListener(this);
 		contentPane.add(btnSave);
 		
-		JLabel lblNewLabel = new JLabel("...for");
-		lblNewLabel.setFont(new Font("Tahoma", Font.PLAIN, 12));
-		lblNewLabel.setBounds(69, 150, 46, 14);
-		contentPane.add(lblNewLabel);
-		
 		JLabel lblHours = new JLabel("hours.");
 		lblHours.setFont(new Font("Tahoma", Font.PLAIN, 12));
-		lblHours.setBounds(174, 149, 46, 14);
+		lblHours.setBounds(299, 121, 46, 14);
 		contentPane.add(lblHours);
 		
 		btnCancel = new JButton("Cancel");
-		btnCancel.setBounds(225, 202, 110, 23);
+		btnCancel.setBounds(64, 158, 110, 23);
 		btnCancel.addActionListener(this);
 		contentPane.add(btnCancel);
 		

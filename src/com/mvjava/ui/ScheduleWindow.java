@@ -41,45 +41,45 @@ public class ScheduleWindow extends JFrame implements ActionListener {
 		setContentPane(contentPane);
 		contentPane.setLayout(null);
 		
-		JLabel lblNewLabel = new JLabel("Schedule me \"available to tutor\"...");
+		JLabel lblNewLabel = new JLabel("Schedule me \"available to tutor\"");
 		lblNewLabel.setFont(new Font("Tahoma", Font.PLAIN, 14));
-		lblNewLabel.setBounds(40, 11, 220, 14);
+		lblNewLabel.setBounds(44, 11, 220, 14);
 		contentPane.add(lblNewLabel);
 		
-		JLabel lblFrom = new JLabel("...from");
+		JLabel lblFrom = new JLabel("from");
 		lblFrom.setFont(new Font("Tahoma", Font.PLAIN, 12));
-		lblFrom.setBounds(77, 51, 42, 14);
+		lblFrom.setBounds(79, 51, 34, 14);
 		contentPane.add(lblFrom);
 		
-		JLabel lblFor = new JLabel("...for");
+		JLabel lblFor = new JLabel("for");
 		lblFor.setFont(new Font("Tahoma", Font.PLAIN, 12));
-		lblFor.setBounds(87, 82, 34, 14);
+		lblFor.setBounds(89, 82, 24, 14);
 		contentPane.add(lblFor);
 		
 		startTimePicker = new JSpinner(new SpinnerDateModel());
 		JSpinner.DateEditor timeEditor = new JSpinner.DateEditor(startTimePicker, "MM-dd-yy h:mm a");
 		startTimePicker.setEditor(timeEditor);
 		startTimePicker.setValue(new Date()); // will only show the current time
-		startTimePicker.setBounds(136, 49, 120, 20);
+		startTimePicker.setBounds(119, 49, 120, 20);
 		contentPane.add(startTimePicker);
 		
-		durations.setBounds(136, 80, 55, 20);
+		durations.setBounds(126, 80, 55, 20);
 		contentPane.add(durations);
 		
 		JLabel lblHours = new JLabel("hours.");
 		lblHours.setFont(new Font("Tahoma", Font.PLAIN, 12));
-		lblHours.setBounds(201, 82, 46, 14);
+		lblHours.setBounds(191, 82, 46, 14);
 		contentPane.add(lblHours);
 		
-		btnScheduleMe = new JButton("Schedule me!");
-		btnScheduleMe.setBounds(40, 128, 113, 23);
-		btnScheduleMe.addActionListener(this);
-		contentPane.add(btnScheduleMe);
-		
 		btnCancel = new JButton("Cancel");
-		btnCancel.setBounds(163, 128, 97, 23);
+		btnCancel.setBounds(40, 128, 109, 23);
 		btnCancel.addActionListener(this);
 		contentPane.add(btnCancel);
+		
+		btnScheduleMe = new JButton("Schedule me!");
+		btnScheduleMe.setBounds(159, 128, 109, 23);
+		btnScheduleMe.addActionListener(this);
+		contentPane.add(btnScheduleMe);
 	}
 	
 	public void showWindow()

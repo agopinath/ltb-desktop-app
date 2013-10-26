@@ -115,15 +115,12 @@ public class PreferenceData
         {
 	        writer = new PrintWriter(outputFile);
 	        writer.println(data);
+	        writer.close();
         }
         catch (FileNotFoundException e)
         {
         	e.printStackTrace();
         	return false;
-        } 
-        finally
-        {
-        	writer.close();
         }
         
         return true;

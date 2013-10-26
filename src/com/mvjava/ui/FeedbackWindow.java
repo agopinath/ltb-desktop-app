@@ -43,29 +43,29 @@ public class FeedbackWindow extends JFrame implements ActionListener
 		
 		JLabel lblEmail = new JLabel("Email:");
 		lblEmail.setFont(new Font("Tahoma", Font.PLAIN, 12));
-		lblEmail.setBounds(20, 75, 46, 14);
+		lblEmail.setBounds(19, 265, 38, 14);
 		getContentPane().add(lblEmail);
 		
 		emailField = new JTextField();
-		emailField.setBounds(66, 73, 150, 20);
+		emailField.setBounds(60, 263, 161, 20);
 		getContentPane().add(emailField);
 		emailField.setColumns(10);
 		
 		feedbackArea = new JTextArea();
 		feedbackArea.setLineWrap(true);
 		JScrollPane scrollPane = new JScrollPane(feedbackArea); 
-		scrollPane.setBounds(20, 114, 380, 178);
+		scrollPane.setBounds(20, 74, 380, 178);
 		feedbackArea.setEditable(true);
 		getContentPane().add(scrollPane);
 		
 		submitBtn = new JButton("Send Feedback");
-		submitBtn.setBounds(91, 303, 125, 23);
+		submitBtn.setBounds(202, 303, 125, 23);
 		submitBtn.addActionListener(this);
 		getContentPane().add(submitBtn);
 		getContentPane().setPreferredSize(new Dimension(430, 375));
 		
 		cancelBtn = new JButton("Cancel");
-		cancelBtn.setBounds(226, 303, 89, 23);
+		cancelBtn.setBounds(103, 303, 89, 23);
 		cancelBtn.addActionListener(this);
 		getContentPane().add(cancelBtn);
 	}
