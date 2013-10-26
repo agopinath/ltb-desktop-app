@@ -43,7 +43,7 @@ public class ScheduleWindow extends JFrame implements ActionListener {
 		
 		JLabel lblNewLabel = new JLabel("Schedule me \"available to tutor\"");
 		lblNewLabel.setFont(new Font("Tahoma", Font.PLAIN, 14));
-		lblNewLabel.setBounds(44, 11, 220, 14);
+		lblNewLabel.setBounds(52, 11, 205, 14);
 		contentPane.add(lblNewLabel);
 		
 		JLabel lblFrom = new JLabel("from");
@@ -72,12 +72,12 @@ public class ScheduleWindow extends JFrame implements ActionListener {
 		contentPane.add(lblHours);
 		
 		btnCancel = new JButton("Cancel");
-		btnCancel.setBounds(40, 128, 109, 23);
+		btnCancel.setBounds(23, 128, 119, 23);
 		btnCancel.addActionListener(this);
 		contentPane.add(btnCancel);
 		
 		btnScheduleMe = new JButton("Schedule me!");
-		btnScheduleMe.setBounds(159, 128, 109, 23);
+		btnScheduleMe.setBounds(165, 128, 119, 23);
 		btnScheduleMe.addActionListener(this);
 		contentPane.add(btnScheduleMe);
 	}
