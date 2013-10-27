@@ -86,7 +86,7 @@ public class StartupHandler
 		String assetsDir = "assets/";
 		String scriptInstructions = "cd \"" + basePath + "\"\n" 
 									+ "start javaw -classpath \"" 
-									+ ".;" + binDir + ";" + libDir + "*;" + assetsDir + "\" MainCoordinator\n";
+									+ ".;" + binDir + ";" + libDir + "*;" + assetsDir + "\" com.mvjava.core.MainCoordinator\n";
 		
 		PrintWriter writer = new PrintWriter(scriptToCreate);
 		
