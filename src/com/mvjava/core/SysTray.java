@@ -108,7 +108,7 @@ public class SysTray implements ActionListener
 			@Override
 			public void mouseClicked(MouseEvent e) 
 			{
-				if(e.getClickCount() >= 2)
+				if(e.getClickCount() >= 2 && e.getButton() == MouseEvent.BUTTON1)
 				{
 					openBrowser();
 		        }
