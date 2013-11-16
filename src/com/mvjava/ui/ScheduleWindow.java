@@ -117,9 +117,7 @@ public class ScheduleWindow extends JFrame implements ActionListener {
 			
 			if(success)
 			{
-				JOptionPane.showMessageDialog(null, 
-						"Successfully scheduled you to tutor for " + (String) durations.getSelectedItem() +
-						" hours starting from " + toSchedule,
+				JOptionPane.showMessageDialog(null, GUIConstants.POPUP_SCHEDULE_SUCCESS,
 						GUIConstants.POPUP_MESSAGE_TITLE, JOptionPane.INFORMATION_MESSAGE);
 			}
 			else

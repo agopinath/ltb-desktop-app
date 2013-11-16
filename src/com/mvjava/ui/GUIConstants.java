@@ -42,6 +42,7 @@ public final class GUIConstants
 														"If problem persists, delete preferences.ini and try again.";
 	public static final String POPUP_SAVE_PASS_ERROR = "There was an error while saving your preferences. Please try again. " +
 														"If problem persists, delete preferences.ini and try again.";
+	public static final String POPUP_SCHEDULE_SUCCESS = "Successfully scheduled you to tutor!";
 
 	public static final String[] DURATION_TIMES = new String[]
 		{
