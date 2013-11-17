@@ -100,6 +100,13 @@ public class AppUtils {
 	    return "Windows 7".equalsIgnoreCase(osName) && "6.1".equals(osVersion);
 	}
 	
+	public static boolean runningOnWindowsVista()
+	{
+	    String osName = System.getProperty("os.name");
+	    String osVersion = System.getProperty("os.version");
+	    return "Windows Vista".equalsIgnoreCase(osName) && "6.0".equals(osVersion);
+	}
+	
 	public static boolean runningOnWindowsXP()
 	{
 	    String osName = System.getProperty("os.name");

@@ -100,12 +100,12 @@ public class StartupHandler
 	
 	// returns the full filename of the script which will
 	// run on startup to run the notifications app
-	// note that different startupt script paths will be returned
+	// note that different startup script paths will be returned
 	// based on the OS due to differences in the locations of the Startup folder
 	private static String getStartupScriptFilename() 
 	{
 		String userHome = System.getProperty("user.home");
-		if(AppUtils.runningOnWindows7() || AppUtils.runningOnWindows8()) 
+		if(AppUtils.runningOnWindows7() || AppUtils.runningOnWindows8() || AppUtils.runningOnWindowsVista()) 
 		{
 			return userHome + "\\AppData\\Roaming\\Microsoft\\Windows\\Start Menu\\Programs\\Startup\\" + STARTUP_SCRIPT_NAME;
 		} 
