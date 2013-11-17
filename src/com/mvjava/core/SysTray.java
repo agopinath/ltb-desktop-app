@@ -131,7 +131,7 @@ public class SysTray implements ActionListener
 		otherMenu = new Menu(GUIConstants.SYSTRAY_OTHER_MENU_STRING);
 		otherMenu.add(aboutItem);
 		otherMenu.add(feedbackItem);
-		otherMenu.add(updatesItem);
+		//otherMenu.add(updatesItem);
 		
 		popup.add(otherMenu);
 		popup.addSeparator();
