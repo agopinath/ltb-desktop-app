@@ -27,6 +27,7 @@ import javax.swing.text.StyledDocument;
 import com.mvjava.core.MainCoordinator;
 import com.mvjava.misc.AppUtils;
 import com.mvjava.net.PingedData;
+import com.sun.awt.AWTUtilities;
 
 
 /**
@@ -51,7 +52,7 @@ public class NotificationWindow extends JWindow implements ActionListener
 	{
 		setSize(180, 180);
 		setAlwaysOnTop(true);
-		setOpacity(0.0f);
+		setOpacity(0.0f);	
 		
 		JPanel contentPane = new JPanel();
 		contentPane.setLayout(null);
@@ -196,5 +197,15 @@ public class NotificationWindow extends JWindow implements ActionListener
 				}
 			}	
 		});
+	}
+	
+	//overrides java 7 methods for java 6 update 10 compatibility
+	private void setOpacity(float f)
+	{
+		AWTUtilities.setWindowOpacity(this, f);
+	}
+	private float getOpacity()
+	{
+		return AWTUtilities.getWindowOpacity(this);
 	}
 }
