@@ -77,15 +77,19 @@ public class StartupHandler
 		String path = MainCoordinator.class.getProtectionDomain().getCodeSource().getLocation().getPath();
 		String basePath = URLDecoder.decode(path, "UTF-8").substring(1);
 		
-		if(basePath.endsWith("bin/")) 
+		File basePathFile = new File(basePath);
+		System.out.println("basePathFile = " + basePathFile);
+		
+		if(basePathFile.getName().equals("bin"))
 		{
-			basePath = basePath.substring(0, path.length()-5);
+			basePathFile = basePathFile.getParentFile(); //moves up to parent directory
+			System.out.println("new basePathFile = " + basePathFile);
 		}
 		
 		String binDir = "bin/";
 		String libDir = "lib/";
 		String assetsDir = "assets/";
-		String scriptInstructions = "cd \"" + basePath + "\"\n" 
+		String scriptInstructions = "cd \"" + basePathFile + "\"\n" 
 									+ "start javaw -classpath \"" 
 									+ ".;" + binDir + ";" + libDir + "*;" + assetsDir + "\" com.mvjava.core.MainCoordinator\n";
 		
