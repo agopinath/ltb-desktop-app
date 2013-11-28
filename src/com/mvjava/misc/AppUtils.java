@@ -93,32 +93,32 @@ public class AppUtils {
 		return getUnformattedJson(fileStream);
 	}
 	
+	public static boolean runningOnWindows8()
+	{
+	    String osName = System.getProperty("os.name");
+	    String osVersion = System.getProperty("os.version");
+	    return "Windows 8".equalsIgnoreCase(osName) || "6.2".equals(osVersion);
+	}
+	
 	public static boolean runningOnWindows7()
 	{
 	    String osName = System.getProperty("os.name");
 	    String osVersion = System.getProperty("os.version");
-	    return "Windows 7".equalsIgnoreCase(osName) && "6.1".equals(osVersion);
+	    return "Windows 7".equalsIgnoreCase(osName) || "6.1".equals(osVersion);
 	}
 	
 	public static boolean runningOnWindowsVista()
 	{
 	    String osName = System.getProperty("os.name");
 	    String osVersion = System.getProperty("os.version");
-	    return "Windows Vista".equalsIgnoreCase(osName) && "6.0".equals(osVersion);
+	    return "Windows Vista".equalsIgnoreCase(osName) || "6.0".equals(osVersion);
 	}
 	
 	public static boolean runningOnWindowsXP()
 	{
 	    String osName = System.getProperty("os.name");
 	    String osVersion = System.getProperty("os.version");
-	    return "Windows XP".equalsIgnoreCase(osName) && "5.1".equals(osVersion);
-	}
-	
-	public static boolean runningOnWindows8()
-	{
-	    String osName = System.getProperty("os.name");
-	    String osVersion = System.getProperty("os.version");
-	    return "Windows 8".equalsIgnoreCase(osName) && "6.2".equals(osVersion);
+	    return "Windows XP".equalsIgnoreCase(osName) || "5.1".equals(osVersion);
 	}
 	
 	// returns if the app needs to be setup by checking if the preferences file a) exists, and b) has valid JSON 

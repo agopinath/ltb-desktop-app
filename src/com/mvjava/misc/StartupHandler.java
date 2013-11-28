@@ -105,6 +105,10 @@ public class StartupHandler
 	private static String getStartupScriptFilename() 
 	{
 		String userHome = System.getProperty("user.home");
+		
+		System.out.printf("osName = %s\tosVersion = %s%n",System.getProperty("os.name"),System.getProperty("os.version"));
+		
+		
 		if(AppUtils.runningOnWindows7() || AppUtils.runningOnWindows8() || AppUtils.runningOnWindowsVista()) 
 		{
 			return userHome + "\\AppData\\Roaming\\Microsoft\\Windows\\Start Menu\\Programs\\Startup\\" + STARTUP_SCRIPT_NAME;
