@@ -26,6 +26,7 @@ public class StartupHandler
 	public static boolean setToRunOnStartup(boolean shouldRun) 
 	{
 		String fullStartupFilename = getStartupScriptFilename();
+		System.out.println("fullStartupFilename = " + fullStartupFilename);
 		
 		if(fullStartupFilename == null) // if the OS is not supported
 			return false;
@@ -115,7 +116,7 @@ public class StartupHandler
 		} 
 		else if(AppUtils.runningOnWindowsXP()) 
 		{
-			return userHome + "\\Start Menu\\Programs\\Startup" + STARTUP_SCRIPT_NAME;
+			return userHome + "\\Start Menu\\Programs\\Startup\\" + STARTUP_SCRIPT_NAME;
 		} 
 		else 
 		{
