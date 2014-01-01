@@ -70,12 +70,28 @@ public class PreferencesWindow extends JFrame implements ActionListener
 		runOnStartCheck = new JCheckBox("Launch on computer startup");
 		runOnStartCheck.setFont(new Font("Tahoma", Font.PLAIN, 12));
 		runOnStartCheck.setBounds(41, 90, 294, 23);
+		runOnStartCheck.addItemListener(new ItemListener() 
+		{
+			public void itemStateChanged(ItemEvent e)
+			{
+				if(((JCheckBox)e.getSource()).isSelected()) 
+				{
+					availOnStartCheck.setEnabled(true);
+				} 
+				else 
+				{
+					availOnStartCheck.setEnabled(false);
+					availOnStartCheck.setSelected(false);
+				}
+			}
+		});
+		
 		contentPane.add(runOnStartCheck);
 		
 		availOnStartCheck = new JCheckBox("Schedule me as 'available' for");
 		availOnStartCheck.setFont(new Font("Tahoma", Font.PLAIN, 12));
-		availOnStartCheck.setBounds(41, 117, 185, 23);
-		
+		availOnStartCheck.setBounds(66, 117, 185, 23);
+		availOnStartCheck.setEnabled(false);
 		availOnStartCheck.addItemListener(new ItemListener() 
 		{
 			public void itemStateChanged(ItemEvent e)
@@ -96,7 +112,7 @@ public class PreferencesWindow extends JFrame implements ActionListener
 		durations.setEditable(false);
 		durations.setEnabled(false);
 		durations.setToolTipText("Time in hours to be 'scheduled as available' on startup");
-		durations.setBounds(231, 119, 58, 20);
+		durations.setBounds(261, 119, 58, 20);
 		contentPane.add(durations);
 		
 		btnSave = new JButton("Save");
@@ -106,7 +122,7 @@ public class PreferencesWindow extends JFrame implements ActionListener
 		
 		JLabel lblHours = new JLabel("hours.");
 		lblHours.setFont(new Font("Tahoma", Font.PLAIN, 12));
-		lblHours.setBounds(299, 121, 46, 14);
+		lblHours.setBounds(329, 121, 46, 14);
 		contentPane.add(lblHours);
 		
 		btnCancel = new JButton("Cancel");
@@ -172,6 +188,18 @@ public class PreferencesWindow extends JFrame implements ActionListener
 		
 		runOnStartCheck.setSelected(data.shouldOpenOnStartup());
 		availOnStartCheck.setSelected(data.isAvailableOnStartup());
+		
+		if(data.shouldOpenOnStartup()) {
+			availOnStartCheck.setEnabled(true);
+		} else {
+			availOnStartCheck.setEnabled(false);
+		}
+		
+		if(data.isAvailableOnStartup()) {
+			durations.setEnabled(true);
+		} else {
+			durations.setEnabled(false);
+		}
 		
 		durations.setSelectedIndex(getIndexFromTime(data.getTimeOnStartup()));
 	}
