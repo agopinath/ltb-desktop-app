@@ -7,7 +7,7 @@ import com.mvjava.core.MainCoordinator;
 
 public class CheckForNotifsTask implements Runnable 
 {
-	private final static long PING_INTERVAL = 1000 * 90; // baseline ping interval is 1.5 mins
+	private final static long PING_INTERVAL = 1000 * 30; // baseline ping interval is 1.5 mins
 	private MainCoordinator master;
 	
 	public CheckForNotifsTask(MainCoordinator coordinator) 
